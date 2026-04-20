@@ -10,3 +10,6 @@ __pycache__/
 *.pyo
 .venv/
 *.egg-info/
+
+# Dev readme files
+learning.md
