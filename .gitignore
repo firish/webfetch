@@ -1,0 +1,12 @@
+# Test File
+test_file.py
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/

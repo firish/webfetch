@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "webfetch"
+version = "0.1.0"
+description = "Replace LLM-hosted web search tool calls with an owned, observable pipeline"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+# Core deps kept lean - no diskcache, no heavy ML libs by default.
+# Cache uses stdlib sqlite3. Ranking uses rank-bm25 (pure Python, fast).
+dependencies = [
+    "trafilatura>=1.8",
+    "rank-bm25>=0.2.2",
+    "requests>=2.31",
+    "duckduckgo-search>=6.0",
+    "anthropic>=0.25",
+]
+
+[project.optional-dependencies]
+# Semantic reranking stages (bi-encoder + cross-encoder)
+rerank = [
+    "sentence-transformers>=3.0",
+    "numpy>=1.26",
+]
+
+# JS-rendered page fallback (playwright must also run `playwright install`)
+browser = [
+    "playwright>=1.44",
+]
+
+# PDF datasheet extraction
+pdf = [
+    "pdfplumber>=0.11",
+]
+
+# Full install
+all = ["webfetch[rerank,browser,pdf]"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["webfetch"]

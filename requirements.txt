@@ -1,0 +1,20 @@
+duckduckgo-search
+ddgs
+requests
+python-dotenv
+trafilatura
+
+# fetch fallbacks
+readability-lxml
+newspaper4k
+
+# table extraction
+pandas
+lxml
+tabulate
+
+# PDF datasheets
+pdfplumber
+
+# optional: JS-rendered pages (pip install playwright separately, then: playwright install chromium)
+# playwright
