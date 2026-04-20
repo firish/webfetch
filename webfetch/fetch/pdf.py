@@ -1,13 +1,17 @@
 """
 PDF fetcher and PDF link scanner.
 
-Two responsibilities:
+Three responsibilities:
   1. PDFFetcher: fetches a direct PDF URL and extracts text via pdfplumber.
   2. extract_pdf_links(): scans raw HTML for any href/src pointing to a .pdf
      file - Phase 1 of JS-gated PDF handling (catches most styled anchor tags
      without needing a browser).
+  3. extract_pdf_links_with_playwright(): renders the page with a headless
+     browser first, then scans the fully-rendered DOM for PDF links - Phase 2,
+     catches links injected by JS. Does NOT click buttons or intercept downloads.
 
 pdfplumber is an optional dep: pip install webfetch[pdf]
+playwright is an optional dep: pip install webfetch[browser]
 """
 
 from __future__ import annotations
@@ -64,6 +68,55 @@ def extract_pdf_links(raw_html: str, base_url: str = "") -> list[str]:
             seen.add(url)
             unique.append(url)
     return unique
+
+
+def extract_pdf_links_with_playwright(
+    url: str,
+    timeout: int = FETCH_TIMEOUT_SECS,
+) -> list[str]:
+    """Render a page with Playwright and return all PDF links from the DOM.
+
+    Phase 2 of JS-gated PDF handling. Renders the full page (executing JS),
+    then runs extract_pdf_links() on the rendered HTML. Catches PDF links
+    injected by JavaScript that plain HTML scanning misses.
+
+    Does NOT click buttons or intercept file downloads - for that see Phase 3
+    which is currently out of scope.
+
+    Requires: pip install webfetch[browser] && playwright install chromium
+
+    Args:
+        url: The page URL to render.
+        timeout: Milliseconds before the Playwright navigation times out.
+
+    Returns:
+        Deduplicated list of PDF URLs found in the rendered DOM.
+        Returns an empty list if Playwright is not installed or navigation fails.
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        logger.debug(
+            "playwright not installed. Run: pip install 'webfetch[browser]' "
+            "&& playwright install chromium"
+        )
+        return []
+
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True)
+            page = browser.new_page()
+            page.goto(url, timeout=timeout * 1000)
+            # wait_until="networkidle" ensures JS-triggered DOM mutations settle
+            # before we scrape - important for lazy-loaded download links
+            page.wait_for_load_state("networkidle", timeout=timeout * 1000)
+            rendered_html = page.content()
+            browser.close()
+
+        return extract_pdf_links(rendered_html, base_url=url)
+    except Exception as exc:
+        logger.warning("playwright PDF link scan failed for %s: %s", url, exc)
+        return []
 
 
 class PDFFetcher(AbstractFetcher):
