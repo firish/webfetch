@@ -1,4 +1,3 @@
-duckduckgo-search
 ddgs
 requests
 python-dotenv
@@ -12,6 +11,18 @@ newspaper4k
 pandas
 lxml
 tabulate
+
+# ranking
+rank-bm25
+
+# optional: semantic reranking (bi-encoder + cross-encoder)
+# sentence-transformers
+
+# extract - install only the providers you use
+# anthropic              # ClaudeExtractor
+# openai                 # GPTExtractor
+google-generativeai      # GeminiExtractor (free tier)
+groq                     # GroqExtractor (free tier, fastest)
 
 # PDF datasheets
 pdfplumber

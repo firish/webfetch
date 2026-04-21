@@ -61,13 +61,20 @@ webfetch/
 │   └── pdf.py           # pdfplumber wrapper for datasheet PDFs
 │
 ├── rank/
+│   ├── base.py          # Chunk dataclass + AbstractRanker interface
+│   ├── chunker.py       # Text -> Chunk objects (char-based, whitespace-snapped)
 │   ├── bm25.py          # Stage 1: BM25 keyword ranking (rank_bm25)
 │   ├── biencoder.py     # Stage 2: bi-encoder semantic ranking
 │   ├── crossencoder.py  # Stage 3: cross-encoder pairwise reranking
 │   └── rrf.py           # Reciprocal Rank Fusion utility
 │
-├── trim.py              # token budget management
-├── extract.py           # LLM call -> structured JSON
+├── extract/
+│   ├── base.py          # AbstractExtractor + context builder + JSON parser
+│   ├── claude.py        # Anthropic Claude adapter
+│   ├── gpt.py           # OpenAI adapter
+│   ├── gemini.py        # Google Gemini adapter (free tier)
+│   └── groq.py          # Groq adapter (free tier, fastest)
+│
 └── cache.py             # diskcache/sqlite layer
 ```
 
@@ -94,15 +101,42 @@ class SearchResult:
 - Fallback 3: `playwright` (JS-rendered pages, optional install)
 - PDF: `pdfplumber` triggered when URL ends in `.pdf` or content-type is PDF
 
+### Chunker
+`chunk_text(text, url, title, chunk_size=400, overlap_ratio=0.10) -> list[Chunk]`
+- Character-based with whitespace-snapped boundaries (avoids splitting mid-word).
+- 10% overlap between neighbors so a key phrase straddling a boundary still
+  appears in one chunk whole.
+- Zero extra deps - sentence splitters (nltk, spacy) are heavy and mishandle
+  spec tables where "lines" are not sentences.
+
 ### Reranker Stages
-Each stage takes `(query: str, chunks: list[Chunk]) -> list[Chunk]` and is 
-independently skippable via config.
+Each stage implements `AbstractRanker.rank(query, chunks) -> list[Chunk]` and is
+independently skippable via `rank()` flags.
 
 | Stage | Library | Model | Runs on |
 |---|---|---|---|
 | BM25 | rank_bm25 | N/A | CPU, instant |
 | Bi-encoder | sentence-transformers | all-MiniLM-L6-v2 or bge-small-en | CPU |
 | Cross-encoder | sentence-transformers | cross-encoder/ms-marco-MiniLM-L-6-v2 | CPU |
+
+### Extractor
+```python
+class AbstractExtractor:
+    def extract(
+        self,
+        chunks: list[Chunk],
+        keys: dict[str, str],       # field_name -> short description
+        budget_chars: int = 6000,
+    ) -> dict[str, str | None]:
+        ...
+```
+- Shared base handles context trimming (respects `DEFAULT_TOKEN_BUDGET`),
+  prompt assembly, and JSON parsing. Subclasses implement only `_call_llm()`.
+- Adapters: `ClaudeExtractor`, `GPTExtractor`, `GeminiExtractor`.
+- Deviation from initial architecture: `extract.py` + `trim.py` were merged
+  into the `extract/` package so trimming lives with the LLM call that
+  consumes it. No caller refactor needed - this is still the last pipeline
+  stage.
 
 ### Cache
 - Keyed by: `sha256(query + search_provider)`

@@ -1,13 +1,13 @@
 """
 DuckDuckGo search adapter.
 
-Uses the `duckduckgo-search` library (no API key needed). This is the default
-adapter for dev use and low-volume production. It hits DDG's internal API, not
-an official endpoint, so it can rate-limit under heavy load - use Brave/Serper
-for high-volume production.
+Uses the `ddgs` library (no API key needed) - the renamed successor to the
+deprecated `duckduckgo-search` package. Default adapter for dev use and
+low-volume production. Hits DDG's internal API, not an official endpoint, so
+it can rate-limit under heavy load - use Brave/Serper for high-volume prod.
 """
 
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 
 from webfetch.search.base import AbstractSearchAdapter, SearchResult
 
