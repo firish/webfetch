@@ -1,0 +1,12 @@
+{
+  "build_command": "python evals/build_datasets.py",
+  "counts": {
+    "total": 377
+  },
+  "license": "FreshQA: Creative Commons (see repo)",
+  "retrieved": "2026-07-09",
+  "seed": 42,
+  "sources": {
+    "freshqa": "https://github.com/freshllms/freshqa (sheet snapshot)"
+  }
+}

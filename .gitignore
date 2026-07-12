@@ -13,3 +13,6 @@ __pycache__/
 
 # Dev readme files
 learning.md
+# Eval harness: raw downloads and run outputs
+evals/datasets/raw/
+evals/results/

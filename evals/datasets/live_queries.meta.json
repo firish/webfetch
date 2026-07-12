@@ -1,0 +1,15 @@
+{
+  "build_command": "python evals/build_datasets.py",
+  "counts": {
+    "base": 50,
+    "paraphrases": 15,
+    "total": 65
+  },
+  "license": "SimpleQA: MIT (openai/simple-evals)",
+  "retrieved": "2026-07-09",
+  "seed": 42,
+  "sources": {
+    "handwritten-paraphrase": "paraphrases written for this repo",
+    "simpleqa": "https://openaipublic.blob.core.windows.net/simple-evals/simple_qa_test_set.csv"
+  }
+}
