@@ -16,7 +16,8 @@ dependencies = [
     "trafilatura>=1.8",
     "rank-bm25>=0.2.2",
     "requests>=2.31",
-    "duckduckgo-search>=6.0",
+    # ddgs is the maintained successor of duckduckgo-search; ddg.py imports it.
+    "ddgs>=6.0",
     "anthropic>=0.25",
 ]
 

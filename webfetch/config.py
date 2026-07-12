@@ -17,6 +17,10 @@ DEFAULT_SEARCH_PROVIDER: str = "ddg"
 # Seconds before an HTTP fetch is abandoned. Keeps slow pages from blocking the pipeline.
 FETCH_TIMEOUT_SECS: int = 10
 
+# Thread pool size for concurrent URL fetching. Fetching is IO-bound (network
+# waits, not CPU), so more workers than cores is fine and cuts wall time a lot.
+DEFAULT_FETCH_WORKERS: int = 8
+
 # --- Ranking (cascade thresholds) ---
 # BM25 is always-on. Bi-encoder and cross-encoder are opt-in via Pipeline flags.
 # Each stage trims the candidate list before passing to the next (cheaper) stage.
@@ -45,9 +49,45 @@ DEFAULT_TOKEN_BUDGET: int = 6000
 # Default path for the sqlite3 cache database.
 DEFAULT_CACHE_DB: str = "~/.webfetch/cache.db"
 
-# How long cached results are kept before expiry. Specs rarely change, 90 days is safe.
+# How long cached results are kept before expiry. Acts as the hard ceiling
+# for all rows (pages, legacy query rows without a freshness class).
 DEFAULT_CACHE_TTL_DAYS: int = 90
+
+# Volatility-aware TTLs, resolved at READ time so retuning these applies to
+# already-cached rows. Effective TTL = min(TTL of the row's stored class,
+# TTL of the caller's freshness hint, the ttl_days ceiling).
+TTL_BY_FRESHNESS: dict[str, int] = {
+    "realtime": 15 * 60,      # prices, scores, breaking news
+    "recent": 7 * 86400,      # things that change over weeks/months
+    "stable": 90 * 86400,     # historical/definitional facts, specs
+}
+
+# Class used when there is no model hint and the classifier is unsure,
+# and for legacy rows cached before freshness existed.
+DEFAULT_FRESHNESS: str = "recent"
 
 # --- LLM extraction ---
 # Default model for the extraction step. Cheapest capable model by default.
 DEFAULT_EXTRACT_MODEL: str = "claude-haiku-4-5-20251001"
+
+# --- Semantic query cache ---
+# Thresholds picked by the eval harness (evals/run_matcher_eval.py, 247-pair
+# factoid-enriched set): bi >= 0.60 keeps paraphrase recall at 0.98 as a
+# shortlist gate; NLI bidirectional entailment >= 0.97 gives precision 0.955
+# with zero trusted-negative false positives. See matcher_recommendation.json.
+SEMCACHE_BI_THRESHOLD: float = 0.60
+SEMCACHE_CE_THRESHOLD: float = 0.97
+
+# NLI verifier won the 4-model bake-off: only model to clear the 0.95
+# precision bar, natively rejects entity/number swaps (Portland trap: 0.000).
+SEMCACHE_CE_MODEL: str = "cross-encoder/nli-deberta-v3-base"
+
+# Verify only the top cosine candidate - precision-first; Layer 2 measured
+# zero wrong-target matches, so deeper candidate lists buy nothing.
+SEMCACHE_MAX_CANDIDATES: int = 1
+
+# --- Tool mode ---
+# Max characters of ranked context returned per web_search tool call.
+# Larger than DEFAULT_TOKEN_BUDGET because in tool mode the calling model is
+# the extractor and benefits from a bit more surrounding context.
+DEFAULT_TOOL_RESULT_BUDGET: int = 8000

@@ -23,6 +23,35 @@ from webfetch.rank.chunker import chunk_text
 from webfetch.rank.crossencoder import CrossEncoderRanker
 from webfetch.rank.rrf import reciprocal_rank_fusion
 
+# Shared default instances. Constructors are cheap, but the encoder models
+# lazy-load on first use and are cached ON THE INSTANCE - constructing new
+# rankers per call (the old behavior) silently re-downloaded/reloaded ~80MB
+# models on every query. Reusing these keeps models warm across calls.
+_BM25 = BM25Ranker()
+_BIENCODER = BiEncoderRanker()
+_CROSSENCODER = CrossEncoderRanker()
+
+
+def default_rankers(
+    use_biencoder: bool = True,
+    use_crossencoder: bool = True,
+) -> list[AbstractRanker]:
+    """Return the default ranking cascade as shared ranker instances.
+
+    Args:
+        use_biencoder: Include the bi-encoder stage. Requires `webfetch[rerank]`.
+        use_crossencoder: Include the cross-encoder stage. Requires `webfetch[rerank]`.
+
+    Returns:
+        Rankers in cascade order (BM25 first), ready to apply sequentially.
+    """
+    rankers: list[AbstractRanker] = [_BM25]
+    if use_biencoder:
+        rankers.append(_BIENCODER)
+    if use_crossencoder:
+        rankers.append(_CROSSENCODER)
+    return rankers
+
 
 def rank(
     query: str,
@@ -43,15 +72,8 @@ def rank(
     Returns:
         The top chunks from the final stage of the cascade, ordered best-first.
     """
-    # Stage 1: BM25 always runs - it's cheap and gives a huge pre-filter win.
-    chunks = BM25Ranker().rank(query, chunks)
-
-    if use_biencoder:
-        chunks = BiEncoderRanker().rank(query, chunks)
-
-    if use_crossencoder:
-        chunks = CrossEncoderRanker().rank(query, chunks)
-
+    for ranker in default_rankers(use_biencoder, use_crossencoder):
+        chunks = ranker.rank(query, chunks)
     return chunks
 
 
