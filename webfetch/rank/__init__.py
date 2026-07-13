@@ -21,6 +21,7 @@ from webfetch.rank.biencoder import BiEncoderRanker
 from webfetch.rank.bm25 import BM25Ranker
 from webfetch.rank.chunker import chunk_text
 from webfetch.rank.crossencoder import CrossEncoderRanker
+from webfetch.rank.hybrid import HybridRanker
 from webfetch.rank.rrf import reciprocal_rank_fusion
 
 # Shared default instances. Constructors are cheap, but the encoder models
@@ -30,6 +31,7 @@ from webfetch.rank.rrf import reciprocal_rank_fusion
 _BM25 = BM25Ranker()
 _BIENCODER = BiEncoderRanker()
 _CROSSENCODER = CrossEncoderRanker()
+_HYBRID = HybridRanker()
 
 
 def default_rankers(
@@ -38,16 +40,21 @@ def default_rankers(
 ) -> list[AbstractRanker]:
     """Return the default ranking cascade as shared ranker instances.
 
+    Default shape: HybridRanker (BM25 + bi-encoder RRF fusion over all
+    chunks) -> cross-encoder. With use_biencoder=False the old BM25-first
+    cascade is returned instead - fusion without embeddings would just be
+    BM25 with extra steps.
+
     Args:
-        use_biencoder: Include the bi-encoder stage. Requires `webfetch[rerank]`.
-        use_crossencoder: Include the cross-encoder stage. Requires `webfetch[rerank]`.
+        use_biencoder: Use hybrid fusion. Requires `webfetch[rerank]`
+            (degrades to BM25-only inside HybridRanker if missing).
+        use_crossencoder: Include the cross-encoder stage. Requires
+            `webfetch[rerank]`.
 
     Returns:
-        Rankers in cascade order (BM25 first), ready to apply sequentially.
+        Rankers in cascade order, ready to apply sequentially.
     """
-    rankers: list[AbstractRanker] = [_BM25]
-    if use_biencoder:
-        rankers.append(_BIENCODER)
+    rankers: list[AbstractRanker] = [_HYBRID if use_biencoder else _BM25]
     if use_crossencoder:
         rankers.append(_CROSSENCODER)
     return rankers
@@ -86,4 +93,6 @@ __all__ = [
     "BM25Ranker",
     "BiEncoderRanker",
     "CrossEncoderRanker",
+    "HybridRanker",
+    "default_rankers",
 ]

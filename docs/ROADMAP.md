@@ -59,6 +59,12 @@ in-flight set; keep stale row if refresh fails.
 
 ## Shipped
 
+- 2026-07-12: hybrid rank fusion (HybridRanker: full-list BM25 + bi-encoder
+  RRF fusion -> cross-encoder, replacing the BM25-first gate). Live Layer 2
+  recall 52% -> 56% at identical token cost; experiment on identical chunks
+  measured 46% -> 54%. Fixed the "rank drops retrieved answers" gap
+  (5/10 diagnosed misses)
+
 - 2026-07-12: multi-engine RRF fusion (MultiSearchAdapter, Tavily adapter,
   "multi" factory provider). Measured: recall 52.0% vs 50% single-engine
   (flat - extraction is the recall bottleneck, see item 2), but suite

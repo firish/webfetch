@@ -21,9 +21,15 @@ FETCH_TIMEOUT_SECS: int = 10
 # waits, not CPU), so more workers than cores is fine and cuts wall time a lot.
 DEFAULT_FETCH_WORKERS: int = 8
 
-# --- Ranking (cascade thresholds) ---
-# BM25 is always-on. Bi-encoder and cross-encoder are opt-in via Pipeline flags.
-# Each stage trims the candidate list before passing to the next (cheaper) stage.
+# --- Ranking ---
+# Default cascade: hybrid fusion (full-list BM25 + bi-encoder rankings fused
+# via RRF) -> cross-encoder. Fusion replaced the BM25-first gate after the
+# gap-1 experiment measured recall 46% -> 54% at identical token cost - the
+# lexical gate was dropping semantically-relevant chunks it could not see.
+HYBRID_FUSION_TOP_K: int = 30  # fused chunks passed to the cross-encoder
+
+# Used by the degraded (no-embeddings) path and by callers composing the
+# old-style cascade manually.
 BM25_TOP_K: int = 20       # after BM25: keep best 20 chunks
 BIENCODER_TOP_K: int = 10  # after bi-encoder: keep best 10
 CROSSENCODER_TOP_K: int = 5  # after cross-encoder: keep best 5

@@ -29,7 +29,7 @@
 +------------------+
 | Pipeline         |  pipeline.py
 |  .search_chunks  |  search -> cache check -> fetch_all (parallel)
-|                  |  -> chunk -> 3-stage rank -> cache store
+|                  |  -> chunk -> hybrid rank -> cache store
 +--------+---------+
          | ranked chunks
          v
@@ -65,10 +65,10 @@
          │
          v
 ┌─────────────────┐
-│  3-Stage Ranker │
-│  1. BM25        │  -> keyword filter, keep top 20 chunks
-│  2. Bi-encoder  │  -> semantic similarity, keep top 10 chunks
-│  3. Cross-enc.  │  -> pairwise rerank, keep top 3–5 chunks
+│  Hybrid Ranker  │
+│  1. BM25+bi RRF │  -> full-list lexical AND semantic rankings fused,
+│     fusion      │     keep top 30 (either signal keeps a chunk alive)
+│  2. Cross-enc.  │  -> pairwise rerank, keep top 5
 └────────┬────────┘
          │
          v
@@ -116,9 +116,10 @@ webfetch/
 │   ├── __init__.py      # rank() cascade + shared ranker instances
 │   ├── base.py          # Chunk dataclass + AbstractRanker interface
 │   ├── chunker.py       # Text -> Chunk objects (char-based, whitespace-snapped)
-│   ├── bm25.py          # Stage 1: BM25 keyword ranking (rank_bm25)
-│   ├── biencoder.py     # Stage 2: bi-encoder semantic ranking
-│   ├── crossencoder.py  # Stage 3: cross-encoder pairwise reranking
+│   ├── hybrid.py        # Stage 1 (default): BM25 + bi-encoder RRF fusion
+│   ├── bm25.py          # BM25 keyword ranking (rank_bm25)
+│   ├── biencoder.py     # bi-encoder semantic ranking
+│   ├── crossencoder.py  # Stage 2: cross-encoder pairwise reranking
 │   └── rrf.py           # Reciprocal Rank Fusion utility
 │
 └── extract/
@@ -174,13 +175,15 @@ class SearchResult:
   spec tables where "lines" are not sentences.
 
 ### Reranker Stages
+Default cascade: HybridRanker (BM25 + bi-encoder full-list RRF fusion,
+top 30) -> CrossEncoderRanker (top 5). `use_biencoder=False` falls back to
+the plain BM25 gate.
 Each stage implements `AbstractRanker.rank(query, chunks) -> list[Chunk]` and is
 independently skippable via `rank()` flags.
 
 | Stage | Library | Model | Runs on |
 |---|---|---|---|
-| BM25 | rank_bm25 | N/A | CPU, instant |
-| Bi-encoder | sentence-transformers | all-MiniLM-L6-v2 or bge-small-en | CPU |
+| Hybrid fusion (BM25 + bi-encoder via RRF) | rank_bm25 + sentence-transformers | all-MiniLM-L6-v2 | CPU, ~1-2s warm |
 | Cross-encoder | sentence-transformers | cross-encoder/ms-marco-MiniLM-L-6-v2 | CPU |
 
 ### Extractor
@@ -337,15 +340,25 @@ a search provider or reranker requires only a new adapter file — `pipeline.py`
 never changes. This follows the Open/Closed Principle and is how production 
 systems like Cohere and Elastic structure their retrieval pipelines.
 
-### 3-stage reranking mirrors production systems
-BM25 alone misses semantic matches ("uncertainty" ≠ "accuracy tolerance"). 
-Bi-encoder alone is slow over hundreds of chunks. Cross-encoder alone is too 
-expensive at scale. The cascade (BM25 -> bi-encoder -> cross-encoder) mirrors 
-what Perplexity and Bing AI use: cheap-fast-imprecise -> expensive-slow-precise.
+### Hybrid fusion first stage (replaced the BM25-first cascade gate)
+The original cascade (BM25 top-20 -> bi-encoder top-10 -> cross-encoder
+top-5) let BM25 act as a hard lexical gate: chunks that were semantically
+relevant but shared no query keywords died before the encoders saw them.
+Miss diagnosis measured this as 3 of 10 recall failures (e.g. gold
+"405 x 480 cm" in a table chunk vs query "dimensions of the painting").
+The default first stage is now HybridRanker: full-list BM25 AND full-list
+bi-encoder rankings fused via RRF, top 30 to the cross-encoder. A chunk
+survives if EITHER signal ranks it well. Measured (gap-1 experiment, 50
+queries, identical chunks): recall 46% -> 54% at identical token cost,
++~2.2s ranking latency (fetch still dominates). Wider cascade gates alone
+(50/15) bought only +2 points; final top-8 added 60% tokens for zero
+recall gain - both rejected.
 
 ### RRF for signal fusion
-Reciprocal Rank Fusion combines BM25 and vector rankings without requiring 
-score normalization. Used in production at Cohere, Elastic, and others.
+Reciprocal Rank Fusion combines rankings without score normalization -
+used twice: inside HybridRanker (BM25 + vector rankings) and in
+MultiSearchAdapter (cross-engine URL fusion). Used in production at
+Cohere, Elastic, and others.
 
 ### Cache before fetch, not after
 Cache is checked after the search step (we have URLs) but before fetching 
