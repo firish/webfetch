@@ -21,6 +21,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import threading
 from pathlib import Path
 
 from webfetch.config import BIENCODER_MODEL, DEFAULT_FRESHNESS
@@ -42,6 +43,9 @@ _STABLE_RE = re.compile(
 _bi_model = None
 _centroids: dict[str, list[float]] | None = None
 _centroid_unavailable = False
+# Lazy init must be locked: concurrent pipeline calls (fetch threads, eval
+# workers) racing SentenceTransformer construction crash inside torch.
+_init_lock = threading.Lock()
 
 
 def _centroid_class(query: str) -> str | None:
@@ -59,16 +63,17 @@ def _centroid_class(query: str) -> str | None:
         )
         _centroid_unavailable = True
         return None
-    if _centroids is None:
-        with open(_CENTROIDS_PATH, encoding="utf-8") as f:
-            data = json.load(f)
-        if data.get("model") != BIENCODER_MODEL:
-            logger.warning("volatility centroids were built with %s, config "
-                           "uses %s - regenerate via evals/run_volatility_eval.py",
-                           data.get("model"), BIENCODER_MODEL)
-        _centroids = data["classes"]
-    if _bi_model is None:
-        _bi_model = SentenceTransformer(BIENCODER_MODEL)
+    with _init_lock:
+        if _centroids is None:
+            with open(_CENTROIDS_PATH, encoding="utf-8") as f:
+                data = json.load(f)
+            if data.get("model") != BIENCODER_MODEL:
+                logger.warning("volatility centroids were built with %s, config "
+                               "uses %s - regenerate via evals/run_volatility_eval.py",
+                               data.get("model"), BIENCODER_MODEL)
+            _centroids = data["classes"]
+        if _bi_model is None:
+            _bi_model = SentenceTransformer(BIENCODER_MODEL)
     vec = _bi_model.encode([query], normalize_embeddings=True,
                            show_progress_bar=False)[0]
     sims = {c: float(np.dot(vec, np.asarray(v, dtype=np.float32)))

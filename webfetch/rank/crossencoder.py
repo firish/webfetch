@@ -13,6 +13,7 @@ Optional dep: pip install webfetch[rerank]
 """
 
 import logging
+import threading
 
 from webfetch.config import CROSSENCODER_MODEL, CROSSENCODER_TOP_K
 from webfetch.rank.base import AbstractRanker, Chunk
@@ -39,11 +40,14 @@ class CrossEncoderRanker(AbstractRanker):
         self._model_name = model_name
         self._top_k = top_k
         self._model = None
+        # Concurrent callers racing lazy construction crash inside torch.
+        self._load_lock = threading.Lock()
 
     def _load_model(self):
-        if self._model is None:
-            from sentence_transformers import CrossEncoder
-            self._model = CrossEncoder(self._model_name)
+        with self._load_lock:
+            if self._model is None:
+                from sentence_transformers import CrossEncoder
+                self._model = CrossEncoder(self._model_name)
         return self._model
 
     def rank(self, query: str, chunks: list[Chunk]) -> list[Chunk]:

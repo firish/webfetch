@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import json
 import logging
+import threading
 import time
 
 # numpy ships with the optional rerank extra (alongside sentence-transformers).
@@ -91,6 +92,7 @@ class SemanticSqliteCache(SqliteCache):
         self._bi_model = None
         self._ce_model = None
         self._models_unavailable = False
+        self._model_lock = threading.Lock()
         # In-memory mirror of query_embeddings: parallel lists + row matrix.
         self._emb_keys: list[str] | None = None
         self._emb_queries: list[str] = []
@@ -106,7 +108,12 @@ class SemanticSqliteCache(SqliteCache):
     # --- model loading (lazy, degrade gracefully like the rankers) ---
 
     def _load_models(self) -> bool:
-        """Load bi-encoder + NLI verifier once; False if deps are missing."""
+        """Load bi-encoder + NLI verifier once; False if deps are missing.
+
+        Locked: concurrent lookups racing lazy model construction crash
+        inside torch. Separate lock from the sqlite one so a slow model
+        load never blocks page-cache writes from fetch workers.
+        """
         if self._models_unavailable:
             return False
         if self._bi_model is not None and self._ce_model is not None:
@@ -122,10 +129,11 @@ class SemanticSqliteCache(SqliteCache):
             )
             self._models_unavailable = True
             return False
-        if self._bi_model is None:
-            self._bi_model = SentenceTransformer(self._bi_model_name)
-        if self._ce_model is None:
-            self._ce_model = CrossEncoder(self._ce_model_name)
+        with self._model_lock:
+            if self._bi_model is None:
+                self._bi_model = SentenceTransformer(self._bi_model_name)
+            if self._ce_model is None:
+                self._ce_model = CrossEncoder(self._ce_model_name)
         return True
 
     def _embed(self, query: str) -> np.ndarray:

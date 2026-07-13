@@ -15,6 +15,7 @@ Optional dep: pip install webfetch[rerank]
 """
 
 import logging
+import threading
 
 from webfetch.config import BIENCODER_MODEL, BIENCODER_TOP_K
 from webfetch.rank.base import AbstractRanker, Chunk
@@ -44,11 +45,14 @@ class BiEncoderRanker(AbstractRanker):
         # Lazy-loaded: sentence-transformers import + model load is ~5s
         # and shouldn't happen just because someone imported the class.
         self._model = None
+        # Concurrent callers racing lazy construction crash inside torch.
+        self._load_lock = threading.Lock()
 
     def _load_model(self):
-        if self._model is None:
-            from sentence_transformers import SentenceTransformer
-            self._model = SentenceTransformer(self._model_name)
+        with self._load_lock:
+            if self._model is None:
+                from sentence_transformers import SentenceTransformer
+                self._model = SentenceTransformer(self._model_name)
         return self._model
 
     def rank(self, query: str, chunks: list[Chunk]) -> list[Chunk]:

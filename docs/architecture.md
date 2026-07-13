@@ -464,8 +464,7 @@ lets the model retry or rephrase.
 
 ## Eval Harness
 
-Two eval layers exist so feature claims ship with numbers (a third,
-LLM-judged end-to-end layer is planned but not built):
+Three eval layers exist so feature claims ship with numbers:
 
 - **Layer 1 (run_matcher_eval.py, offline):** labeled query pairs (QQP
   paraphrases, stratified hard negatives, hand-written adversarial traps
@@ -481,6 +480,12 @@ LLM-judged end-to-end layer is planned but not built):
   hit rate under the exact cache (baseline ~0), the semantic-cache
   OPPORTUNITY rate (what a semantic cache would serve, measured before the
   feature exists), and false-hit risk across the suite.
+
+- **Layer 3 (run_e2e_eval.py, live API):** the release gate - same model
+  answers the same 50 questions with our tool vs the hosted web_search
+  tool, SimpleQA-style judging, measured cost from usage fields. First
+  run (Opus 4.7, 2026-07-13): ours 96% at $0.025/query vs hosted 92% at
+  $0.103/query - hosted accuracy matched at 24% of the cost.
 
 Dataset provenance lives in the .meta.json sidecars; sampling is seeded so
 rebuilds are byte-identical. FreshQA (volatility-labeled queries) is also

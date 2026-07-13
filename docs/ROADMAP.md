@@ -47,7 +47,6 @@ in-flight set; keep stale row if refresh fails.
 
 ## Backlog (unordered)
 
-- Layer 3 eval: LLM-judged end-to-end answer accuracy (release gate)
 - MCP server wrapper (local stdio first; remote server needs a shared
   cache backend + eviction policy - see cache notes in ARCHITECTURE.md)
 - OpenAI function-calling example loop
@@ -58,6 +57,15 @@ in-flight set; keep stale row if refresh fails.
 - Retry/backoff on search adapters; negative caching of failed fetches
 
 ## Shipped
+
+- 2026-07-13: Layer 3 end-to-end eval (evals/run_e2e_eval.py): Claude Opus
+  4.7 + our web_search tool vs Anthropic's hosted web_search, 50 SimpleQA
+  questions, SimpleQA-style judging. RESULT: ours 48/50 (96%) at
+  $0.025/query vs hosted 46/50 (92%) at $0.103/query - matches hosted
+  accuracy (2-question edge is within noise at n=50) at 24% of the cost.
+  Also hardened lazy model init with locks (concurrent tool serving raced
+  torch construction) and serialized local pipeline execution in the eval
+  (two concurrent pipelines deadlocked MPS/playwright)
 
 - 2026-07-12: 4-engine fusion measured (ddg+brave+serper+tavily once real
   keys were added): Layer 2 recall 60% -> 64%, failed URLs 1.28 -> 0.8/query.
