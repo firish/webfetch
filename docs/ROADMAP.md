@@ -59,6 +59,12 @@ in-flight set; keep stale row if refresh fails.
 
 ## Shipped
 
+- 2026-07-12: 4-engine fusion measured (ddg+brave+serper+tavily once real
+  keys were added): Layer 2 recall 60% -> 64%, failed URLs 1.28 -> 0.8/query.
+  With only 2 engines fusion was recall-flat; the gain came from Serper
+  (Google index depth) and Tavily joining. Cost: fetch latency median
+  10s -> 18s (more pages actually fetchable = more full downloads)
+
 - 2026-07-12: extraction hardening (diagnosis-driven). PDF legibility gate +
   layout retry + table extraction; browser headers + playwright rescue for
   403-walled pages (with HTTP status check); head-metadata prepend (7/22

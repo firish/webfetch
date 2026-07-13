@@ -439,10 +439,10 @@ rescue is what gets through them.
 `MultiSearchAdapter` fans one query out to every engine with credentials and
 fuses ranked URL lists via RRF (same formula as rank/rrf.py, keyed by
 normalized URL). Engine failures are logged and skipped; it raises only when
-ALL engines fail. Measured on Layer 2: retrieval recall 52.0% fused vs 50%
-brave-only (within noise - search is not the recall bottleneck; extraction
-is, see ROADMAP item 3), but errors went 12 -> 0 across a 65-query suite
-because transient single-engine failures are absorbed. Fusion runs cache
+ALL engines fail. Measured on Layer 2: with 2 engines (ddg+brave) recall was flat vs
+brave-only but errors went 12 -> 0 (transient failures absorbed); with 4
+engines (adding serper + tavily) recall rose 60% -> 64% and failed URLs
+halved - index diversity is what pays, resilience comes free either way. Fusion runs cache
 under their own provider_name ("multi(ddg+brave+...)") so cached results
 never mix across provider configurations.
 
@@ -533,8 +533,8 @@ justified for the current use case volume.
 ## Status
 > Last updated: 2026-07-12 (later) - extraction hardening: PDF legibility
 > gate/layout retry/tables, playwright fetch rescue + thin-content render,
-> head-metadata prepend. Layer 2 recall 50% -> 60% across the day's four
-> fixes (engine fusion, rank fusion, extraction).
+> head-metadata prepend. Layer 2 recall 50% -> 64% across the day's five
+> fixes (engine fusion, rank fusion, extraction, 4-engine fusion).
 > Previous same day - volatility-aware TTLs: per-class expiry
 > (realtime/recent/stable) resolved at read time, freshness tool param,
 > hybrid classifier fallback (volatility.py + shipped centroids), and the
