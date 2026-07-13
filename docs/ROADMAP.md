@@ -59,6 +59,14 @@ in-flight set; keep stale row if refresh fails.
 
 ## Shipped
 
+- 2026-07-12: extraction hardening (diagnosis-driven). PDF legibility gate +
+  layout retry + table extraction; browser headers + playwright rescue for
+  403-walled pages (with HTTP status check); head-metadata prepend (7/22
+  misses had the answer only in title/og:description); thin-content render
+  trigger for JS SPAs. Live Layer 2 recall 56% -> 60%, failed URLs
+  1.68 -> 1.28/query. Negative result: headers alone recovered zero
+  blocked pages - the playwright rescue is what works
+
 - 2026-07-12: hybrid rank fusion (HybridRanker: full-list BM25 + bi-encoder
   RRF fusion -> cross-encoder, replacing the BM25-first gate). Live Layer 2
   recall 52% -> 56% at identical token cost; experiment on identical chunks

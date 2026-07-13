@@ -21,6 +21,11 @@ FETCH_TIMEOUT_SECS: int = 10
 # waits, not CPU), so more workers than cores is fine and cuts wall time a lot.
 DEFAULT_FETCH_WORKERS: int = 8
 
+# Extracted text shorter than this suggests a JS-rendered SPA whose real
+# content never reached the prose extractor - triggers the playwright
+# fallback even though extraction technically "succeeded".
+MIN_EXTRACTED_CHARS: int = 300
+
 # --- Ranking ---
 # Default cascade: hybrid fusion (full-list BM25 + bi-encoder rankings fused
 # via RRF) -> cross-encoder. Fusion replaced the BM25-first gate after the

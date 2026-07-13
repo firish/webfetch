@@ -119,6 +119,42 @@ def extract_pdf_links_with_playwright(
         return []
 
 
+# Legibility gate thresholds. Garbled columnar extraction comes out as
+# interleaved single characters ("q t t o s i u n r..."), so a high share
+# of 1-char alphabetic tokens is the cleanest signal.
+_MAX_SINGLE_CHAR_RATIO = 0.35
+_MIN_TOKENS_FOR_CHECK = 20
+
+
+def _is_legible(text: str) -> bool:
+    """Heuristic: is this extracted page text real words, not char soup?
+
+    Args:
+        text: Extracted page text.
+
+    Returns:
+        True when the text looks like readable prose/tables. Short texts
+        pass by default (not enough signal to condemn them).
+    """
+    tokens = [t for t in text.split() if t.isalpha()]
+    if len(tokens) < _MIN_TOKENS_FOR_CHECK:
+        return True
+    single = sum(1 for t in tokens if len(t) == 1)
+    return single / len(tokens) <= _MAX_SINGLE_CHAR_RATIO
+
+
+def _table_to_markdown(table: list[list[str | None]]) -> str:
+    """Render a pdfplumber table (list of rows) as a markdown table."""
+    rows = [[(c or "").strip().replace("\n", " ") for c in row]
+            for row in table if any(c and c.strip() for c in row)]
+    if len(rows) < 2:
+        return ""
+    lines = ["| " + " | ".join(rows[0]) + " |",
+             "|" + "|".join("---" for _ in rows[0]) + "|"]
+    lines += ["| " + " | ".join(r) + " |" for r in rows[1:]]
+    return "\n".join(lines)
+
+
 class PDFFetcher(AbstractFetcher):
     """Fetches a PDF URL and extracts text using pdfplumber.
 
@@ -142,14 +178,22 @@ class PDFFetcher(AbstractFetcher):
         self._max_pages = max_pages
 
     def fetch(self, url: str) -> str | None:
-        """Download a PDF and return its text content.
+        """Download a PDF and return its text content plus any tables.
+
+        Per page: extract text; if it fails the legibility gate (columnar
+        or overlapping layouts come out as interleaved single characters),
+        retry with pdfplumber's layout-aware mode; if STILL garbled, drop
+        the page - garbage chunks were observed winning ranking slots on
+        keyword density and displacing legible content. Tables are
+        extracted separately and appended as markdown, mirroring the HTML
+        path.
 
         Args:
             url: Direct URL to a PDF file.
 
         Returns:
-            Extracted text joined across all pages, or None if pdfplumber
-            is not installed or the PDF could not be read.
+            Extracted text (with tables appended) joined across pages, or
+            None if pdfplumber is missing or nothing legible was extracted.
         """
         try:
             import pdfplumber
@@ -159,12 +203,9 @@ class PDFFetcher(AbstractFetcher):
             )
             return None
 
+        from webfetch.fetch.base import BROWSER_HEADERS
         try:
-            resp = requests.get(
-                url,
-                timeout=self._timeout,
-                headers={"User-Agent": "Mozilla/5.0"},
-            )
+            resp = requests.get(url, timeout=self._timeout, headers=BROWSER_HEADERS)
             resp.raise_for_status()
         except Exception as exc:
             logger.warning("Failed to download PDF %s: %s", url, exc)
@@ -177,12 +218,28 @@ class PDFFetcher(AbstractFetcher):
                     pages = pages[: self._max_pages]
 
                 parts: list[str] = []
+                table_parts: list[str] = []
+                dropped = 0
                 for page in pages:
                     page_text = page.extract_text()
-                    if page_text:
+                    if page_text and not _is_legible(page_text):
+                        page_text = page.extract_text(layout=True)
+                    if page_text and _is_legible(page_text):
                         parts.append(page_text)
+                    elif page_text:
+                        dropped += 1
+                    for table in page.extract_tables() or []:
+                        md = _table_to_markdown(table)
+                        if md:
+                            table_parts.append(md)
+                if dropped:
+                    logger.info("%s: dropped %d garbled page(s)", url, dropped)
 
-            return "\n\n".join(parts) if parts else None
+            text = "\n\n".join(parts)
+            if table_parts:
+                text = (text + "\n\n## Extracted Tables\n\n"
+                        + "\n\n".join(table_parts)).strip()
+            return text or None
         except Exception as exc:
             logger.warning("pdfplumber failed to parse %s: %s", url, exc)
             return None

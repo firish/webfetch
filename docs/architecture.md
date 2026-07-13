@@ -160,11 +160,20 @@ class SearchResult:
 ```
 
 ### Fetch + Extract
-- Primary: `trafilatura.fetch_url()` + `trafilatura.extract(output_format='markdown')`
-- Fallback 1: `readability-lxml` (reader-mode extraction)
-- Fallback 2: `newspaper3k` (news/article optimized)
-- Fallback 3: `playwright` (JS-rendered pages, optional install)
-- PDF: `pdfplumber` triggered when URL ends in `.pdf` or content-type is PDF
+- Raw fetch chain: `trafilatura.fetch_url()` -> requests with full browser
+  headers (bot walls 403 a bare UA) -> playwright real-browser rescue
+  (checks HTTP status - error pages are NOT content)
+- Extraction chain: `trafilatura.extract(markdown, favor_recall)` ->
+  `readability-lxml` -> `newspaper4k` -> playwright render. The render also
+  triggers on THIN output (< MIN_EXTRACTED_CHARS) - JS SPAs extract to a
+  nav/footer remnant that used to mask the real content
+- Head metadata (title + meta/og description) is prepended to every page -
+  miss diagnosis found factoid answers living ONLY there (7 of 22 misses)
+- HTML tables via pandas.read_html appended as markdown
+- PDF: `pdfplumber` per page with a legibility gate - garbled columnar
+  output retries layout-aware extraction, still-garbled pages are dropped
+  (garbage chunks were winning ranking slots); PDF tables appended as
+  markdown like the HTML path
 
 ### Chunker
 `chunk_text(text, url, title, chunk_size=400, overlap_ratio=0.10) -> list[Chunk]`
@@ -417,6 +426,15 @@ can tune them. Rationale: showing the matched query lets the calling model
 catch any residual semantic false positive for ~20 tokens, while per-call
 threshold knobs would make behavior non-reproducible.
 
+### Extraction fixes are diagnosis-driven
+The extraction hardening (metadata prepend, thin-content render trigger,
+PDF legibility gate, playwright fetch rescue) came from a per-miss
+diagnostic that localized every Layer 2 recall failure to a pipeline stage
+and inspected where the answer text actually lived in the raw HTML. Notable
+negative result: browser-quality headers alone recovered ZERO of the
+403-blocked pages (the walls check more than the UA) - the playwright
+rescue is what gets through them.
+
 ### Multi-engine RRF fusion: resilience first, recall second (measured)
 `MultiSearchAdapter` fans one query out to every engine with credentials and
 fuses ranked URL lists via RRF (same formula as rank/rrf.py, keyed by
@@ -472,6 +490,10 @@ sampled and banked for the future volatility-TTL feature.
 
 These are content types the fetch stage does not handle well today, discovered
 while planning for calibration equipment spec lookups.
+> Status 2026-07-12: gap 1 (HTML tables) shipped via pandas.read_html; PDF
+> text/tables hardened (legibility gate + layout retry + extract_tables);
+> JS-rendered pages handled by the playwright render/rescue paths. Gap 3
+> (image-only spec plates) remains out of scope.
 
 ### 1. HTML Table Extraction
 **Problem:** trafilatura mangles complex or nested HTML tables. Most manufacturer
@@ -509,7 +531,11 @@ Scanned PDFs or pages where specs appear only as images require OCR
 justified for the current use case volume.
 
 ## Status
-> Last updated: 2026-07-12 - volatility-aware TTLs: per-class expiry
+> Last updated: 2026-07-12 (later) - extraction hardening: PDF legibility
+> gate/layout retry/tables, playwright fetch rescue + thin-content render,
+> head-metadata prepend. Layer 2 recall 50% -> 60% across the day's four
+> fixes (engine fusion, rank fusion, extraction).
+> Previous same day - volatility-aware TTLs: per-class expiry
 > (realtime/recent/stable) resolved at read time, freshness tool param,
 > hybrid classifier fallback (volatility.py + shipped centroids), and the
 > volatility eval (evals/run_volatility_eval.py).

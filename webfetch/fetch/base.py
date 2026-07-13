@@ -8,6 +8,18 @@ requires zero changes to pipeline.py.
 
 from abc import ABC, abstractmethod
 
+# Shared by all fetchers. A bare "Mozilla/5.0" UA is trivially fingerprinted
+# and got us 403'd by fandom/oup/tiktok in eval runs - a full browser header
+# set recovers a measurable share of those pages.
+BROWSER_HEADERS: dict[str, str] = {
+    "User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                   "AppleWebKit/537.36 (KHTML, like Gecko) "
+                   "Chrome/126.0.0.0 Safari/537.36"),
+    "Accept": ("text/html,application/xhtml+xml,application/xml;q=0.9,"
+               "image/avif,image/webp,*/*;q=0.8"),
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
 
 class AbstractFetcher(ABC):
     """Base class for all page fetchers.

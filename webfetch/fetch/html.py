@@ -20,8 +20,8 @@ import logging
 import requests
 import trafilatura
 
-from webfetch.config import FETCH_TIMEOUT_SECS
-from webfetch.fetch.base import AbstractFetcher
+from webfetch.config import FETCH_TIMEOUT_SECS, MIN_EXTRACTED_CHARS
+from webfetch.fetch.base import BROWSER_HEADERS, AbstractFetcher
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ def _extract_tables_from_html(raw_html: str) -> str:
         return ""
 
     parts: list[str] = []
-    for i, df in enumerate(tables):
+    for df in tables:
         # Drop columns/rows that are entirely NaN (common in layout tables)
         df = df.dropna(how="all").dropna(axis=1, how="all")
         if df.empty:
@@ -53,6 +53,25 @@ def _extract_tables_from_html(raw_html: str) -> str:
         parts.append(df.to_markdown(index=False))
 
     return "\n\n".join(parts)
+
+
+def _extract_metadata_block(raw_html: str) -> str:
+    """Return "title - description" from the page head, or empty string.
+
+    Prose extractors deliberately skip <head> content, but factoid answers
+    frequently live in <title> and meta/og descriptions (measured: several
+    eval recall misses had the answer ONLY there, e.g. album release dates
+    in og:description). Prepending this block puts that text in front of
+    the ranker like any other chunk.
+    """
+    try:
+        meta = trafilatura.extract_metadata(raw_html)
+    except Exception:
+        return ""
+    if meta is None:
+        return ""
+    parts = [p for p in (meta.title, meta.description) if p]
+    return " - ".join(parts)
 
 
 def _fetch_with_readability(raw_html: str, url: str) -> str | None:
@@ -103,8 +122,19 @@ def _fetch_with_playwright(url: str) -> tuple[str, str] | None:
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True)
-            page = browser.new_page()
-            page.goto(url, timeout=FETCH_TIMEOUT_SECS * 1000)
+            # Headless Chrome's default UA says "HeadlessChrome" - exactly
+            # what bot walls key on. Present the normal browser UA instead.
+            page = browser.new_page(
+                user_agent=BROWSER_HEADERS["User-Agent"],
+                locale="en-US",
+            )
+            resp = page.goto(url, timeout=FETCH_TIMEOUT_SECS * 1000)
+            # goto() does not raise on HTTP errors - without this check,
+            # 404/403 error pages would be returned as page "content".
+            if resp is not None and resp.status >= 400:
+                browser.close()
+                logger.debug("playwright got HTTP %d for %s", resp.status, url)
+                return None
             html = page.content()
             browser.close()
         return html, url
@@ -145,19 +175,25 @@ class HTMLFetcher(AbstractFetcher):
         # Step 1: get raw HTML - trafilatura.fetch_url handles redirects/encoding
         raw_html = trafilatura.fetch_url(url)
 
+        used_playwright = False
         if not raw_html:
-            # trafilatura fetch failed - try plain requests before heavier fallbacks
+            # trafilatura fetch failed - retry with full browser headers
+            # (bot walls 403 the default UA but often pass a real header set)
             try:
-                resp = requests.get(
-                    url,
-                    timeout=self._timeout,
-                    headers={"User-Agent": "Mozilla/5.0"},
-                )
+                resp = requests.get(url, timeout=self._timeout,
+                                    headers=BROWSER_HEADERS)
                 resp.raise_for_status()
                 raw_html = resp.text
             except Exception as exc:
                 logger.warning("Failed to fetch %s: %s", url, exc)
-                return None
+                # Last resort: a real browser via playwright. Previously this
+                # fallback only ran when extraction failed on FETCHED HTML,
+                # so hard-blocked pages never reached it.
+                result = _fetch_with_playwright(url)
+                if result is None:
+                    return None
+                raw_html, _ = result
+                used_playwright = True
 
         # Step 2: extract main text, trying each method in order
         text = trafilatura.extract(
@@ -175,18 +211,32 @@ class HTMLFetcher(AbstractFetcher):
             logger.debug("readability empty for %s, trying newspaper4k", url)
             text = _fetch_with_newspaper(url)
 
-        if not text:
-            logger.debug("newspaper4k empty for %s, trying playwright", url)
+        # Playwright render when extraction failed OR produced suspiciously
+        # little text - JS-rendered SPAs return shell HTML that extracts to
+        # a thin nav/footer remnant, which used to mask the real content.
+        if (not text or len(text) < MIN_EXTRACTED_CHARS) and not used_playwright:
+            logger.debug("thin/no text for %s, trying playwright render", url)
             result = _fetch_with_playwright(url)
             if result:
                 playwright_html, _ = result
-                raw_html = playwright_html
-                text = trafilatura.extract(
-                    raw_html,
+                rendered = trafilatura.extract(
+                    playwright_html,
                     include_tables=False,
                     output_format="markdown",
                     favor_recall=True,
                 )
+                if rendered and len(rendered) > len(text or ""):
+                    raw_html = playwright_html
+                    text = rendered
+
+        # Head metadata (title + description) - factoid answers often live
+        # ONLY there. Prepend so it ranks like any other chunk; when every
+        # prose extractor failed, metadata alone is still worth returning.
+        meta_block = _extract_metadata_block(raw_html)
+        if meta_block and text:
+            text = meta_block + "\n\n" + text
+        elif meta_block and not text:
+            text = meta_block
 
         if not text:
             logger.warning("All extraction methods failed for %s", url)
