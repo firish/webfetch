@@ -4,22 +4,7 @@ Ordered by priority. Every feature follows the project practice: eval first,
 implementation second, measured acceptance gate third. Shipped work moves to
 the bottom.
 
-## 1. Multi-engine RRF fusion (in progress)
-
-Fuse ranked URL lists from multiple search engines via Reciprocal Rank
-Fusion before fetching. Two payoffs: recall (union + agreement boost -
-attacks the measured 50% Layer 2 retrieval recall) and resilience (one
-engine rate-limiting degrades results instead of erroring; DDG cost one
-eval run 40 errors).
-
-- Engines: DDG (free) + Brave (free tier) now; Tavily adapter for a third
-  independent voice (free tier, needs TAVILY_API_KEY)
-- Design: `MultiSearchAdapter(AbstractSearchAdapter)` - parallel fan-out,
-  URL-keyed RRF, zero pipeline changes
-- Acceptance: Layer 2 retrieval recall, fused vs best single engine
-- Lift: ~half a day
-
-## 2. Sentence-level extractive compression
+## 1. Sentence-level extractive compression
 
 Within each top-ranked chunk, keep only the sentences relevant to the query
 (bi-encoder scored, batched) with guards: preceding-sentence retention for
@@ -33,7 +18,7 @@ so cached chunks stay budget-agnostic.
   gate roughly "tokens halved, recall drop under 2-4 points"
 - Lift: ~a day (compressor is small; the eval extension is the work)
 
-## 3. Robust PDF / table / datasheet extraction (important)
+## 2. Robust PDF / table / datasheet extraction (important)
 
 Essential for a usable webfetch tool - spec and datasheet content lives in
 PDFs and HTML tables, and eval runs surfaced garbled PDF text entering the
@@ -49,7 +34,7 @@ ranker (e.g. columnar PDFs extracted as interleaved characters).
   slice + a legibility metric on emitted chunks
 - Lift: 1-2 days (layout detection is the unpredictable part)
 
-## 4. Stale-while-revalidate
+## 3. Stale-while-revalidate
 
 Serve expired-but-present cache rows instantly with honest provenance
 ("[cache: stale, 18m old, realtime - refreshing]") and refresh in a
@@ -73,6 +58,11 @@ in-flight set; keep stale row if refresh fails.
 - Retry/backoff on search adapters; negative caching of failed fetches
 
 ## Shipped
+
+- 2026-07-12: multi-engine RRF fusion (MultiSearchAdapter, Tavily adapter,
+  "multi" factory provider). Measured: recall 52.0% vs 50% single-engine
+  (flat - extraction is the recall bottleneck, see item 2), but suite
+  errors 12 -> 0: transient engine failures are absorbed
 
 - 2026-07-12: volatility-aware TTLs (realtime/recent/stable, model hint +
   hybrid classifier fallback, realtime recall 0.885)

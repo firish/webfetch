@@ -21,10 +21,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import statistics
 import sys
 import tempfile
 import time
+
+# Tokenizers' thread pool interacts badly with forked/threaded native code
+# (observed: one SIGABRT mid-suite with fork warnings). Pin it off before
+# any transformers import.
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -319,9 +325,10 @@ def main() -> None:
     parser.add_argument("--out-dir", type=Path, default=RESULTS_DIR)
     parser.add_argument("--budget-chars", type=int, default=DEFAULT_TOOL_RESULT_BUDGET)
     parser.add_argument("--provider", default=DEFAULT_SEARCH_PROVIDER,
-                        choices=["ddg", "brave", "serper"],
-                        help="Search provider (brave/serper need API keys; "
-                             "ddg rate-limits long suites)")
+                        choices=["ddg", "brave", "serper", "tavily", "multi"],
+                        help="Search provider (keyed engines need API keys; "
+                             "ddg rate-limits long suites; multi = RRF "
+                             "fusion of all engines with credentials)")
     parser.add_argument("--exact-cache-only", action="store_true",
                         help="Use the exact-match SqliteCache (pre-semantic "
                              "baseline behavior)")

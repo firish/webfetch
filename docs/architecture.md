@@ -99,11 +99,13 @@ webfetch/
 ├── config.py            # constants, defaults, token budgets
 │
 ├── search/
-│   ├── __init__.py      # get_search_adapter() factory + exports
+│   ├── __init__.py      # get_search_adapter() factory ("multi" = fusion) + exports
 │   ├── base.py          # AbstractSearchAdapter interface
 │   ├── ddg.py           # DuckDuckGo adapter (free, dev use)
 │   ├── brave.py         # Brave Search API adapter (prod)
-│   └── serper.py        # Serper/Google adapter (prod, best for industrial)
+│   ├── serper.py        # Serper/Google adapter (prod, best for industrial)
+│   ├── tavily.py        # Tavily adapter (LLM-focused API, free tier)
+│   └── multi.py         # MultiSearchAdapter: parallel fan-out + URL-keyed RRF
 │
 ├── fetch/
 │   ├── __init__.py      # fetch() router + fetch_all() thread-pool fetching
@@ -401,6 +403,17 @@ thresholds, verifier choice, and TTLs stay in config where the eval harness
 can tune them. Rationale: showing the matched query lets the calling model
 catch any residual semantic false positive for ~20 tokens, while per-call
 threshold knobs would make behavior non-reproducible.
+
+### Multi-engine RRF fusion: resilience first, recall second (measured)
+`MultiSearchAdapter` fans one query out to every engine with credentials and
+fuses ranked URL lists via RRF (same formula as rank/rrf.py, keyed by
+normalized URL). Engine failures are logged and skipped; it raises only when
+ALL engines fail. Measured on Layer 2: retrieval recall 52.0% fused vs 50%
+brave-only (within noise - search is not the recall bottleneck; extraction
+is, see ROADMAP item 3), but errors went 12 -> 0 across a 65-query suite
+because transient single-engine failures are absorbed. Fusion runs cache
+under their own provider_name ("multi(ddg+brave+...)") so cached results
+never mix across provider configurations.
 
 ### Volatility classification: model hint first, measured fallback second
 The calling model classifies its own query's volatility via the `freshness`
