@@ -31,6 +31,26 @@ in-flight set; keep stale row if refresh fails.
 - Acceptance: TTL unit suite extension + latency-at-expiry measurement
 - Lift: ~a day
 
+## Cheap wins (from the 2026-07-13 competitor gap analysis)
+
+Small lifts with clear value, orderable ahead of or between the numbered items:
+
+- Freshness -> engine time filters: we already classify every query as
+  realtime/recent/stable (model hint + fallback classifier); pass the class
+  through to the engines' recency params (Brave `freshness`, Serper `tbs`,
+  Tavily `time_range`) so realtime queries stop retrieving stale pages.
+  Natural extension of the volatility system. Lift: hours.
+- Domain include/exclude tool param: agents genuinely use this ("only
+  search docs.python.org"); engines support it natively (site: operators /
+  API params) + post-search URL filter as backstop. Lift: hours.
+- Cache-only / lockdown mode: serve from cache, never hit the network
+  (Firecrawl ships this as `lockdown`); we have the cache - it is one flag
+  plus a miss message. Good for offline runs and deterministic tests.
+  Lift: an hour.
+- Expose structured extraction in tool mode: extraction mode (keys dict ->
+  JSON via extractor adapters) is already built; surfacing it as an
+  optional tool capability is packaging, not building. Lift: half a day.
+
 ## Backlog (unordered)
 
 - MCP server wrapper (local stdio first; remote server needs a shared
@@ -41,6 +61,26 @@ in-flight set; keep stale row if refresh fails.
 - Cache eviction policy (size cap / LRU) - required before any shared
   remote deployment
 - Retry/backoff on search adapters; negative caching of failed fetches
+
+## Deferred (valuable but heavy - from the competitor gap analysis)
+
+Features common in the field that would take real engineering or conflict
+with the library's design; revisit only with a concrete use case:
+
+- News/images/video verticals: engines expose them, but plumbing separate
+  result types through fetch/rank/extract is a real lift
+- Site crawling / sitemap ingestion (Firecrawl's territory) - different
+  product shape from query-driven search
+- Hosted anti-bot muscle (proxy rotation, CAPTCHA solving) - an arms race;
+  playwright rescue covers the measurable part today
+- Async/batch endpoints - conflicts with the single-pipeline constraint;
+  needs the shared-cache/eviction work first
+- Geo/language localization params across engines
+- Neural find-similar over a proprietary index (Exa's moat) - requires
+  owning an index, out of scope by design
+- Answer synthesis with citation formatting (Sonar-style) - in tool mode
+  the calling model IS the synthesizer; a standalone answer endpoint is a
+  different product
 
 ## Shipped
 

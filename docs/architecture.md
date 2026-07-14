@@ -523,11 +523,16 @@ Three eval layers exist so feature claims ship with numbers:
   OPPORTUNITY rate (what a semantic cache would serve, measured before the
   feature exists), and false-hit risk across the suite.
 
-- **Layer 3 (run_e2e_eval.py, live API):** the release gate - same model
-  answers the same 50 questions with our tool vs the hosted web_search
-  tool, SimpleQA-style judging, measured cost from usage fields. First
-  run (Opus 4.7, 2026-07-13): ours 96% at $0.025/query vs hosted 92% at
-  $0.103/query - hosted accuracy matched at 24% of the cost.
+- **Layer 3 (run_e2e_eval.py, live API):** the release gate - the same
+  agent loop answers the same 50 questions with swappable arms:
+  ours-multi (production 4-engine fusion), ours-ddg ("miser" - $0 engine
+  fees), hosted Anthropic web_search, Tavily/Exa as tool backends, and
+  Perplexity Sonar as a direct-answer alternative. SimpleQA-style judging;
+  honest cost model (Opus tokens + per-search engine fees for ours, each
+  competitor's published request fees). First two-arm run (Opus 4.7,
+  2026-07-13): ours 96% at $0.025/query vs hosted 92% at $0.103/query -
+  hosted accuracy matched at 24% of the cost (token cost only; engine
+  fees add ~$0.013/fresh search).
 
 Feature-scoped evals follow the same pattern: run_volatility_eval.py
 (classifier bake-off) and run_compression_eval.py (capture 50 live results
