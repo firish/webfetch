@@ -60,7 +60,8 @@ Small lifts with clear value, orderable ahead of or between the numbered items:
 - Cost receipts: cumulative $-saved telemetry vs hosted web search pricing
 - Cache eviction policy (size cap / LRU) - required before any shared
   remote deployment
-- Retry/backoff on search adapters; negative caching of failed fetches
+- Negative caching of failed fetches; per-adapter retry/backoff
+  (circuit breakers + failover shipped 2026-07-13 - see resilience.py)
 
 ## Deferred (valuable but heavy - from the competitor gap analysis)
 

@@ -77,6 +77,18 @@ TTL_BY_FRESHNESS: dict[str, int] = {
 # and for legacy rows cached before freshness existed.
 DEFAULT_FRESHNESS: str = "recent"
 
+# --- Search resilience ---
+# Circuit breaker: an engine failing this many CONSECUTIVE times (errors,
+# or silent-block empties) is benched for the cooldown, then given one
+# half-open probe. Stops burning latency on a dead/blocking engine.
+SEARCH_BREAKER_THRESHOLD: int = 3
+SEARCH_BREAKER_COOLDOWN_SECS: float = 300.0
+
+# In fusion, an engine's empty response only counts as a breaker failure
+# when a peer engine returned at least this many results for the SAME
+# query - distinguishes a silent block from a genuinely hard query.
+FUSION_PEER_EMPTY_MIN: int = 3
+
 # --- LLM extraction ---
 # Default model for the extraction step. Cheapest capable model by default.
 DEFAULT_EXTRACT_MODEL: str = "claude-haiku-4-5-20251001"

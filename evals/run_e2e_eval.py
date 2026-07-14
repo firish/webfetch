@@ -3,11 +3,13 @@ Layer 3: end-to-end answer accuracy and cost - webfetch vs the field.
 
 Arms (each answers the same questions, graded by the same judge):
 
-Agent-loop arms (identical Opus loop; only the web_search tool backend
+Agent-loop arms (identical loop; only the web_search tool backend
 differs - THE apples-to-apples comparison for "webfetch as a tool"):
 - ours-multi: webfetch tool, 4-engine RRF fusion ("balanced" - production)
 - ours-ddg:   webfetch tool, DDG only ("miser" - $0 engine fees)
+- ours-gpt:   webfetch tool driven by gpt-5.6-sol (provider-agnosticism)
 - hosted:     Anthropic's server-side web_search ($10/1k searches)
+- openai-hosted: OpenAI's server-side web_search, Responses API ($10/1k)
 - tavily:     Tavily search API results as the tool backend ($8/1k basic)
 - exa:        Exa neural search (+contents) as the tool backend ($7/1k)
 
@@ -60,9 +62,17 @@ MAX_TURNS = 6
 MAX_TOKENS = 2000
 TOOL_RESULT_BUDGET_CHARS = 8000  # same budget for every tool backend
 HOSTED_TOOL = {"type": "web_search_20260209", "name": "web_search"}
-# Identical for both arms - the comparison is the search tool, nothing else.
+# Identical for every arm - the comparison is the search tool, nothing else.
+# The DATE line is load-bearing: without it the model's training-cutoff
+# calendar makes it refuse to search for "future" events (fresh-set run
+# 2026-07-13: 3-10 zero-search refusals per arm). Hosted search effectively
+# has this server-side; injecting it puts client-side arms on equal footing.
+# Day-granular, so it never busts the prompt cache within a run.
 SYSTEM_PROMPT = (
-    "Answer the user's question using web search. Search as needed, then "
+    f"Today's date is {time.strftime('%Y-%m-%d')}. "
+    "Answer the user's question using web search. Your training data has a "
+    "cutoff, so for anything after it - including events you believe have "
+    "not happened yet - search instead of assuming. Search as needed, then "
     "give a SHORT final answer - just the fact asked for, no preamble."
 )
 
@@ -90,6 +100,14 @@ PRICE_CACHE_READ = 0.50
 PRICE_CACHE_WRITE = 6.25
 PRICE_OUT = 25.00
 HOSTED_SEARCH_FEE = 10.00 / 1000
+
+# OpenAI arms (verified 2026-07: developers.openai.com/api/docs/pricing).
+# gpt-5.6-sol is the Opus 4.7 pricing peer ($5 in / $30 out, cached $0.50);
+# OpenAI's hosted web_search is ALSO $10/1k calls + content tokens at model
+# rates - same fee structure as Anthropic's.
+OPENAI_MODEL = "gpt-5.6-sol"
+OPENAI_PRICES = (5.00, 0.50, 30.00)  # (input, cached input, output) per MTok
+OPENAI_HOSTED_SEARCH_FEE = 10.00 / 1000
 
 # Estimated engine fees per FRESH search (published prices, 2026-07):
 # brave base ~$3/1k + serper ~$1/1k + tavily basic $8/1k + ddg $0.
@@ -290,14 +308,17 @@ def answer_sonar(question: str) -> dict:
             "secs": time.perf_counter() - t0, "cost": cost, "error": None}
 
 
-def answer_broke(question: str, handler, provider: tuple) -> dict:
-    """OpenAI-compatible tool loop on a free-tier model. Serving cost: $0.
+def answer_openai_compat(question: str, handler, url: str, key: str,
+                         model: str, prices: tuple[float, float, float],
+                         fee_per_search: float = 0.0) -> dict:
+    """OpenAI-compatible chat-completions tool loop (broke + ours-gpt arms).
 
-    Free tiers rate-limit hard (Groq ~30 RPM, Gemini ~10 RPM), so 429s are
-    retried with a backoff instead of failing the question.
+    prices = (input, cached input, output) per MTok; (0, 0, 0) for free
+    tiers. Free tiers rate-limit hard (Groq ~30 RPM, Gemini ~10 RPM), so
+    429s are retried with a backoff instead of failing the question.
     """
     import requests
-    name, url, key, model = provider
+    p_in, p_cached, p_out = prices
     tool = {"type": "function", "function": {
         "name": "web_search",
         "description": GENERIC_TOOL["description"],
@@ -307,12 +328,21 @@ def answer_broke(question: str, handler, provider: tuple) -> dict:
                 {"role": "user", "content": question}]
     searches = 0
     t0 = time.perf_counter()
+
+    def _cost() -> float:
+        return ((usage["input"] - usage["cache_read"]) * p_in
+                + usage["cache_read"] * p_cached
+                + usage["output"] * p_out) / 1e6 + searches * fee_per_search
+
+    # gpt-5.x rejects max_tokens; compat providers (Groq/Gemini) expect it.
+    token_param = ("max_completion_tokens" if "api.openai.com" in url
+                   else "max_tokens")
     for _ in range(MAX_TURNS):
         for attempt in range(4):
             resp = requests.post(
                 url, headers={"Authorization": f"Bearer {key}"},
                 json={"model": model, "messages": messages, "tools": [tool],
-                      "max_tokens": MAX_TOKENS},
+                      token_param: MAX_TOKENS},
                 timeout=120,
             )
             if resp.status_code != 429:
@@ -323,12 +353,14 @@ def answer_broke(question: str, handler, provider: tuple) -> dict:
         u = data.get("usage") or {}
         usage["input"] += u.get("prompt_tokens", 0) or 0
         usage["output"] += u.get("completion_tokens", 0) or 0
+        usage["cache_read"] += ((u.get("prompt_tokens_details") or {})
+                                .get("cached_tokens", 0) or 0)
         msg = data["choices"][0]["message"]
         tool_calls = msg.get("tool_calls")
         if not tool_calls:
             return {"answer": (msg.get("content") or "").strip(),
                     "searches": searches, "usage": usage,
-                    "secs": time.perf_counter() - t0, "cost": 0.0,
+                    "secs": time.perf_counter() - t0, "cost": _cost(),
                     "error": None}
         messages.append(msg)
         for tc in tool_calls:
@@ -341,8 +373,103 @@ def answer_broke(question: str, handler, provider: tuple) -> dict:
             messages.append({"role": "tool", "tool_call_id": tc["id"],
                              "content": out})
     return {"answer": "", "searches": searches, "usage": usage,
-            "secs": time.perf_counter() - t0, "cost": 0.0,
+            "secs": time.perf_counter() - t0, "cost": _cost(),
             "error": "max turns exceeded"}
+
+
+def answer_gpt_tool_loop(question: str, handler) -> dict:
+    """webfetch tool driven by gpt-5.6 via the Responses API function-tool
+    loop (chat completions rejects function tools on reasoning models)."""
+    import requests
+    p_in, p_cached, p_out = OPENAI_PRICES
+    tool = {"type": "function", "name": "web_search",
+            "description": GENERIC_TOOL["description"],
+            "parameters": GENERIC_TOOL["input_schema"]}
+    usage = {"input": 0, "output": 0, "cache_read": 0, "cache_write": 0}
+    items: list[dict] = [{"role": "user", "content": question}]
+    searches = 0
+    t0 = time.perf_counter()
+
+    def _cost() -> float:
+        return ((usage["input"] - usage["cache_read"]) * p_in
+                + usage["cache_read"] * p_cached
+                + usage["output"] * p_out) / 1e6 \
+            + searches * ENGINE_FEE_PER_SEARCH["ours-multi"]
+
+    for _ in range(MAX_TURNS):
+        resp = requests.post(
+            "https://api.openai.com/v1/responses",
+            headers={"Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"},
+            json={"model": OPENAI_MODEL, "instructions": SYSTEM_PROMPT,
+                  "input": items, "tools": [tool],
+                  "max_output_tokens": MAX_TOKENS},
+            timeout=180,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        u = data.get("usage") or {}
+        usage["input"] += u.get("input_tokens", 0) or 0
+        usage["output"] += u.get("output_tokens", 0) or 0
+        usage["cache_read"] += ((u.get("input_tokens_details") or {})
+                                .get("cached_tokens", 0) or 0)
+        output = data.get("output", [])
+        items.extend(output)
+        calls = [i for i in output if i.get("type") == "function_call"]
+        if not calls:
+            texts = [part.get("text", "")
+                     for i in output if i.get("type") == "message"
+                     for part in i.get("content", [])
+                     if part.get("type") == "output_text"]
+            return {"answer": " ".join(texts).strip(), "searches": searches,
+                    "usage": usage, "secs": time.perf_counter() - t0,
+                    "cost": _cost(), "error": None}
+        for fc in calls:
+            searches += 1
+            try:
+                out = handler(json.loads(fc.get("arguments") or "{}"))
+            except Exception as exc:
+                out = f"web_search error: {type(exc).__name__}: {exc}"
+            items.append({"type": "function_call_output",
+                          "call_id": fc["call_id"], "output": out})
+    return {"answer": "", "searches": searches, "usage": usage,
+            "secs": time.perf_counter() - t0, "cost": _cost(),
+            "error": "max turns exceeded"}
+
+
+def answer_openai_hosted(question: str) -> dict:
+    """OpenAI's server-side web_search via the Responses API (one-shot;
+    the server runs the search loop, like Anthropic's hosted tool)."""
+    import requests
+    p_in, p_cached, p_out = OPENAI_PRICES
+    t0 = time.perf_counter()
+    resp = requests.post(
+        "https://api.openai.com/v1/responses",
+        headers={"Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"},
+        json={"model": OPENAI_MODEL, "instructions": SYSTEM_PROMPT,
+              "input": question, "tools": [{"type": "web_search"}],
+              "max_output_tokens": MAX_TOKENS},
+        timeout=180,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    searches = sum(1 for item in data.get("output", [])
+                   if item.get("type") == "web_search_call")
+    texts = []
+    for item in data.get("output", []):
+        if item.get("type") == "message":
+            for part in item.get("content", []):
+                if part.get("type") == "output_text":
+                    texts.append(part.get("text", ""))
+    u = data.get("usage") or {}
+    cached = (u.get("input_tokens_details") or {}).get("cached_tokens", 0) or 0
+    usage = {"input": u.get("input_tokens", 0), "output": u.get("output_tokens", 0),
+             "cache_read": cached, "cache_write": 0}
+    cost = ((usage["input"] - cached) * p_in + cached * p_cached
+            + usage["output"] * p_out) / 1e6 \
+        + searches * OPENAI_HOSTED_SEARCH_FEE
+    return {"answer": " ".join(texts).strip(), "searches": searches,
+            "usage": usage, "secs": time.perf_counter() - t0,
+            "cost": cost, "error": None}
 
 
 # Free-tier providers for the broke arm, tried in order. Groq first: higher
@@ -368,9 +495,11 @@ def _broke_provider() -> tuple | None:
 
 
 ARM_KEY_ENV = {"tavily": "TAVILY_API_KEY", "exa": "EXA_API_KEY",
-               "sonar": "PERPLEXITY_API_KEY"}
-ALL_ARMS = ["ours-multi", "ours-ddg", "hosted", "tavily", "exa", "sonar",
-            "broke"]
+               "sonar": "PERPLEXITY_API_KEY",
+               "ours-gpt": "OPENAI_API_KEY",
+               "openai-hosted": "OPENAI_API_KEY"}
+ALL_ARMS = ["ours-multi", "ours-ddg", "ours-gpt", "hosted", "openai-hosted",
+            "tavily", "exa", "sonar", "broke"]
 
 
 def grade(client, question: str, gold: list[str], answer_type: str | None,
@@ -407,6 +536,11 @@ def _make_pipeline_backend(provider: str, arm: str):
 
 def make_answer_fn(arm: str, client, model: str):
     """Build the per-question answer function for an arm (lazy resources)."""
+    if arm == "ours-gpt":
+        # Our production pipeline driven by OpenAI's flagship instead of
+        # Opus - shows the tool is provider-agnostic, at GPT pricing.
+        backend = _make_pipeline_backend("multi", arm)
+        return lambda q: answer_gpt_tool_loop(q, backend)
     if arm.startswith("ours-"):
         provider = "multi" if arm == "ours-multi" else "ddg"
         backend = _make_pipeline_backend(provider, arm)
@@ -415,11 +549,13 @@ def make_answer_fn(arm: str, client, model: str):
         return lambda q: answer_tool_loop(client, model, q,
                                           [WEB_SEARCH_TOOL], backend, fee)
     if arm == "broke":
-        provider = _broke_provider()
-        print(f"[broke] free-tier model: {provider[0]}/{provider[3]}",
-              flush=True)
+        name, url, key, bmodel = _broke_provider()
+        print(f"[broke] free-tier model: {name}/{bmodel}", flush=True)
         backend = _make_pipeline_backend("ddg", arm)
-        return lambda q: answer_broke(q, backend, provider)
+        return lambda q: answer_openai_compat(q, backend, url, key, bmodel,
+                                              (0.0, 0.0, 0.0))
+    if arm == "openai-hosted":
+        return lambda q: answer_openai_hosted(q)
     if arm == "hosted":
         return lambda q: answer_hosted(client, model, q)
     if arm == "tavily":

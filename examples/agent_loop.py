@@ -16,6 +16,7 @@ Requires ANTHROPIC_API_KEY in the environment or a .env file.
 from __future__ import annotations
 
 import sys
+import time
 
 import anthropic
 from dotenv import load_dotenv
@@ -27,12 +28,19 @@ MAX_TOKENS = 16000
 # Bounds the tool-use loop so a confused model cannot search forever.
 MAX_TURNS = 10
 
-# Frozen string: a stable prompt prefix is what makes prompt caching hit.
+# Stable-per-day prompt prefix: prompt caching still hits across every call
+# within the day. The DATE line is essential in any search agent loop -
+# without it the model's training-cutoff calendar makes it refuse to search
+# for events it believes "have not happened yet" (measured: 3-10 zero-search
+# refusals per 27 recent-event questions in our eval).
 SYSTEM_PROMPT = (
+    f"Today's date is {time.strftime('%Y-%m-%d')}. "
     "You are a helpful research assistant. Use the web_search tool for any "
     "facts you are not certain about, especially current events, prices, and "
-    "product specs. Issue focused queries; search again with a different "
-    "query if results are insufficient. Cite source URLs in your answer."
+    "product specs - including events after your training cutoff that you "
+    "believe have not happened yet. Issue focused queries; search again with "
+    "a different query if results are insufficient. Cite source URLs in your "
+    "answer."
 )
 
 

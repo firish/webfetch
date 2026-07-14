@@ -106,7 +106,8 @@ webfetch/
 │   ├── brave.py         # Brave Search API adapter (prod)
 │   ├── serper.py        # Serper/Google adapter (prod, best for industrial)
 │   ├── tavily.py        # Tavily adapter (LLM-focused API, free tier)
-│   └── multi.py         # MultiSearchAdapter: parallel fan-out + URL-keyed RRF
+│   ├── multi.py         # MultiSearchAdapter: parallel fan-out + URL-keyed RRF
+│   └── resilience.py    # circuit breakers + priority-failover adapter
 │
 ├── fetch/
 │   ├── __init__.py      # fetch() router + fetch_all() thread-pool fetching
@@ -498,6 +499,22 @@ cached rows stay budget-agnostic. Alternatives rejected by the sweep:
 lead-position baseline (14/29 survival - scoring earns its keep), bi-encoder
 (24-28/29), threshold policies (dominated by ratio at equal tokens).
 
+### Search resilience: silent blocks are failures, breakers bench engines
+DDG fingerprint-blocks automated clients with an empty HTTP 202 - zero
+results, no exception - so naive callers silently degrade to "no results".
+(TLS impersonation itself is handled by the ddgs/primp dependency.) Two
+mechanisms: per-engine circuit breakers (3 consecutive failures -> benched
+for 5 min, half-open probe after) so a dying engine stops adding its
+timeout to every query, and FallbackSearchAdapter ("fallback" provider) -
+priority failover where DDG serves for free and a keyed engine catches its
+blocks. Block detection differs by context: in fusion, an empty response
+counts as a breaker failure only when a peer engine returned >= 3 results
+for the same query (distinguishes a block from a genuinely hard query); in
+the fallback chain, any empty advances to the next engine. Agent loops
+using the tool MUST inject the current date into their system prompt -
+measured on the fresh-event eval set: without it the model's
+training-cutoff calendar causes zero-search refusals (3-10 of 27 per arm).
+
 ### Tool handler as the error boundary
 Pipeline (library layer) raises on search failure; handle_web_search (agent
 boundary) catches everything and returns readable error strings. An exception
@@ -526,8 +543,13 @@ Three eval layers exist so feature claims ship with numbers:
 - **Layer 3 (run_e2e_eval.py, live API):** the release gate - the same
   agent loop answers the same 50 questions with swappable arms:
   ours-multi (production 4-engine fusion), ours-ddg ("miser" - $0 engine
-  fees), hosted Anthropic web_search, Tavily/Exa as tool backends, and
-  Perplexity Sonar as a direct-answer alternative. SimpleQA-style judging;
+  fees), ours-gpt (our tool driven by gpt-5.6-sol - provider-agnostic),
+  hosted Anthropic web_search, openai-hosted (Responses API web_search),
+  Tavily/Exa as tool backends, Perplexity Sonar as a direct-answer
+  alternative, and broke (free-tier Groq/Gemini + DDG, $0.00/query).
+  A contamination-resistant companion dataset
+  (fresh_queries_2026_07.jsonl, hand-written questions on weeks-old
+  events) guards against public-benchmark tuning. SimpleQA-style judging;
   honest cost model (Opus tokens + per-search engine fees for ours, each
   competitor's published request fees). First two-arm run (Opus 4.7,
   2026-07-13): ours 96% at $0.025/query vs hosted 92% at $0.103/query -
@@ -588,7 +610,12 @@ Scanned PDFs or pages where specs appear only as images require OCR
 justified for the current use case volume.
 
 ## Status
-> Last updated: 2026-07-13 (later) - sentence-level compression
+> Last updated: 2026-07-13 (night) - Layer 3 harness: ours-gpt +
+> openai-hosted arms (gpt-5.6-sol, Responses API), date injection in loop
+> prompts (fixes zero-search refusals on post-cutoff events), search
+> resilience (circuit breakers, silent-block detection, "fallback"
+> provider), fresh_queries_2026_07 contamination-resistant dataset.
+> Previous same day - sentence-level compression
 > (compress.py) + tool context format (same-URL header merge, hostname
 > headers): tool results halved to ~332 tokens mean with ZERO measured
 > recall drop (29/29 survival), cross-encoder scored, eval-gated

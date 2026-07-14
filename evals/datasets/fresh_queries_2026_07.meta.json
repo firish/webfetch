@@ -6,6 +6,7 @@
   "method": "Facts mined from the Wikipedia Current Events portals for June and July 2026 plus targeted news/sports/space sources; every load-bearing gold answer cross-checked against at least two independent results at build time (tennis/NBA finals, Long March 10B recovery, Artemis III crew each confirmed by 3+ outlets). Only SETTLED facts included - anything with a drifting answer (ongoing death tolls, live tournaments) was excluded so golds stay stable.",
   "grading": "Same fields and protocol as live_queries.jsonl (answers list + answer_type feeds evals/common.py answer_variants; judge fallback unchanged).",
   "caveats": "fresh-024 (Moana opening gross) rests on a single primary source; fresh-011/016/017/018/019/020/021/022/023/025/026/027 rest on the Wikipedia current-events portal (curated but single-venue). Regenerate a new vintage before reusing months later - freshness is the point.",
+  "revisions": "2026-07-13 (post first run, pre publication): fresh-021 reworded - original phrasing ('From which month and year did Sony announce...') was ambiguous between the announcement date and the end date; every arm that answered gave the announcement date. Gold answer unchanged.",
   "sources": [
     "https://en.wikipedia.org/wiki/Portal:Current_events/June_2026",
     "https://en.wikipedia.org/wiki/Portal:Current_events/July_2026",
