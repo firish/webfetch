@@ -21,7 +21,13 @@ from __future__ import annotations
 
 import logging
 
-from webfetch.config import DEFAULT_TOOL_RESULT_BUDGET
+from webfetch.compress import compress_chunks
+from webfetch.config import (
+    COMPRESSION_ENABLED,
+    DEFAULT_TOOL_RESULT_BUDGET,
+    TOOL_HEADER_STYLE,
+    TOOL_MERGE_SOURCES,
+)
 # Import from extract.base (a leaf module) rather than the extract package,
 # whose __init__ pulls in every provider adapter.
 from webfetch.extract.base import build_context
@@ -161,8 +167,15 @@ def handle_web_search(
                 "Try a different or broader phrasing."
             )
 
+        # Compression happens HERE - after the cache read - so cached rows
+        # stay full-text and retuning compression never invalidates them.
+        chunks = result.chunks
+        if COMPRESSION_ENABLED:
+            chunks = compress_chunks(query, chunks)
         return (_provenance_header(result) + "\n"
-                + build_context(result.chunks, budget_chars=budget_chars))
+                + build_context(chunks, budget_chars=budget_chars,
+                                merge_sources=TOOL_MERGE_SOURCES,
+                                header_style=TOOL_HEADER_STYLE))
     except Exception as exc:
         logger.warning("web_search tool call failed", exc_info=True)
         return (

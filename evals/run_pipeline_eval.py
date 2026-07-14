@@ -88,23 +88,42 @@ def retrieval_recall(gold_answers: list[str], answer_type: str | None,
     return False
 
 
-def estimate_tokens(chunks: list[Chunk], budget_chars: int) -> int:
-    """Estimated tokens of the tool-result string built from these chunks."""
+def estimate_tokens(chunks: list[Chunk], budget_chars: int,
+                    prod_format: bool = False) -> int:
+    """Estimated tokens of the tool-result string built from these chunks.
+
+    prod_format=True applies the tool path's context format (source merging,
+    header style) - used with --compress for full production parity.
+    """
     if not chunks:
         return 0
-    return len(build_context(chunks, budget_chars=budget_chars)) // CHARS_PER_TOKEN
+    fmt = {}
+    if prod_format:
+        from webfetch.config import TOOL_HEADER_STYLE, TOOL_MERGE_SOURCES
+        fmt = {"merge_sources": TOOL_MERGE_SOURCES,
+               "header_style": TOOL_HEADER_STYLE}
+    return len(build_context(chunks, budget_chars=budget_chars, **fmt)) // CHARS_PER_TOKEN
 
 
-def run_one(pipeline: Pipeline, row: dict, kind: str, budget_chars: int) -> QueryRunRecord:
-    """Run one query through the pipeline, never raising."""
+def run_one(pipeline: Pipeline, row: dict, kind: str, budget_chars: int,
+            compress: bool = False) -> QueryRunRecord:
+    """Run one query through the pipeline, never raising.
+
+    With compress=True, recall and tokens are measured on the COMPRESSED
+    chunks - production parity with the tool path's formatting step.
+    """
     try:
         result = pipeline.search_chunks(row["query"])
+        chunks = result.chunks
+        if compress:
+            from webfetch.compress import compress_chunks
+            chunks = compress_chunks(row["query"], chunks)
         return QueryRunRecord(
             id=row["id"], query=row["query"], kind=kind,
-            recall_hit=retrieval_recall(row["answers"], row.get("answer_type"), result.chunks),
-            n_chunks=len(result.chunks), n_failed_urls=len(result.failed_urls),
+            recall_hit=retrieval_recall(row["answers"], row.get("answer_type"), chunks),
+            n_chunks=len(chunks), n_failed_urls=len(result.failed_urls),
             elapsed_secs=round(result.elapsed_secs, 3),
-            est_tokens=estimate_tokens(result.chunks, budget_chars),
+            est_tokens=estimate_tokens(chunks, budget_chars, prod_format=compress),
             from_cache=result.from_cache, error=None,
             cache_kind=result.cache_kind, matched_query=result.matched_query,
         )
@@ -117,7 +136,8 @@ def run_one(pipeline: Pipeline, row: dict, kind: str, budget_chars: int) -> Quer
 
 
 def run_suite(queries: list[dict], pipeline: Pipeline, limit: int | None,
-              sleep_secs: float, budget_chars: int) -> list[QueryRunRecord]:
+              sleep_secs: float, budget_chars: int,
+              compress: bool = False) -> list[QueryRunRecord]:
     """Run base queries (cold + exact replay) then their paraphrases."""
     base = [q for q in queries if q.get("paraphrase_of") is None]
     paras = [q for q in queries if q.get("paraphrase_of") is not None]
@@ -130,7 +150,7 @@ def run_suite(queries: list[dict], pipeline: Pipeline, limit: int | None,
     total = len(base) + len(paras)
     done = 0
     for row in base:
-        base_rec = run_one(pipeline, row, "base", budget_chars)
+        base_rec = run_one(pipeline, row, "base", budget_chars, compress)
         records.append(base_rec)
         done += 1
         print(f"  [{done}/{total}] base         {base_rec.id}: "
@@ -143,14 +163,14 @@ def run_suite(queries: list[dict], pipeline: Pipeline, limit: int | None,
             time.sleep(RATE_LIMIT_BACKOFF_SECS)
             continue
         time.sleep(sleep_secs)
-        replay_rec = run_one(pipeline, row, "exact_replay", budget_chars)
+        replay_rec = run_one(pipeline, row, "exact_replay", budget_chars, compress)
         records.append(replay_rec)
         if replay_rec.error:
             time.sleep(RATE_LIMIT_BACKOFF_SECS)
         elif not replay_rec.from_cache:
             time.sleep(sleep_secs)
     for row in paras:
-        rec = run_one(pipeline, row, "paraphrase", budget_chars)
+        rec = run_one(pipeline, row, "paraphrase", budget_chars, compress)
         records.append(rec)
         done += 1
         print(f"  [{done}/{total}] paraphrase   {rec.id}: "
@@ -329,6 +349,10 @@ def main() -> None:
                         help="Search provider (keyed engines need API keys; "
                              "ddg rate-limits long suites; multi = RRF "
                              "fusion of all engines with credentials)")
+    parser.add_argument("--compress", action="store_true",
+                        help="Measure recall/tokens on compressed chunks "
+                             "(production tool-path parity). Default off so "
+                             "historical Layer 2 numbers stay comparable.")
     parser.add_argument("--exact-cache-only", action="store_true",
                         help="Use the exact-match SqliteCache (pre-semantic "
                              "baseline behavior)")
@@ -361,7 +385,8 @@ def main() -> None:
     )
 
     queries = read_jsonl(args.dataset)
-    records = run_suite(queries, pipeline, args.limit, args.sleep, args.budget_chars)
+    records = run_suite(queries, pipeline, args.limit, args.sleep, args.budget_chars,
+                        compress=args.compress)
     agg = aggregate(records)
 
     base_rows = [q for q in queries if q.get("paraphrase_of") is None]

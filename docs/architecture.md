@@ -95,6 +95,7 @@ webfetch/
 ├── cache.py             # AbstractCache + CacheMatch + SqliteCache (exact match)
 ├── semcache.py          # SemanticSqliteCache: paraphrase-matching query cache
 ├── volatility.py        # freshness classifier (keywords -> centroid hybrid)
+├── compress.py          # sentence-level extractive compression (tool results)
 ├── data/                # shipped artifacts (volatility centroids, ~25KB)
 ├── config.py            # constants, defaults, token budgets
 │
@@ -138,6 +139,9 @@ evals/                   # standalone eval scripts - NOT part of the webfetch pa
 ├── build_datasets.py    # deterministic sampling (SEED=42) -> checked-in JSONL
 ├── run_matcher_eval.py  # Layer 1: offline semantic-matcher threshold sweep
 ├── run_pipeline_eval.py # Layer 2: live pipeline metrics + cache diagnostics
+├── run_e2e_eval.py      # Layer 3: answer accuracy + cost vs hosted web_search
+├── run_volatility_eval.py    # freshness classifier bake-off (FreshQA)
+├── run_compression_eval.py   # compression frontier: capture + offline sweep
 ├── test_metrics.py      # plain-assert self-test of the metric primitives
 ├── datasets/            # checked-in JSONL samples (+ .meta.json provenance sidecars)
 └── results/             # gitignored run outputs
@@ -247,8 +251,29 @@ def get_default_pipeline() -> Pipeline: ...  # lazy module-level singleton
 ```
 - `handle_web_search` NEVER raises - all failures return readable error
   strings so an agent loop cannot crash mid-conversation.
-- Result formatting reuses `build_context()` from extract/base.py (the
-  `[Source: title | url]` labeling under a char budget).
+- Result formatting: chunks are compressed (compress.py, below) then passed
+  to `build_context()` from extract/base.py with the tool format - same-URL
+  chunks merged under ONE `[Source: title | hostname]` header
+  (TOOL_MERGE_SOURCES / TOOL_HEADER_STYLE in config).
+
+### Sentence-level compression (compress.py)
+```python
+def compress_chunks(query: str, chunks: list[Chunk], ...) -> list[Chunk]: ...
+```
+- Runs at tool-result formatting time, AFTER the cache read - cached rows
+  stay full-text, so retuning compression never invalidates the cache.
+- Splits each chunk into sentences (regex, zero-dep; newlines are hard
+  boundaries), scores them against the query with the ms-marco
+  cross-encoder (one batched predict over all ~15-25 sentences of a
+  result), keeps the best up to 50% of chunk chars, in document order.
+- Guards: pronoun-initial keeps retain their predecessor (anaphora chains
+  resolve); table-like lines (`|` or digit-dense) bypass scoring; sentences
+  re-emitted by the chunker's 10% overlap are deduped across chunks.
+- Never raises and never mutates inputs; degrades to a zero-dep lexical
+  (IDF-weighted term coverage) scorer without webfetch[rerank].
+- Config picked by evals/run_compression_eval.py: recall 29/50 vs 29/50
+  uncompressed (29/29 answer survival) at 50% of baseline tokens
+  (332 vs 665 mean, formats included).
 
 ### Concurrent fetching
 - `fetch_all(urls, max_workers=DEFAULT_FETCH_WORKERS) -> dict[str, str | None]`
@@ -456,6 +481,23 @@ have required shipping the dataset). Selection was cost-weighted: a
 fast-changing query classified stable serves stale results for months, while
 the reverse only costs an extra search.
 
+### Compression: cross-encoder sentences, post-cache, formats count (measured)
+Tool results are compressed by sentence selection, not LLM rewriting -
+abstractive compression needs an API call per result, against the
+zero-marginal-cost design. The first sweep FAILED the registered gate
+(tokens halved, recall drop <= 2/50): bi-encoder and lexical scorers lose
+3-5 answers of 29 at half tokens. Two findings turned it around: (1) the
+ms-marco cross-encoder (already shipped for ranking, cheap at ~20 sentences
+per result) selects strictly better - zero answers lost; (2) 26% of an
+uncompressed result is fixed source-header overhead sentence selection
+cannot touch, so formatting joined the frontier: same-URL header merging
+(top-5 chunks span ~3.7 URLs) plus hostname-only headers are recall-free
+token cuts. Titles stay in headers - the extraction-hardening diagnosis
+showed answers living in them. Compression runs after the cache read so
+cached rows stay budget-agnostic. Alternatives rejected by the sweep:
+lead-position baseline (14/29 survival - scoring earns its keep), bi-encoder
+(24-28/29), threshold policies (dominated by ratio at equal tokens).
+
 ### Tool handler as the error boundary
 Pipeline (library layer) raises on search failure; handle_web_search (agent
 boundary) catches everything and returns readable error strings. An exception
@@ -486,6 +528,11 @@ Three eval layers exist so feature claims ship with numbers:
   tool, SimpleQA-style judging, measured cost from usage fields. First
   run (Opus 4.7, 2026-07-13): ours 96% at $0.025/query vs hosted 92% at
   $0.103/query - hosted accuracy matched at 24% of the cost.
+
+Feature-scoped evals follow the same pattern: run_volatility_eval.py
+(classifier bake-off) and run_compression_eval.py (capture 50 live results
+once, sweep compression configs x context formats offline on the identical
+chunks - controlled comparison, no repeated network runs).
 
 Dataset provenance lives in the .meta.json sidecars; sampling is seeded so
 rebuilds are byte-identical. FreshQA (volatility-labeled queries) is also
@@ -536,7 +583,15 @@ Scanned PDFs or pages where specs appear only as images require OCR
 justified for the current use case volume.
 
 ## Status
-> Last updated: 2026-07-12 (later) - extraction hardening: PDF legibility
+> Last updated: 2026-07-13 (later) - sentence-level compression
+> (compress.py) + tool context format (same-URL header merge, hostname
+> headers): tool results halved to ~332 tokens mean with ZERO measured
+> recall drop (29/29 survival), cross-encoder scored, eval-gated
+> (run_compression_eval.py). build_context() gained merge_sources /
+> header_style params.
+> Previous same day - Layer 3 e2e eval: ours 96% accuracy at $0.025/query
+> vs hosted 92% at $0.103/query.
+> Previous: 2026-07-12 - extraction hardening: PDF legibility
 > gate/layout retry/tables, playwright fetch rescue + thin-content render,
 > head-metadata prepend. Layer 2 recall 50% -> 64% across the day's five
 > fixes (engine fusion, rank fusion, extraction, 4-engine fusion).

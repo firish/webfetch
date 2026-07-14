@@ -102,3 +102,27 @@ SEMCACHE_MAX_CANDIDATES: int = 1
 # Larger than DEFAULT_TOKEN_BUDGET because in tool mode the calling model is
 # the extractor and benefits from a bit more surrounding context.
 DEFAULT_TOOL_RESULT_BUDGET: int = 8000
+
+# --- Sentence-level compression (tool-result formatting) ---
+# Applied AFTER the cache read, so cached rows stay full-text and retuning
+# these never invalidates the cache. Values picked by the eval sweep
+# (evals/run_compression_eval.py, 50 captured production results): this
+# config measured recall 29/50 vs 29/50 uncompressed (zero drop, 29/29
+# answer survival) at 50% of baseline tokens (332 vs 665 mean). The
+# cross-encoder scorer is what preserves recall - biencoder at the same
+# tokens loses 3-4 answers. Without [rerank] it degrades to the lexical
+# scorer (measured: 27/29 survival at 51%).
+COMPRESSION_ENABLED: bool = True
+COMPRESS_SCORER: str = "crossencoder"  # "crossencoder" | "biencoder" | "lexical" | "lead"
+COMPRESS_POLICY: str = "ratio"         # "ratio" | "topk" | "threshold"
+COMPRESS_PARAM: float = 0.5            # keep best sentences up to 50% of chunk chars
+COMPRESS_ANAPHORA_GUARD: bool = True   # coherence: +14 tokens, keeps pronouns resolvable
+COMPRESS_TABLE_GUARD: bool = True      # ablation: protects 1 answer of 29
+COMPRESS_DEDUP: bool = True            # ablation: -13 tokens free (chunk-overlap dupes)
+
+# Tool-result context format (build_context). Same eval: merging same-URL
+# chunks under one header + hostname-only headers cut the fixed header
+# overhead (26% of an uncompressed result) with zero measured recall cost -
+# titles stay because answers live in them (extraction-hardening eval).
+TOOL_MERGE_SOURCES: bool = True
+TOOL_HEADER_STYLE: str = "domain"      # "full" | "domain"

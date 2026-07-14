@@ -4,21 +4,7 @@ Ordered by priority. Every feature follows the project practice: eval first,
 implementation second, measured acceptance gate third. Shipped work moves to
 the bottom.
 
-## 1. Sentence-level extractive compression
-
-Within each top-ranked chunk, keep only the sentences relevant to the query
-(bi-encoder scored, batched) with guards: preceding-sentence retention for
-pronoun-initial sentences (anaphora), skip-compression for table-like lines
-(digits/units dense). Runs at tool-result formatting time, AFTER the cache,
-so cached chunks stay budget-agnostic.
-
-- Expected: ~612 -> ~200-300 tokens/result (2-3x vs our own baseline;
-  claims vs raw-snippet competitors are larger but must be measured)
-- Acceptance: tokens-vs-recall frontier from a Layer 2 budget sweep;
-  gate roughly "tokens halved, recall drop under 2-4 points"
-- Lift: ~a day (compressor is small; the eval extension is the work)
-
-## 2. Robust PDF / table / datasheet extraction (important)
+## 1. Robust PDF / table / datasheet extraction (important)
 
 Essential for a usable webfetch tool - spec and datasheet content lives in
 PDFs and HTML tables, and eval runs surfaced garbled PDF text entering the
@@ -34,7 +20,7 @@ ranker (e.g. columnar PDFs extracted as interleaved characters).
   slice + a legibility metric on emitted chunks
 - Lift: 1-2 days (layout detection is the unpredictable part)
 
-## 3. Stale-while-revalidate
+## 2. Stale-while-revalidate
 
 Serve expired-but-present cache rows instantly with honest provenance
 ("[cache: stale, 18m old, realtime - refreshing]") and refresh in a
@@ -57,6 +43,16 @@ in-flight set; keep stale row if refresh fails.
 - Retry/backoff on search adapters; negative caching of failed fetches
 
 ## Shipped
+
+- 2026-07-13 (later): sentence-level compression (webfetch/compress.py) +
+  tool context format (same-URL header merge, hostname-only headers).
+  Eval-gated (evals/run_compression_eval.py: capture 50 live results once,
+  sweep offline): tool results 665 -> 332 tokens mean (50%) with ZERO
+  recall drop (29/29 answer survival). The first sweep FAILED the gate -
+  bi-encoder/lexical scorers lose 3-5 answers at half tokens, and 26% of a
+  result is header overhead compression can't touch; the cross-encoder
+  scorer + header merging turned the negative result into a pass. Lexical
+  fallback without [rerank]: 27/29 survival at 51%
 
 - 2026-07-13: Layer 3 end-to-end eval (evals/run_e2e_eval.py): Claude Opus
   4.7 + our web_search tool vs Anthropic's hosted web_search, 50 SimpleQA

@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import re
 from abc import ABC, abstractmethod
+from urllib.parse import urlparse
 
 from webfetch.config import DEFAULT_TOKEN_BUDGET
 from webfetch.rank.base import Chunk
@@ -25,9 +26,27 @@ EXTRACTION_SYSTEM_PROMPT: str = (
 )
 
 
+def _header(chunk: Chunk, style: str) -> str:
+    """Source label for a chunk group.
+
+    Styles (measured by evals/run_compression_eval.py):
+        full: title + full URL - maximum attribution.
+        domain: title + hostname - URL paths are long and rarely carry
+            information the title does not (titles DO carry answers - the
+            extraction-hardening eval found answers living only in metadata,
+            so the title always stays).
+    """
+    if style == "domain":
+        host = urlparse(chunk.url).netloc or chunk.url
+        return f"[Source: {chunk.title} | {host}]"
+    return f"[Source: {chunk.title} | {chunk.url}]"
+
+
 def build_context(
     chunks: list[Chunk],
     budget_chars: int = DEFAULT_TOKEN_BUDGET,
+    merge_sources: bool = False,
+    header_style: str = "full",
 ) -> str:
     """Concatenate the top chunks into a single context string under a budget.
 
@@ -39,15 +58,30 @@ def build_context(
     Args:
         chunks: Ranked chunks from the rank stage (best first).
         budget_chars: Max characters of context to send to the LLM.
+        merge_sources: Group same-URL chunks under ONE header (first-
+            occurrence order; top-5 results typically span ~3.7 distinct
+            URLs, so duplicate headers are pure overhead). Within a group,
+            chunks keep rank order.
+        header_style: "full" or "domain" - see _header().
 
     Returns:
         A single string of labeled, budget-trimmed chunks.
     """
+    if merge_sources:
+        groups: dict[str, list[Chunk]] = {}
+        for c in chunks:
+            groups.setdefault(c.url, []).append(c)
+        pieces = [
+            _header(cs[0], header_style) + "\n"
+            + "\n".join(c.text for c in cs) + "\n"
+            for cs in groups.values()
+        ]
+    else:
+        pieces = [f"{_header(c, header_style)}\n{c.text}\n" for c in chunks]
+
     parts: list[str] = []
     used = 0
-    for c in chunks:
-        header = f"[Source: {c.title} | {c.url}]"
-        piece = f"{header}\n{c.text}\n"
+    for piece in pieces:
         if used + len(piece) > budget_chars and parts:
             # Stop before overshooting the budget - but always include at
             # least one chunk even if it exceeds the budget alone.

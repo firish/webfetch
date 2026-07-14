@@ -77,6 +77,9 @@ free after the first fetch.
 - Volatility-aware cache TTLs: realtime/recent/stable classes (15m/7d/90d),
   classified by the calling model's freshness hint or a measured hybrid
   fallback classifier
+- Sentence-level compression of tool results: cross-encoder sentence
+  selection + compact source headers halve tokens per result (665 -> 332
+  mean) with zero measured recall loss
 
 **Out of scope (for now):**
 - Building or maintaining a search index
@@ -90,8 +93,10 @@ free after the first fetch.
 - Anyone who wants to understand how production LLM search works internally
 
 ## Status
-> Last updated: 2026-07-12 - volatility-aware TTLs shipped (eval-picked
-> hybrid classifier + model freshness hint). Earlier: semantic query cache
-> (2026-07-10); tool mode as primary use case, pipeline orchestrator,
-> sqlite cache, web_search tool layer, two-layer eval harness.
+> Last updated: 2026-07-13 - sentence-level compression shipped (tool
+> results halved, zero recall drop, eval-gated); Layer 3 e2e eval measured
+> the headline: 96% answer accuracy at $0.025/query vs hosted web_search
+> 92% at $0.103/query. Earlier: volatility-aware TTLs (2026-07-12),
+> semantic query cache (2026-07-10); tool mode as primary use case,
+> pipeline orchestrator, sqlite cache, web_search tool layer, eval harness.
 > Update this section whenever goals, scope, or use cases change.
