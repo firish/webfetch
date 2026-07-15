@@ -14,7 +14,7 @@ Claude Code registration:             claude mcp add webfetch webfetch-mcp
 One server per machine is the supported shape: the semantic cache assumes
 a single process owns the cache file, and stdio gives exactly that.
 
-Requires the optional extra:  pip install webfetch[mcp]
+Requires the optional extra:  pip install webfetch-llm[mcp]
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ def main() -> None:
         from mcp.server.fastmcp import FastMCP
     except ImportError:
         sys.exit("webfetch-mcp requires the mcp extra: "
-                 "pip install 'webfetch[mcp]'")
+                 "pip install 'webfetch-llm[mcp]'")
 
     from webfetch.receipts import savings_report as _savings_report
     from webfetch.tool import WEB_SEARCH_TOOL, get_default_pipeline, handle_web_search

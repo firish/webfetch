@@ -5,7 +5,7 @@ Extraction order:
   1. trafilatura  - best general-purpose HTML -> clean text
   2. readability  - Mozilla reader-mode algorithm, good for product pages
   3. newspaper4k  - article/press-release optimized
-  4. playwright   - JS-rendered pages (optional install: pip install webfetch[browser])
+  4. playwright   - JS-rendered pages (optional install: pip install webfetch-llm[browser])
 
 After any successful text extraction, pandas.read_html() runs in parallel on
 the raw HTML to capture spec tables that prose extractors tend to mangle.

@@ -2,6 +2,12 @@
 
 Web search for LLM agents that you run yourself.
 
+```
+pip install webfetch-llm
+```
+
+(The PyPI name is `webfetch-llm`; the import is `webfetch`.)
+
 Hosted web-search tools charge $10 per thousand searches (Anthropic and
 OpenAI both, as of July 2026) and then bill you again for every token of
 retrieved content they stuff into your context window - about 17,000 input
@@ -60,8 +66,8 @@ Reproduce: `python evals/run_e2e_eval.py --arms ours-multi,hosted` (see
 ## Install
 
 ```
-pip install webfetch          # core: search, fetch, BM25 ranking, cache
-pip install "webfetch[all]"   # + semantic rerank/cache/compression, JS
+pip install webfetch-llm      # core: search, fetch, BM25 ranking, cache
+pip install "webfetch-llm[all]"   # + semantic rerank/cache/compression, JS
                               #   rendering, PDF, tables, MCP server
 ```
 
@@ -121,7 +127,7 @@ because an exception mid-conversation kills the whole agent loop.
 ## Use it from Claude Code / Claude Desktop
 
 ```
-pip install "webfetch[all]"
+pip install "webfetch-llm[all]"
 claude mcp add webfetch webfetch-mcp
 ```
 

@@ -59,7 +59,7 @@ def _centroid_class(query: str) -> str | None:
     except ImportError:
         logger.warning(
             "sentence-transformers not installed - freshness classification "
-            "degrades to keyword rules only. Install webfetch[rerank]."
+            "degrades to keyword rules only. Install webfetch-llm[rerank]."
         )
         _centroid_unavailable = True
         return None

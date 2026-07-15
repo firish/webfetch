@@ -1,9 +1,8 @@
 name: publish
 
-# Publishes to PyPI via Trusted Publishing (OIDC - no token stored in the
-# repo) whenever a GitHub Release is published. One-time setup on PyPI:
-# add a "pending publisher" for this repo + workflow name under
-# https://pypi.org/manage/account/publishing/
+# Publishes webfetch-llm to PyPI whenever a GitHub Release is published,
+# authenticated with the PYPI_API_TOKEN repo secret. skip-existing makes
+# re-published releases a no-op instead of a failure.
 
 on:
   release:
@@ -27,12 +26,12 @@ jobs:
   publish:
     needs: build
     runs-on: ubuntu-latest
-    environment: pypi
-    permissions:
-      id-token: write
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
       - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          skip-existing: true

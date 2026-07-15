@@ -125,7 +125,7 @@ class SemanticSqliteCache(SqliteCache):
         except ImportError:
             logger.warning(
                 "sentence-transformers not installed - semantic cache "
-                "degrades to exact-match only. Install webfetch[rerank]."
+                "degrades to exact-match only. Install webfetch-llm[rerank]."
             )
             self._models_unavailable = True
             return False

@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "webfetch"
+name = "webfetch-llm"
 version = "0.1.0"
 description = "Own your LLM's web search: a local search -> fetch -> rank pipeline that replaces hosted web_search tools at a fraction of the cost"
 readme = "README.md"
@@ -70,7 +70,7 @@ mcp = [
 ]
 
 # Full install
-all = ["webfetch[rerank,browser,pdf,tables,mcp]"]
+all = ["webfetch-llm[rerank,browser,pdf,tables,mcp]"]
 
 # Development: tests, lint, .env loading for examples/evals
 dev = [

@@ -9,7 +9,7 @@ semantic relevance but O(N) model passes instead of O(1) encoding of the query.
 Only ever runs on the small top-K from stage 2 because of the cost: scoring
 100 chunks is ~100x slower than the bi-encoder on the same set.
 
-Optional dep: pip install webfetch[rerank]
+Optional dep: pip install webfetch-llm[rerank]
 """
 
 import logging
@@ -59,7 +59,7 @@ class CrossEncoderRanker(AbstractRanker):
         except ImportError:
             logger.error(
                 "sentence-transformers not installed. "
-                "Run: pip install 'webfetch[rerank]'"
+                "Run: pip install 'webfetch-llm[rerank]'"
             )
             return chunks[: self._top_k]
 

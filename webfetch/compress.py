@@ -160,7 +160,7 @@ def _deps_available() -> bool:
     except ImportError:
         logger.warning(
             "sentence-transformers not installed - compression degrades to "
-            "the lexical scorer. Install webfetch[rerank]."
+            "the lexical scorer. Install webfetch-llm[rerank]."
         )
         _models_unavailable = True
         return False

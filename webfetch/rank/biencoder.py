@@ -11,7 +11,7 @@ Why bi-encoder, not cross-encoder here:
   - Good enough accuracy for mid-cascade - the cross-encoder stage cleans up
     ordering at the top.
 
-Optional dep: pip install webfetch[rerank]
+Optional dep: pip install webfetch-llm[rerank]
 """
 
 import logging
@@ -64,7 +64,7 @@ class BiEncoderRanker(AbstractRanker):
         except ImportError:
             logger.error(
                 "sentence-transformers not installed. "
-                "Run: pip install 'webfetch[rerank]'"
+                "Run: pip install 'webfetch-llm[rerank]'"
             )
             # Passthrough on missing deps - preserves the cascade rather than
             # crashing, and BM25 results are still usable if noisier.

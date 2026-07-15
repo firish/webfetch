@@ -10,8 +10,8 @@ Three responsibilities:
      browser first, then scans the fully-rendered DOM for PDF links - Phase 2,
      catches links injected by JS. Does NOT click buttons or intercept downloads.
 
-pdfplumber is an optional dep: pip install webfetch[pdf]
-playwright is an optional dep: pip install webfetch[browser]
+pdfplumber is an optional dep: pip install webfetch-llm[pdf]
+playwright is an optional dep: pip install webfetch-llm[browser]
 """
 
 from __future__ import annotations
@@ -84,7 +84,7 @@ def extract_pdf_links_with_playwright(
     Does NOT click buttons or intercept file downloads - for that see Phase 3
     which is currently out of scope.
 
-    Requires: pip install webfetch[browser] && playwright install chromium
+    Requires: pip install webfetch-llm[browser] && playwright install chromium
 
     Args:
         url: The page URL to render.
@@ -98,7 +98,7 @@ def extract_pdf_links_with_playwright(
         from playwright.sync_api import sync_playwright
     except ImportError:
         logger.debug(
-            "playwright not installed. Run: pip install 'webfetch[browser]' "
+            "playwright not installed. Run: pip install 'webfetch-llm[browser]' "
             "&& playwright install chromium"
         )
         return []
@@ -162,7 +162,7 @@ class PDFFetcher(AbstractFetcher):
     pdfplumber handles embedded tables in PDFs better than PyPDF2/pypdf,
     which matters for datasheet PDFs that use table layouts for specs.
 
-    Requires: pip install webfetch[pdf]
+    Requires: pip install webfetch-llm[pdf]
 
     Args:
         timeout: Seconds before the HTTP request times out.
@@ -200,7 +200,7 @@ class PDFFetcher(AbstractFetcher):
             import pdfplumber
         except ImportError:
             logger.error(
-                "pdfplumber not installed. Run: pip install 'webfetch[pdf]'"
+                "pdfplumber not installed. Run: pip install 'webfetch-llm[pdf]'"
             )
             return None
 

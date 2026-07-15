@@ -97,7 +97,7 @@ def get_default_pipeline() -> Pipeline:
 
     Returns:
         A Pipeline with the full ranking cascade and a SemanticSqliteCache
-        (which degrades to exact-match caching without webfetch[rerank]).
+        (which degrades to exact-match caching without webfetch-llm[rerank]).
     """
     global _default_pipeline
     if _default_pipeline is None:

@@ -46,10 +46,10 @@ def default_rankers(
     BM25 with extra steps.
 
     Args:
-        use_biencoder: Use hybrid fusion. Requires `webfetch[rerank]`
+        use_biencoder: Use hybrid fusion. Requires `webfetch-llm[rerank]`
             (degrades to BM25-only inside HybridRanker if missing).
         use_crossencoder: Include the cross-encoder stage. Requires
-            `webfetch[rerank]`.
+            `webfetch-llm[rerank]`.
 
     Returns:
         Rankers in cascade order, ready to apply sequentially.
@@ -71,9 +71,9 @@ def rank(
     Args:
         query: The user query.
         chunks: All candidate chunks (typically hundreds from fetched pages).
-        use_biencoder: Run the bi-encoder stage. Requires `webfetch[rerank]`.
+        use_biencoder: Run the bi-encoder stage. Requires `webfetch-llm[rerank]`.
                        Silently skipped if the dep is missing.
-        use_crossencoder: Run the cross-encoder stage. Requires `webfetch[rerank]`.
+        use_crossencoder: Run the cross-encoder stage. Requires `webfetch-llm[rerank]`.
                           Silently skipped if the dep is missing.
 
     Returns:
