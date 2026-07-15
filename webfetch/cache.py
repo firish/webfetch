@@ -191,7 +191,34 @@ class SqliteCache(AbstractCache):
             cols = {r[1] for r in self._conn.execute("PRAGMA table_info(queries)")}
             if "freshness" not in cols:
                 self._conn.execute("ALTER TABLE queries ADD COLUMN freshness TEXT")
+            # Lifetime usage counters (cost receipts) - live with the cache
+            # because it is the one durable file webfetch owns.
+            self._conn.execute(
+                "CREATE TABLE IF NOT EXISTS stats ("
+                "key TEXT PRIMARY KEY, value REAL NOT NULL)"
+            )
             self._conn.commit()
+
+    def bump_stats(self, **deltas: float) -> None:
+        """Accumulate usage counters (see webfetch.receipts).
+
+        Args:
+            **deltas: Counter name -> increment, e.g.
+                bump_stats(searches_total=1, cache_hits_exact=1).
+        """
+        with self._lock:
+            for key, delta in deltas.items():
+                self._conn.execute(
+                    "INSERT INTO stats (key, value) VALUES (?, ?) "
+                    "ON CONFLICT(key) DO UPDATE SET value = value + ?",
+                    (key, float(delta), float(delta)),
+                )
+            self._conn.commit()
+
+    def get_stats(self) -> dict[str, float]:
+        """Return all lifetime usage counters."""
+        with self._lock:
+            return dict(self._conn.execute("SELECT key, value FROM stats"))
 
     def _get_with_age(self, table: str, key_col: str, value_col: str,
                       key: str) -> tuple[str, float] | None:

@@ -172,10 +172,12 @@ def handle_web_search(
         chunks = result.chunks
         if COMPRESSION_ENABLED:
             chunks = compress_chunks(query, chunks)
-        return (_provenance_header(result) + "\n"
-                + build_context(chunks, budget_chars=budget_chars,
-                                merge_sources=TOOL_MERGE_SOURCES,
-                                header_style=TOOL_HEADER_STYLE))
+        out = (_provenance_header(result) + "\n"
+               + build_context(chunks, budget_chars=budget_chars,
+                               merge_sources=TOOL_MERGE_SOURCES,
+                               header_style=TOOL_HEADER_STYLE))
+        pipe.bump_stats(tool_chars_returned=len(out))
+        return out
     except Exception as exc:
         logger.warning("web_search tool call failed", exc_info=True)
         return (

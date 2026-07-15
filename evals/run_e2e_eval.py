@@ -38,6 +38,7 @@ import argparse
 import faulthandler
 import json
 import os
+import re
 import signal
 import statistics
 import sys
@@ -144,9 +145,16 @@ def _usage_add(total: dict, usage) -> None:
     total["cache_write"] += getattr(usage, "cache_creation_input_tokens", 0) or 0
 
 
-def _token_cost(u: dict) -> float:
-    return (u["input"] * PRICE_IN + u["cache_read"] * PRICE_CACHE_READ
-            + u["cache_write"] * PRICE_CACHE_WRITE + u["output"] * PRICE_OUT) / 1e6
+OPUS_TOKEN_PRICES = (PRICE_IN, PRICE_CACHE_READ, PRICE_CACHE_WRITE, PRICE_OUT)
+# Haiku 4.5: the "cheap model + our tool" configuration.
+HAIKU_MODEL = "claude-haiku-4-5"
+HAIKU_TOKEN_PRICES = (1.00, 0.10, 1.25, 5.00)
+
+
+def _token_cost(u: dict, prices: tuple = OPUS_TOKEN_PRICES) -> float:
+    p_in, p_read, p_write, p_out = prices
+    return (u["input"] * p_in + u["cache_read"] * p_read
+            + u["cache_write"] * p_write + u["output"] * p_out) / 1e6
 
 
 def _final_text(response) -> str:
@@ -209,7 +217,8 @@ def _webfetch_backend(pipeline):
 
 
 def answer_tool_loop(client, model: str, question: str, tools: list[dict],
-                     handler, fee_per_search: float) -> dict:
+                     handler, fee_per_search: float,
+                     prices: tuple = OPUS_TOKEN_PRICES) -> dict:
     """Shared agent loop: Opus + a client-side web_search tool backend.
 
     handler receives the tool_use block's input dict and returns the
@@ -230,7 +239,7 @@ def answer_tool_loop(client, model: str, question: str, tools: list[dict],
         if response.stop_reason != "tool_use":
             return {"answer": _final_text(response), "searches": searches,
                     "usage": usage, "secs": time.perf_counter() - t0,
-                    "cost": _token_cost(usage) + searches * fee_per_search,
+                    "cost": _token_cost(usage, prices) + searches * fee_per_search,
                     "error": None}
         messages.append({"role": "assistant", "content": response.content})
         results = []
@@ -249,7 +258,7 @@ def answer_tool_loop(client, model: str, question: str, tools: list[dict],
         messages.append({"role": "user", "content": results})
     return {"answer": "", "searches": searches, "usage": usage,
             "secs": time.perf_counter() - t0,
-            "cost": _token_cost(usage) + searches * fee_per_search,
+            "cost": _token_cost(usage, prices) + searches * fee_per_search,
             "error": "max turns exceeded"}
 
 
@@ -347,15 +356,32 @@ def answer_openai_compat(question: str, handler, url: str, key: str,
             )
             if resp.status_code != 429:
                 break
-            time.sleep(15 * (attempt + 1))
-        resp.raise_for_status()
-        data = resp.json()
+            retry_after = resp.headers.get("retry-after")
+            time.sleep(float(retry_after) if retry_after
+                       else 15 * (attempt + 1))
+        if resp.status_code == 400 and "tool_use_failed" in resp.text:
+            # Small models emit malformed tool-call syntax and Groq rejects
+            # the GENERATION as a 400 - but the intended call is right there
+            # in failed_generation. Recover it instead of failing the
+            # question (llama-3.3: 31/50 questions hit this).
+            failed = (resp.json().get("error", {}) or {}).get(
+                "failed_generation", "")
+            m = re.search(r"<function=(\w+)>?\s*(\{.*?\})", failed, re.DOTALL)
+            if not m:
+                resp.raise_for_status()
+            msg = {"role": "assistant", "content": None, "tool_calls": [{
+                "id": f"recovered_{searches}", "type": "function",
+                "function": {"name": m.group(1), "arguments": m.group(2)}}]}
+            data = {}
+        else:
+            resp.raise_for_status()
+            data = resp.json()
+            msg = data["choices"][0]["message"]
         u = data.get("usage") or {}
         usage["input"] += u.get("prompt_tokens", 0) or 0
         usage["output"] += u.get("completion_tokens", 0) or 0
         usage["cache_read"] += ((u.get("prompt_tokens_details") or {})
                                 .get("cached_tokens", 0) or 0)
-        msg = data["choices"][0]["message"]
         tool_calls = msg.get("tool_calls")
         if not tool_calls:
             return {"answer": (msg.get("content") or "").strip(),
@@ -473,11 +499,13 @@ def answer_openai_hosted(question: str) -> dict:
 
 
 # Free-tier providers for the broke arm, tried in order. Groq first: higher
-# free RPM and much faster inference than Gemini's free tier.
+# free RPM and much faster inference than Gemini's free tier. gpt-oss-120b
+# replaced llama-3.3-70b after the first full run: llama emitted malformed
+# tool-call syntax on 31/50 questions (Groq 400 tool_use_failed).
 BROKE_PROVIDERS = [
     ("groq", "GROQ_API_KEY",
      "https://api.groq.com/openai/v1/chat/completions",
-     "llama-3.3-70b-versatile"),
+     "openai/gpt-oss-120b"),
     ("gemini", "GOOGLE_API_KEY",
      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
      "gemini-2.5-flash"),
@@ -498,8 +526,8 @@ ARM_KEY_ENV = {"tavily": "TAVILY_API_KEY", "exa": "EXA_API_KEY",
                "sonar": "PERPLEXITY_API_KEY",
                "ours-gpt": "OPENAI_API_KEY",
                "openai-hosted": "OPENAI_API_KEY"}
-ALL_ARMS = ["ours-multi", "ours-ddg", "ours-gpt", "hosted", "openai-hosted",
-            "tavily", "exa", "sonar", "broke"]
+ALL_ARMS = ["ours-multi", "ours-ddg", "ours-gpt", "ours-haiku", "hosted",
+            "openai-hosted", "tavily", "exa", "sonar", "broke"]
 
 
 def grade(client, question: str, gold: list[str], answer_type: str | None,
@@ -541,6 +569,15 @@ def make_answer_fn(arm: str, client, model: str):
         # Opus - shows the tool is provider-agnostic, at GPT pricing.
         backend = _make_pipeline_backend("multi", arm)
         return lambda q: answer_gpt_tool_loop(q, backend)
+    if arm == "ours-haiku":
+        # Cheap-model frame: hosted search charges a flat $10/1k on ANY
+        # model, so its fee dominates at Haiku token prices - ours scales
+        # DOWN with the model instead.
+        backend = _make_pipeline_backend("multi", arm)
+        from webfetch import WEB_SEARCH_TOOL
+        return lambda q: answer_tool_loop(
+            client, HAIKU_MODEL, q, [WEB_SEARCH_TOOL], backend,
+            ENGINE_FEE_PER_SEARCH["ours-multi"], prices=HAIKU_TOKEN_PRICES)
     if arm.startswith("ours-"):
         provider = "multi" if arm == "ours-multi" else "ddg"
         backend = _make_pipeline_backend(provider, arm)
@@ -599,12 +636,23 @@ def run_arm(arm: str, questions: list[dict], client, model: str,
 def summarize(arm: str, records: list[dict]) -> dict:
     ok = [r for r in records if not r["error"]]
     correct = sum(1 for r in records if r["grade"] == "correct")
+
+    def _mean_tok(*keys: str) -> int | None:
+        if not ok:
+            return None
+        return round(statistics.mean(
+            sum(r["usage"].get(k, 0) or 0 for k in keys) for r in ok))
+
     return {
         "arm": arm, "n": len(records), "correct": correct,
         "accuracy": round(correct / len(records), 3) if records else None,
         "errors": sum(1 for r in records if r["error"]),
         "total_cost": round(sum(r["cost"] for r in records), 3),
         "cost_per_q": round(sum(r["cost"] for r in records) / len(records), 4),
+        # Raw token counts (full per-question usage lives in records[].usage).
+        # in = every prompt token processed, fresh + cached alike.
+        "tok_in_per_q": _mean_tok("input", "cache_read", "cache_write"),
+        "tok_out_per_q": _mean_tok("output"),
         "searches_per_q": round(statistics.mean(r["searches"] for r in ok), 2) if ok else None,
         "median_secs": round(statistics.median(r["secs"] for r in ok), 1) if ok else None,
     }
@@ -663,9 +711,10 @@ def main() -> None:
     print()
     print(markdown_table(
         ["arm", "accuracy", "errors", "cost/query", "total cost",
-         "searches/q", "median secs"],
+         "tok in/q", "tok out/q", "searches/q", "median secs"],
         [[s["arm"], f"{s['correct']}/{s['n']} ({(s['accuracy'] or 0)*100:.0f}%)",
           s["errors"], f"${s['cost_per_q']:.4f}", f"${s['total_cost']:.2f}",
+          s["tok_in_per_q"], s["tok_out_per_q"],
           s["searches_per_q"], s["median_secs"]] for s in summaries],
     ))
 

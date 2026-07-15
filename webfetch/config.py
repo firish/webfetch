@@ -89,6 +89,16 @@ SEARCH_BREAKER_COOLDOWN_SECS: float = 300.0
 # query - distinguishes a silent block from a genuinely hard query.
 FUSION_PEER_EMPTY_MIN: int = 3
 
+# --- Cost receipts ---
+# Baseline for savings estimates (webfetch/receipts.py). Both Anthropic and
+# OpenAI charge $10/1k hosted searches (verified 2026-07); the hosted tools
+# also inject ~17.4k content tokens per call vs our ~3.5k compressed
+# (measured, Layer 3 eval 2026-07-14). Token price defaults to Opus-class
+# input - override per call for cheaper models.
+RECEIPT_HOSTED_SEARCH_FEE: float = 10.00 / 1000
+RECEIPT_HOSTED_TOKENS_PER_CALL: int = 17400
+RECEIPT_TOKEN_PRICE_PER_MTOK: float = 5.00
+
 # --- LLM extraction ---
 # Default model for the extraction step. Cheapest capable model by default.
 DEFAULT_EXTRACT_MODEL: str = "claude-haiku-4-5-20251001"

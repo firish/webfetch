@@ -102,6 +102,16 @@ class Pipeline:
         self._n_results = n_results
         self._max_workers = max_workers
 
+    def bump_stats(self, **deltas: float) -> None:
+        """Accumulate usage counters for cost receipts (webfetch.receipts).
+
+        No-op without a stats-capable cache - receipts are an optional
+        byproduct of the cache file, never a pipeline requirement.
+        """
+        bump = getattr(self._cache, "bump_stats", None)
+        if bump is not None:
+            bump(**deltas)
+
     def search_chunks(self, query: str, n_results: int | None = None,
                       use_cache: bool = True,
                       freshness: str | None = None) -> SearchChunksResult:
@@ -137,6 +147,8 @@ class Pipeline:
             match = self._cache.lookup(query, self._search.provider_name, n,
                                        freshness=freshness)
             if match is not None:
+                self.bump_stats(searches_total=1,
+                                **{f"cache_hits_{match.kind}": 1})
                 return SearchChunksResult(
                     query=query,
                     chunks=match.chunks,
@@ -184,6 +196,9 @@ class Pipeline:
         if self._cache is not None:
             self._cache.store(query, self._search.provider_name, n, chunks,
                               freshness=freshness)
+        self.bump_stats(searches_total=1, fresh_searches=1,
+                        pages_fetched=len(to_fetch),
+                        pages_from_cache=cached_pages)
 
         logger.info(
             "search_chunks(%r): %d results, %d fetched (%d cached, %d failed), "

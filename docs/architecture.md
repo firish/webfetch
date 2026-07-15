@@ -96,6 +96,7 @@ webfetch/
 ├── semcache.py          # SemanticSqliteCache: paraphrase-matching query cache
 ├── volatility.py        # freshness classifier (keywords -> centroid hybrid)
 ├── compress.py          # sentence-level extractive compression (tool results)
+├── receipts.py          # cost receipts: savings_report() vs hosted search
 ├── data/                # shipped artifacts (volatility centroids, ~25KB)
 ├── config.py            # constants, defaults, token budgets
 │
@@ -515,6 +516,16 @@ using the tool MUST inject the current date into their system prompt -
 measured on the fresh-event eval set: without it the model's
 training-cutoff calendar causes zero-search refusals (3-10 of 27 per arm).
 
+### Cost receipts live in the cache db
+Lifetime counters (searches, cache hits by kind, fresh runs, tool chars
+returned) accumulate in a `stats` table inside the cache file - the one
+durable artifact webfetch owns - via SqliteCache.bump_stats(); the
+pipeline exposes Pipeline.bump_stats() which no-ops without a
+stats-capable cache. webfetch.savings_report() renders the receipt against
+hosted pricing (both vendors: $10/1k + ~17.4k injected content tokens/call
+vs our ~3.5k, measured). Dollar figures are estimates with overridable
+assumptions; counters are exact.
+
 ### Tool handler as the error boundary
 Pipeline (library layer) raises on search failure; handle_web_search (agent
 boundary) catches everything and returns readable error strings. An exception
@@ -610,7 +621,11 @@ Scanned PDFs or pages where specs appear only as images require OCR
 justified for the current use case volume.
 
 ## Status
-> Last updated: 2026-07-13 (night) - Layer 3 harness: ours-gpt +
+> Last updated: 2026-07-14 - cost receipts (webfetch/receipts.py:
+> savings_report(), counters in the cache db), ours-haiku + fixed broke
+> arm (gpt-oss-120b + tool-call recovery) in the Layer 3 harness. Final
+> 9-arm run measured (see ROADMAP Shipped).
+> Previous: 2026-07-13 (night) - Layer 3 harness: ours-gpt +
 > openai-hosted arms (gpt-5.6-sol, Responses API), date injection in loop
 > prompts (fixes zero-search refusals on post-cutoff events), search
 > resilience (circuit breakers, silent-block detection, "fallback"

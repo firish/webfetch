@@ -57,7 +57,6 @@ Small lifts with clear value, orderable ahead of or between the numbered items:
   cache backend + eviction policy - see cache notes in ARCHITECTURE.md)
 - OpenAI function-calling example loop
 - OR-ensemble semantic-cache verifier (only if live hit rates disappoint)
-- Cost receipts: cumulative $-saved telemetry vs hosted web search pricing
 - Cache eviction policy (size cap / LRU) - required before any shared
   remote deployment
 - Negative caching of failed fetches; per-adapter retry/backoff
@@ -84,6 +83,15 @@ with the library's design; revisit only with a concrete use case:
   different product
 
 ## Shipped
+
+- 2026-07-14: cost receipts (webfetch.savings_report() - lifetime counters
+  in the cache db, savings vs hosted $10/1k + measured 17.4k tokens/call).
+  Final Layer 3 run (9 arms x SimpleQA-50 + fresh-27, date injection live):
+  ours-gpt 96% at \$0.040/q (matches Anthropic hosted accuracy at 37% cost,
+  8x fewer input tokens); ours-multi 92% at \$0.035/q; openai-hosted 100%
+  at \$0.066/q; every arm 96-100% on the fresh set - date injection took
+  ours-multi 70% -> 100% (the model refused to search "future" events
+  without it). Also: search resilience, OpenAI arms, ours-haiku arm
 
 - 2026-07-13 (later): sentence-level compression (webfetch/compress.py) +
   tool context format (same-URL header merge, hostname-only headers).
