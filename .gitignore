@@ -16,3 +16,8 @@ learning.md
 # Eval harness: raw downloads and run outputs
 evals/datasets/raw/
 evals/results/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
