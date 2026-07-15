@@ -7,7 +7,8 @@ Quick start (tool mode - the calling model is the extractor):
     from webfetch import Pipeline, SqliteCache, WEB_SEARCH_TOOL, handle_web_search
 
     pipeline = Pipeline(cache=SqliteCache())
-    text = handle_web_search({"query": "Fluke 87V DC voltage accuracy"}, pipeline=pipeline)
+    text = handle_web_search({"query": "Fluke 87V DC voltage accuracy"},
+                             pipeline=pipeline)
 
 Structured extraction mode (webfetch calls a cheap LLM for JSON output):
 

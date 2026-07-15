@@ -27,7 +27,8 @@ from webfetch.fetch.base import AbstractFetcher
 
 logger = logging.getLogger(__name__)
 
-# Matches href or src attributes ending in .pdf (case-insensitive, optional query string)
+# Matches href or src attributes ending in .pdf (case-insensitive,
+# optional query string)
 _PDF_LINK_RE = re.compile(
     r'(?:href|src)=["\']([^"\']*\.pdf(?:\?[^"\']*)?)["\']',
     re.IGNORECASE,

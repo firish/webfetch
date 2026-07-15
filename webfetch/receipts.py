@@ -103,4 +103,21 @@ def savings_report(
     return "\n".join(lines)
 
 
-__all__ = ["get_counters", "savings_report"]
+def main() -> None:
+    """Console entry point: `webfetch-savings [--db PATH]`."""
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Print the webfetch savings receipt.")
+    parser.add_argument("--db", default=DEFAULT_CACHE_DB,
+                        help="cache db path (default: %(default)s)")
+    parser.add_argument("--token-price", type=float,
+                        default=RECEIPT_TOKEN_PRICE_PER_MTOK,
+                        help="$/MTok of the model reading results "
+                             "(default: %(default)s, Opus-class)")
+    args = parser.parse_args()
+    print(savings_report(db_path=args.db,
+                         token_price_per_mtok=args.token_price))
+
+
+__all__ = ["get_counters", "savings_report", "main"]

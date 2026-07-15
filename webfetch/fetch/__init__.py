@@ -10,7 +10,11 @@ from concurrent.futures import ThreadPoolExecutor
 
 from webfetch.config import DEFAULT_FETCH_WORKERS
 from webfetch.fetch.html import HTMLFetcher
-from webfetch.fetch.pdf import PDFFetcher, extract_pdf_links, extract_pdf_links_with_playwright
+from webfetch.fetch.pdf import (
+    PDFFetcher,
+    extract_pdf_links,
+    extract_pdf_links_with_playwright,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +69,8 @@ def fetch_all(
         try:
             return fetch(url)
         except Exception:
-            logger.warning("fetch_all: unexpected error fetching %s", url, exc_info=True)
+            logger.warning("fetch_all: unexpected error fetching %s",
+                           url, exc_info=True)
             return None
 
     with ThreadPoolExecutor(max_workers=min(max_workers, len(unique_urls))) as pool:

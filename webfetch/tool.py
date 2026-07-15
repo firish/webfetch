@@ -28,6 +28,7 @@ from webfetch.config import (
     TOOL_HEADER_STYLE,
     TOOL_MERGE_SOURCES,
 )
+
 # Import from extract.base (a leaf module) rather than the extract package,
 # whose __init__ pulls in every provider adapter.
 from webfetch.extract.base import build_context

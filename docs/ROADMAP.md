@@ -53,8 +53,6 @@ Small lifts with clear value, orderable ahead of or between the numbered items:
 
 ## Backlog (unordered)
 
-- MCP server wrapper (local stdio first; remote server needs a shared
-  cache backend + eviction policy - see cache notes in ARCHITECTURE.md)
 - OpenAI function-calling example loop
 - OR-ensemble semantic-cache verifier (only if live hit rates disappoint)
 - Cache eviction policy (size cap / LRU) - required before any shared
@@ -83,6 +81,11 @@ with the library's design; revisit only with a concrete use case:
   different product
 
 ## Shipped
+
+- 2026-07-14 (v0.1.0 release prep): MCP stdio server (webfetch-mcp),
+  offline test suite + CI, packaging fixes, README with benchmark tables,
+  LICENSE/CHANGELOG/CONTRIBUTING/.env.example. Remote/shared MCP server
+  still deferred behind cache eviction (see Backlog)
 
 - 2026-07-14: cost receipts (webfetch.savings_report() - lifetime counters
   in the cache db, savings vs hosted $10/1k + measured 17.4k tokens/call).

@@ -10,11 +10,12 @@ Change a value here and it propagates everywhere - no grep-and-replace needed.
 DEFAULT_N_RESULTS: int = 10
 
 # Which search provider to use when none is specified by the caller.
-# "ddg" = DuckDuckGo (free, no key), "brave" = Brave Search, "serper" = Serper/Google
+# "ddg" = DuckDuckGo (free, no key); see search/__init__.py for all.
 DEFAULT_SEARCH_PROVIDER: str = "ddg"
 
 # --- Fetch ---
-# Seconds before an HTTP fetch is abandoned. Keeps slow pages from blocking the pipeline.
+# Seconds before an HTTP fetch is abandoned. Keeps slow pages from
+# blocking the pipeline.
 FETCH_TIMEOUT_SECS: int = 10
 
 # Thread pool size for concurrent URL fetching. Fetching is IO-bound (network
@@ -45,15 +46,18 @@ CROSSENCODER_MODEL: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
 # --- Chunking ---
 # Characters per text chunk fed into the ranker.
-# 400 chars ~ 100 tokens - small enough for precise reranking, big enough for context.
+# 400 chars ~ 100 tokens - small enough for precise reranking, big
+# enough for context.
 DEFAULT_CHUNK_SIZE: int = 400
 
-# Overlap between consecutive chunks to avoid splitting a key sentence at a boundary.
+# Overlap between consecutive chunks to avoid splitting a key sentence
+# at a boundary.
 CHUNK_OVERLAP_RATIO: float = 0.10  # 10% overlap
 
 # --- Token budget ---
 # Maximum characters of ranked text sent to the LLM extraction call.
-# ~6000 chars / 4 chars-per-token ~ 1500 tokens of context - cheap for haiku-class models.
+# ~6000 chars / 4 chars-per-token ~ 1500 tokens of context - cheap for
+# haiku-class models.
 DEFAULT_TOKEN_BUDGET: int = 6000
 
 # --- Cache ---
@@ -135,12 +139,12 @@ DEFAULT_TOOL_RESULT_BUDGET: int = 8000
 # tokens loses 3-4 answers. Without [rerank] it degrades to the lexical
 # scorer (measured: 27/29 survival at 51%).
 COMPRESSION_ENABLED: bool = True
-COMPRESS_SCORER: str = "crossencoder"  # "crossencoder" | "biencoder" | "lexical" | "lead"
+COMPRESS_SCORER: str = "crossencoder"  # | "biencoder" | "lexical" | "lead"
 COMPRESS_POLICY: str = "ratio"         # "ratio" | "topk" | "threshold"
-COMPRESS_PARAM: float = 0.5            # keep best sentences up to 50% of chunk chars
-COMPRESS_ANAPHORA_GUARD: bool = True   # coherence: +14 tokens, keeps pronouns resolvable
+COMPRESS_PARAM: float = 0.5     # keep best sentences, <= 50% of chunk chars
+COMPRESS_ANAPHORA_GUARD: bool = True  # +14 tokens, keeps pronouns resolvable
 COMPRESS_TABLE_GUARD: bool = True      # ablation: protects 1 answer of 29
-COMPRESS_DEDUP: bool = True            # ablation: -13 tokens free (chunk-overlap dupes)
+COMPRESS_DEDUP: bool = True     # ablation: -13 tokens free (overlap dupes)
 
 # Tool-result context format (build_context). Same eval: merging same-URL
 # chunks under one header + hostname-only headers cut the fixed header

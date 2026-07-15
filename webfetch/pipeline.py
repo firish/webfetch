@@ -24,7 +24,11 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field
 
 from webfetch.cache import AbstractCache
-from webfetch.config import DEFAULT_FETCH_WORKERS, DEFAULT_N_RESULTS, DEFAULT_TOKEN_BUDGET
+from webfetch.config import (
+    DEFAULT_FETCH_WORKERS,
+    DEFAULT_N_RESULTS,
+    DEFAULT_TOKEN_BUDGET,
+)
 from webfetch.extract.base import AbstractExtractor
 from webfetch.fetch import fetch_all
 from webfetch.rank import AbstractRanker, Chunk, chunk_text, default_rankers

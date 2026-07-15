@@ -159,7 +159,8 @@ class SemanticSqliteCache(SqliteCache):
         label2id = {k.lower(): v
                     for k, v in self._ce_model.model.config.label2id.items()}
         ent = label2id.get("entailment", 1)
-        rows_are_probs = np.all(raw >= 0) and np.allclose(raw.sum(axis=1), 1.0, atol=1e-3)
+        rows_are_probs = (np.all(raw >= 0)
+                          and np.allclose(raw.sum(axis=1), 1.0, atol=1e-3))
         if not rows_are_probs:
             e = np.exp(raw - raw.max(axis=1, keepdims=True))
             raw = e / e.sum(axis=1, keepdims=True)

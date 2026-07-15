@@ -282,7 +282,8 @@ class SqliteCache(AbstractCache):
                 return None
             return value, age, stored
 
-    def _set(self, table: str, key_col: str, value_col: str, key: str, value: str) -> None:
+    def _set(self, table: str, key_col: str, value_col: str, key: str,
+             value: str) -> None:
         """Shared write path: upsert with a fresh timestamp."""
         with self._lock:
             self._conn.execute(
@@ -334,7 +335,8 @@ class SqliteCache(AbstractCache):
 
     def set_chunks(self, key: str, chunks: list[Chunk]) -> None:
         """Cache the final ranked chunks for a query key."""
-        self._set("queries", "key", "chunks_json", key, json.dumps([asdict(c) for c in chunks]))
+        self._set("queries", "key", "chunks_json", key,
+                  json.dumps([asdict(c) for c in chunks]))
 
     def close(self) -> None:
         """Close the underlying sqlite connection."""

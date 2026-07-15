@@ -97,6 +97,7 @@ webfetch/
 ├── volatility.py        # freshness classifier (keywords -> centroid hybrid)
 ├── compress.py          # sentence-level extractive compression (tool results)
 ├── receipts.py          # cost receipts: savings_report() vs hosted search
+├── mcp.py               # MCP stdio server (webfetch-mcp console script)
 ├── data/                # shipped artifacts (volatility centroids, ~25KB)
 ├── config.py            # constants, defaults, token budgets
 │
@@ -134,6 +135,8 @@ webfetch/
 
 examples/
 └── agent_loop.py        # manual Anthropic agentic loop using WEB_SEARCH_TOOL
+
+tests/                   # offline pytest suite (no network, no model loads)
 
 evals/                   # standalone eval scripts - NOT part of the webfetch package
 ├── common.py            # answer normalization/variants, jaccard, jsonl io, tables
@@ -621,7 +624,12 @@ Scanned PDFs or pages where specs appear only as images require OCR
 justified for the current use case volume.
 
 ## Status
-> Last updated: 2026-07-14 - cost receipts (webfetch/receipts.py:
+> Last updated: 2026-07-14 (release) - v0.1.0 packaging: MCP server
+> (webfetch/mcp.py, webfetch-mcp script), offline pytest suite (tests/),
+> CI, README/LICENSE/CHANGELOG/CONTRIBUTING/.env.example, pyproject
+> extras corrected (readability/newspaper4k now core - they run in the
+> measured default chain; tables/mcp/dev extras added).
+> Previous: 2026-07-14 - cost receipts (webfetch/receipts.py:
 > savings_report(), counters in the cache db), ours-haiku + fixed broke
 > arm (gpt-oss-120b + tool-call recovery) in the Layer 3 harness. Final
 > 9-arm run measured (see ROADMAP Shipped).
