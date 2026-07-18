@@ -53,6 +53,16 @@ Small lifts with clear value, orderable ahead of or between the numbered items:
 
 ## Backlog (unordered)
 
+- fetch_url tool: let the model pull ONE page it saw cited, full extracted
+  text under a budget. Cheaper than it sounds: the pages cache already
+  stores the complete extracted text (chunks are just the bounded view),
+  so cached pages serve instantly. Fixes the honest limit of full_results
+  ("uncompressed excerpts, not full pages") observed in real usage
+  2026-07-18
+- save_finding elicitation eval: measure whether the calling model CALLS
+  save_finding at fallback moments (with vs without the failure-message
+  nudge shipped 2026-07-18) - current tests cover serving, not elicitation
+
 - OpenAI function-calling example loop
 - OR-ensemble semantic-cache verifier (only if live hit rates disappoint)
 - Cache eviction policy (size cap / LRU) - required before any shared

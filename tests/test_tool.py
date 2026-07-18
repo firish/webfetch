@@ -78,6 +78,14 @@ def test_empty_query_and_no_results_messages():
     out = tool.handle_web_search({"query": "q"},
                                  pipeline=StubPipeline(_result(chunks=[])))
     assert "No results found" in out
+    assert "save_finding" in out  # fallback nudge at the failure exit
+
+
+def test_nudge_absent_when_save_finding_disabled(monkeypatch):
+    monkeypatch.setattr(tool, "SAVE_FINDING_ENABLED", False)
+    out = tool.handle_web_search({"query": "q"},
+                                 pipeline=StubPipeline(_result(chunks=[])))
+    assert "save_finding" not in out
 
 
 def test_never_raises_on_pipeline_exception():

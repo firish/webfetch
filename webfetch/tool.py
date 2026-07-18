@@ -90,9 +90,11 @@ WEB_SEARCH_TOOL: dict = {
                     "Set true when the answer is a LIST, ranking, table, or "
                     "enumeration (e.g. 'top 10 X', 'all members of Y'), or "
                     "when a previous result seemed to be missing detail. "
-                    "Returns uncompressed excerpts with a larger budget - "
-                    "more tokens, but parallel list items are not trimmed. "
-                    "Default false."
+                    "Returns the ranked excerpts UNCOMPRESSED so parallel "
+                    "list items are not trimmed - it does NOT return full "
+                    "pages; results are still excerpts. If the items you "
+                    "need are absent entirely, rephrase the query toward "
+                    "the list content itself instead. Default false."
                 ),
             },
         },
@@ -234,6 +236,7 @@ def handle_web_search(
             return (
                 f"No results found for query: {query!r}. "
                 "Try a different or broader phrasing."
+                + _save_finding_nudge()
             )
 
         # Compression happens HERE - after the cache read - so cached rows
@@ -258,7 +261,21 @@ def handle_web_search(
         return (
             f"web_search error: {type(exc).__name__}: {exc}. "
             "Try again, rephrase the query, or answer without search."
+            + _save_finding_nudge()
         )
+
+
+def _save_finding_nudge() -> str:
+    """One-line reminder appended to web_search failure exits.
+
+    Models rarely volunteer maintenance calls, so the hint sits exactly at
+    the moment a fallback path begins (real-usage observation, 2026-07-18).
+    Silent when the feature is disabled - never advertise a dead tool.
+    """
+    if not SAVE_FINDING_ENABLED:
+        return ""
+    return (" If you answer this from another source instead, consider "
+            "calling save_finding to cache it for next time.")
 
 
 def handle_save_finding(

@@ -58,7 +58,8 @@ def main() -> None:
             freshness: "realtime" | "recent" | "stable" - how fast this
                 query's answer changes; controls cache lifetime.
             full_results: Set true for lists/rankings/enumerations -
-                returns uncompressed excerpts so items are not trimmed.
+                returns uncompressed excerpts so items are not trimmed
+                (still excerpts, not full pages).
         """
         return handle_web_search(
             {"query": query, "force_fresh": force_fresh,
