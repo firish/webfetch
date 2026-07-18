@@ -20,6 +20,7 @@ Requires the optional extra:  pip install webfetch-llm[mcp]
 from __future__ import annotations
 
 import sys
+import threading
 
 
 def main() -> None:
@@ -38,6 +39,7 @@ def main() -> None:
         handle_save_finding,
         handle_web_search,
     )
+    from webfetch.update_check import available_update
 
     server = FastMCP("webfetch")
     # One pipeline for the server's lifetime: encoder models stay warm and
@@ -83,8 +85,13 @@ def main() -> None:
     def savings_report() -> str:
         """What webfetch has saved vs hosted web-search pricing (lifetime
         of this machine's cache)."""
-        return _savings_report()
+        report = _savings_report()
+        notice = available_update()
+        return report + ("\n\n" + notice if notice else "")
 
+    # Warm the update check off the handshake path so the first
+    # savings_report call is instant either way.
+    threading.Thread(target=available_update, daemon=True).start()
     server.run()  # stdio transport
 
 

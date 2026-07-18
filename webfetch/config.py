@@ -161,6 +161,11 @@ SAVE_FINDING_ENABLED: bool = True
 SAVE_FINDING_FRESHNESS: str = "recent"
 FINDING_URL_SCHEME: str = "model-finding://"
 
+# Update notice: one fail-silent request to pypi.org per process, shown
+# only in savings_report output (never in web_search results). Disclosed
+# in the README; set False to disable the network call entirely.
+UPDATE_CHECK_ENABLED: bool = True
+
 # Tool-result context format (build_context). Same eval: merging same-URL
 # chunks under one header + hostname-only headers cut the fixed header
 # overhead (26% of an uncompressed result) with zero measured recall cost -

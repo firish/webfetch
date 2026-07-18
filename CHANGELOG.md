@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Update notice: the MCP server and webfetch-savings CLI check PyPI once
+  per process (fail-silent, UPDATE_CHECK_ENABLED kill switch) and append
+  a one-line notice to savings_report output when a newer release exists.
+
 - web_search gains a `full_results` flag for lists/rankings/enumerations:
   skips compression and raises the budget. Eval-backed: compression was
   trimming parallel list items (item recall 71.9% -> 76.5% uncompressed

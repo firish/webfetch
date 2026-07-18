@@ -126,13 +126,40 @@ because an exception mid-conversation kills the whole agent loop.
 
 ## Use it from Claude Code / Claude Desktop
 
+The recommended registration uses uvx (installs on first launch, and
+`@latest` re-resolves against PyPI on server start, so you pick up new
+releases automatically):
+
 ```
-pip install "webfetch-llm[all]"
-claude mcp add webfetch webfetch-mcp
+claude mcp add webfetch -- uvx --from webfetch-llm@latest webfetch-mcp
 ```
 
-The MCP server exposes `web_search` and `savings_report`. Run one server
-per machine - the semantic cache assumes a single process owns its file.
+First launch downloads the package (seconds for the slim install; add
+`--from "webfetch-llm[all]@latest"` for the full benchmarked config,
+which pulls torch and takes a few minutes once). Pass engine keys with
+`--env BRAVE_API_KEY=... --env TAVILY_API_KEY=...`; with no keys it runs
+free on DuckDuckGo.
+
+If you'd rather manage the install yourself:
+
+```
+pip install "webfetch-llm[all]"
+claude mcp add webfetch -- webfetch-mcp
+```
+
+Pip installs are frozen until you `pip install -U webfetch-llm`. Note: if
+you installed into a venv, `webfetch-mcp` is only on PATH while it is
+active - register the absolute path to the script instead.
+
+The MCP server exposes `web_search`, `save_finding`, and
+`savings_report`. Run one server per machine - the semantic cache assumes
+a single process owns its file.
+
+Update notice: the server makes one request to pypi.org per process to
+check whether a newer release exists, and if so appends a single line to
+`savings_report` output. Nothing else is sent anywhere. Set
+`UPDATE_CHECK_ENABLED = False` in `webfetch/config.py` (or fork the
+constant) to disable the check entirely.
 
 ## Configurations
 

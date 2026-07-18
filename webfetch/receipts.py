@@ -118,6 +118,10 @@ def main() -> None:
     args = parser.parse_args()
     print(savings_report(db_path=args.db,
                          token_price_per_mtok=args.token_price))
+    from webfetch.update_check import available_update
+    notice = available_update()
+    if notice:
+        print("\n" + notice)
 
 
 __all__ = ["get_counters", "savings_report", "main"]
