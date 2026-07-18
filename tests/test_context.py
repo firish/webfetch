@@ -36,3 +36,18 @@ def test_budget_truncates_but_never_empty():
     assert ctx  # always at least one chunk, even over budget
     assert "alpha text" in ctx
     assert "beta text" not in ctx
+
+
+def test_finding_marker_urls_render_inner_source():
+    finding = Chunk(text="uv 0.11.29 is current.",
+                    url="model-finding://https://github.com/astral-sh/uv/releases",
+                    title="model-contributed finding")
+    ctx = build_context([finding], budget_chars=1000, header_style="domain")
+    assert "| github.com]" in ctx          # not "| https:]"
+    assert "https:]" not in ctx
+    ctx = build_context([finding], budget_chars=1000, header_style="full")
+    assert "| https://github.com/astral-sh/uv/releases]" in ctx
+    unattributed = Chunk(text="t", url="model-finding://unattributed",
+                         title="model-contributed finding")
+    ctx = build_context([unattributed], budget_chars=1000, header_style="domain")
+    assert "| unattributed]" in ctx

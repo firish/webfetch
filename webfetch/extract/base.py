@@ -13,7 +13,7 @@ import re
 from abc import ABC, abstractmethod
 from urllib.parse import urlparse
 
-from webfetch.config import DEFAULT_TOKEN_BUDGET
+from webfetch.config import DEFAULT_TOKEN_BUDGET, FINDING_URL_SCHEME
 from webfetch.rank.base import Chunk
 
 # System prompt shared across all adapters. Kept provider-agnostic so switching
@@ -35,11 +35,19 @@ def _header(chunk: Chunk, style: str) -> str:
             information the title does not (titles DO carry answers - the
             extraction-hardening eval found answers living only in metadata,
             so the title always stays).
+
+    Model-contributed findings nest the real source URL inside the marker
+    scheme (model-finding://https://...); urlparse on that composite reads
+    "https:" as the host, so the marker is stripped BEFORE formatting and
+    the inner URL renders like any other source.
     """
+    url = chunk.url
+    if url.startswith(FINDING_URL_SCHEME):
+        url = url[len(FINDING_URL_SCHEME):] or "unattributed"
     if style == "domain":
-        host = urlparse(chunk.url).netloc or chunk.url
+        host = urlparse(url).netloc or url
         return f"[Source: {chunk.title} | {host}]"
-    return f"[Source: {chunk.title} | {chunk.url}]"
+    return f"[Source: {chunk.title} | {url}]"
 
 
 def build_context(
