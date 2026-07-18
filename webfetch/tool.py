@@ -96,12 +96,16 @@ def get_default_pipeline() -> Pipeline:
     stays open across every tool call in an agent loop.
 
     Returns:
-        A Pipeline with the full ranking cascade and a SemanticSqliteCache
+        A Pipeline with multi-engine fusion over every search engine that
+        has credentials in the environment (just DDG when none do - still
+        zero-config), the full ranking cascade, and a SemanticSqliteCache
         (which degrades to exact-match caching without webfetch-llm[rerank]).
     """
     global _default_pipeline
     if _default_pipeline is None:
-        _default_pipeline = Pipeline(cache=SemanticSqliteCache())
+        from webfetch.search import get_search_adapter
+        _default_pipeline = Pipeline(search=get_search_adapter("multi"),
+                                     cache=SemanticSqliteCache())
     return _default_pipeline
 
 

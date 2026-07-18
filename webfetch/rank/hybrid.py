@@ -43,7 +43,8 @@ def _check_embeddings() -> bool:
             _embeddings_available = True
         except ImportError:
             logger.warning("sentence-transformers not installed - hybrid "
-                           "ranking degrades to BM25 only. Install webfetch-llm[rerank].")
+                           "ranking degrades to BM25 only. "
+                           "Install webfetch-llm[rerank].")
             _embeddings_available = False
     return _embeddings_available
 

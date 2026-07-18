@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "webfetch-llm"
-version = "0.1.0"
+version = "0.1.1"
 description = "Own your LLM's web search: a local search -> fetch -> rank pipeline that replaces hosted web_search tools at a fraction of the cost"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -38,6 +38,7 @@ dependencies = [
     # ddgs is the maintained successor of duckduckgo-search; ddg.py imports it.
     "ddgs>=6.0",
     "anthropic>=0.25",
+    "mcp>=1.0",
 ]
 
 [project.optional-dependencies]
@@ -64,10 +65,9 @@ tables = [
     "tabulate>=0.9",
 ]
 
-# MCP server (`webfetch-mcp` console script)
-mcp = [
-    "mcp>=1.0",
-]
+# Kept as a no-op alias (mcp moved to core in 0.1.1 so uvx
+# one-liners work); harmless for existing install commands.
+mcp = []
 
 # Full install
 all = ["webfetch-llm[rerank,browser,pdf,tables,mcp]"]

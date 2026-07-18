@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 - 2026-07-15
+
+- get_default_pipeline() (used by the MCP server and handle_web_search's
+  default) now builds multi-engine fusion from whatever engine keys are in
+  the environment, instead of silently running DDG-only. Zero-config
+  behavior is unchanged (fusion of one engine is just that engine).
+- mcp SDK moved from the [mcp] extra into core deps so
+  `uvx --from webfetch-llm webfetch-mcp` works as a one-liner; [mcp]
+  remains as an empty alias.
+
 ## 0.1.0 - 2026-07-14
 
 Initial release.
