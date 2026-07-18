@@ -25,7 +25,13 @@ from webfetch.rank import Chunk
 from webfetch.receipts import get_counters, savings_report
 from webfetch.search import SearchResult, get_search_adapter
 from webfetch.semcache import SemanticSqliteCache
-from webfetch.tool import WEB_SEARCH_TOOL, get_default_pipeline, handle_web_search
+from webfetch.tool import (
+    SAVE_FINDING_TOOL,
+    WEB_SEARCH_TOOL,
+    get_default_pipeline,
+    handle_save_finding,
+    handle_web_search,
+)
 
 __version__ = "0.1.0"
 
@@ -42,6 +48,8 @@ __all__ = [
     "SearchResult",
     "get_search_adapter",
     "WEB_SEARCH_TOOL",
+    "SAVE_FINDING_TOOL",
+    "handle_save_finding",
     "handle_web_search",
     "get_default_pipeline",
     "__version__",

@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- web_search gains a `full_results` flag for lists/rankings/enumerations:
+  skips compression and raises the budget. Eval-backed: compression was
+  trimming parallel list items (item recall 71.9% -> 76.5% uncompressed
+  on the new list eval); extra chunks measured near-zero benefit.
+- New save_finding tool (library + MCP): the model can cache facts
+  learned outside webfetch, marked model-contributed; future reads show
+  an explicit UNVERIFIED header with a force_fresh escape hatch.
+  SAVE_FINDING_ENABLED=False disables it.
+
 ## 0.1.1 - 2026-07-15
 
 - get_default_pipeline() (used by the MCP server and handle_web_search's

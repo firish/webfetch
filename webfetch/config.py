@@ -146,6 +146,21 @@ COMPRESS_ANAPHORA_GUARD: bool = True  # +14 tokens, keeps pronouns resolvable
 COMPRESS_TABLE_GUARD: bool = True      # ablation: protects 1 answer of 29
 COMPRESS_DEDUP: bool = True     # ablation: -13 tokens free (overlap dupes)
 
+# full_results tool flag: skip compression + a larger budget. Picked by
+# evals/run_list_eval.py on 12 list/ranking queries: compression is what
+# drops parallel list items (item recall 71.9% -> 76.5% uncompressed at
+# +218 tok), while doubling chunks adds only +0.8pts - so the flag changes
+# FORMATTING only and stays cache-compatible.
+FULL_RESULTS_BUDGET: int = 16000
+
+# save_finding: model-contributed cache entries (e.g. learned via a hosted
+# search fallback). Marked with the URL scheme below and surfaced with a
+# distrust header so the model can force_fresh past them. Kill switch for
+# deployments that never want unverified content cached.
+SAVE_FINDING_ENABLED: bool = True
+SAVE_FINDING_FRESHNESS: str = "recent"
+FINDING_URL_SCHEME: str = "model-finding://"
+
 # Tool-result context format (build_context). Same eval: merging same-URL
 # chunks under one header + hostname-only headers cut the fixed header
 # overhead (26% of an uncompressed result) with zero measured recall cost -

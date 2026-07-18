@@ -85,3 +85,56 @@ def test_never_raises_on_pipeline_exception():
         {"query": "q"}, pipeline=StubPipeline(exc=RuntimeError("engine down")))
     assert out.startswith("web_search error: RuntimeError")
     assert "engine down" in out
+
+
+def test_full_results_skips_compression_and_raises_budget(monkeypatch):
+    # Compression enabled and booby-trapped: the flag must never call it.
+    monkeypatch.setattr(tool, "COMPRESSION_ENABLED", True)
+
+    def boom(*a, **k):
+        raise AssertionError("compress_chunks called despite full_results")
+    monkeypatch.setattr(tool, "compress_chunks", boom)
+
+    long_text = "Item one. " * 300  # ~3000 chars, exceeds the 8000 default
+    r = _result(chunks=[Chunk(text=long_text, url=f"https://x.com/{i}",
+                              title="X") for i in range(4)])
+    out = tool.handle_web_search({"query": "top 10 things",
+                                  "full_results": True},
+                                 pipeline=StubPipeline(r))
+    # Larger budget: all four 3k-char chunks fit (12k > 8000 default).
+    assert out.count("Item one.") >= 4 * 100
+
+
+def test_save_finding_roundtrip_shows_distrust_header():
+    class RecordingPipeline(StubPipeline):
+        def store_chunks(self, query, chunks, freshness=None):
+            self.stored = (query, chunks, freshness)
+
+    pipe = RecordingPipeline()
+    msg = tool.handle_save_finding(
+        {"query": "capital of atlantis", "content": "It is Poseidonia.",
+         "source_url": "https://example.com/atlantis"}, pipeline=pipe)
+    assert "unverified" in msg
+    query, chunks, freshness = pipe.stored
+    assert chunks[0].url.startswith("model-finding://")
+    assert freshness == tool.SAVE_FINDING_FRESHNESS
+
+    # A later lookup that returns this entry gets the distrust header,
+    # and the content is served verbatim (no compression).
+    r = _result(from_cache=True, cache_kind="exact", cache_age_secs=120,
+                freshness="recent", chunks=chunks)
+    out = tool.handle_web_search({"query": "capital of atlantis"},
+                                 pipeline=StubPipeline(r))
+    assert "model-contributed finding" in out
+    assert "UNVERIFIED" in out and "force_fresh" in out
+    assert "Poseidonia" in out
+
+
+def test_save_finding_validation_and_kill_switch(monkeypatch):
+    out = tool.handle_save_finding({"query": "", "content": "x"},
+                                   pipeline=StubPipeline())
+    assert out.startswith("save_finding error")
+    monkeypatch.setattr(tool, "SAVE_FINDING_ENABLED", False)
+    out = tool.handle_save_finding({"query": "q", "content": "x"},
+                                   pipeline=StubPipeline())
+    assert "disabled" in out

@@ -106,6 +106,18 @@ class Pipeline:
         self._n_results = n_results
         self._max_workers = max_workers
 
+    def store_chunks(self, query: str, chunks: list[Chunk],
+                     freshness: str | None = None) -> None:
+        """Write chunks into the query cache under this pipeline's key.
+
+        Exists so callers (e.g. the save_finding tool) can contribute cache
+        entries without reaching into cache internals. No-op without a
+        cache.
+        """
+        if self._cache is not None:
+            self._cache.store(query, self._search.provider_name,
+                              self._n_results, chunks, freshness=freshness)
+
     def bump_stats(self, **deltas: float) -> None:
         """Accumulate usage counters for cost receipts (webfetch.receipts).
 

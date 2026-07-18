@@ -529,6 +529,29 @@ hosted pricing (both vendors: $10/1k + ~17.4k injected content tokens/call
 vs our ~3.5k, measured). Dollar figures are estimates with overridable
 assumptions; counters are exact.
 
+### full_results: a model lever, sized by its own eval
+Compression selects the best-scoring sentences, which trims parallel list
+items - "top 10 X" queries lost items. The list eval
+(evals/run_list_eval.py, 12 list/ranking queries, item-recall metric on
+identical captured chunks) showed compression is the dominant lever
+(71.9% -> 76.5% uncompressed) while doubling the chunk count adds only
++0.8pts - so the flag skips compression and raises the budget, changing
+FORMATTING only: it works on cached rows and needs zero pipeline changes.
+The tool description tells the model when to set it (lists, rankings,
+enumerations, missing-detail retries).
+
+### save_finding: model-contributed cache entries wear a warning label
+The model can cache facts it learned outside webfetch (e.g. a hosted
+search fallback) via save_finding. Entries carry a model-finding:// URL
+marker; every future read surfaces an explicit distrust header
+("UNVERIFIED: saved by a model, not fetched") plus the force_fresh escape
+hatch, content is served verbatim (never compressed), TTLs age it out
+normally, and SAVE_FINDING_ENABLED=False kills the feature for
+deployments that never want unverified content cached. Interception of
+hosted-search results is architecturally impossible (they never pass
+through us) - voluntary contribution with provenance is the honest
+version.
+
 ### Tool handler as the error boundary
 Pipeline (library layer) raises on search failure; handle_web_search (agent
 boundary) catches everything and returns readable error strings. An exception
@@ -624,7 +647,10 @@ Scanned PDFs or pages where specs appear only as images require OCR
 justified for the current use case volume.
 
 ## Status
-> Last updated: 2026-07-14 (release) - v0.1.0 packaging: MCP server
+> Last updated: 2026-07-18 - full_results tool flag (list eval:
+> evals/run_list_eval.py + list_queries.jsonl) and save_finding tool
+> (distrust provenance, kill switch); MCP server now exposes three tools.
+> Previous: 2026-07-14 (release) - v0.1.0 packaging: MCP server
 > (webfetch/mcp.py, webfetch-mcp script), offline pytest suite (tests/),
 > CI, README/LICENSE/CHANGELOG/CONTRIBUTING/.env.example, pyproject
 > extras corrected (readability/newspaper4k now core - they run in the
