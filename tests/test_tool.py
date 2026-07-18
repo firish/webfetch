@@ -138,6 +138,50 @@ def test_save_finding_roundtrip_shows_distrust_header():
     assert "Poseidonia" in out
 
 
+def test_fetch_url_roundtrip_and_truncation():
+    class FetchPipeline(StubPipeline):
+        def __init__(self, text):
+            super().__init__()
+            self.text = text
+
+        def fetch_page(self, url, use_cache=True):
+            self.fetched = url
+            return self.text
+
+    pipe = FetchPipeline("word " * 100)
+    out = tool.handle_fetch_url({"url": "https://example.com/page"},
+                                pipeline=pipe)
+    assert out.startswith("[full page: https://example.com/page]")
+    assert pipe.fetched == "https://example.com/page"
+    assert "truncated" not in out
+
+    long_pipe = FetchPipeline("x" * 50_000)
+    out = tool.handle_fetch_url({"url": "https://example.com/big"},
+                                pipeline=long_pipe)
+    assert "truncated at" in out and "the page continues" in out
+
+
+def test_fetch_url_rejects_private_and_non_http():
+    for bad in ("file:///etc/passwd", "ftp://x.com/a",
+                "http://localhost/admin", "http://127.0.0.1:8080/",
+                "http://10.0.0.5/", "http://192.168.1.1/",
+                "http://169.254.169.254/latest/meta-data/",
+                "http://printer.local/", "not a url", ""):
+        out = tool.handle_fetch_url({"url": bad}, pipeline=StubPipeline())
+        assert out.startswith("fetch_url error"), bad
+    assert tool._is_public_http_url("https://example.com/a?b=c")
+
+
+def test_fetch_url_failed_fetch_message():
+    class NonePipeline(StubPipeline):
+        def fetch_page(self, url, use_cache=True):
+            return None
+
+    out = tool.handle_fetch_url({"url": "https://example.com/gone"},
+                                pipeline=NonePipeline())
+    assert "could not fetch" in out
+
+
 def test_save_finding_validation_and_kill_switch(monkeypatch):
     out = tool.handle_save_finding({"query": "", "content": "x"},
                                    pipeline=StubPipeline())

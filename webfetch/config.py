@@ -153,6 +153,10 @@ COMPRESS_DEDUP: bool = True     # ablation: -13 tokens free (overlap dupes)
 # FORMATTING only and stays cache-compatible.
 FULL_RESULTS_BUDGET: int = 16000
 
+# fetch_url tool: full-page text budget (chars). Pages cache serves
+# already-fetched pages instantly; longer pages truncate with a marker.
+FETCH_URL_BUDGET: int = 24000
+
 # save_finding: model-contributed cache entries (e.g. learned via a hosted
 # search fallback). Marked with the URL scheme below and surfaced with a
 # distrust header so the model can force_fresh past them. Kill switch for

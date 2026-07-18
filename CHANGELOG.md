@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- New fetch_url tool (library + MCP): full extracted text of one page
+  under a 24k-char budget with a truncation marker. Serves instantly from
+  the pages cache for already-fetched pages; rejects non-public URLs
+  (localhost, private ranges, metadata endpoints) since URLs are
+  model-supplied.
+
 - Update notice: the MCP server and webfetch-savings CLI check PyPI once
   per process (fail-silent, UPDATE_CHECK_ENABLED kill switch) and append
   a one-line notice to savings_report output when a newer release exists.

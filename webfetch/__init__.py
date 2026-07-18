@@ -26,9 +26,11 @@ from webfetch.receipts import get_counters, savings_report
 from webfetch.search import SearchResult, get_search_adapter
 from webfetch.semcache import SemanticSqliteCache
 from webfetch.tool import (
+    FETCH_URL_TOOL,
     SAVE_FINDING_TOOL,
     WEB_SEARCH_TOOL,
     get_default_pipeline,
+    handle_fetch_url,
     handle_save_finding,
     handle_web_search,
 )
@@ -49,7 +51,9 @@ __all__ = [
     "get_search_adapter",
     "WEB_SEARCH_TOOL",
     "SAVE_FINDING_TOOL",
+    "FETCH_URL_TOOL",
     "handle_save_finding",
+    "handle_fetch_url",
     "handle_web_search",
     "get_default_pipeline",
     "__version__",

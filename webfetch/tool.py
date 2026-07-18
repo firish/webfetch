@@ -25,6 +25,7 @@ from webfetch.compress import compress_chunks
 from webfetch.config import (
     COMPRESSION_ENABLED,
     DEFAULT_TOOL_RESULT_BUDGET,
+    FETCH_URL_BUDGET,
     FINDING_URL_SCHEME,
     FULL_RESULTS_BUDGET,
     SAVE_FINDING_ENABLED,
@@ -99,6 +100,33 @@ WEB_SEARCH_TOOL: dict = {
             },
         },
         "required": ["query"],
+    },
+}
+
+# Companion tool: pull ONE page in full. web_search returns bounded
+# excerpts; when the model needs a complete list/table/article from a page
+# it saw cited, this returns the full extracted text under a budget. Pages
+# the pipeline already fetched serve instantly from the pages cache.
+FETCH_URL_TOOL: dict = {
+    "name": "fetch_url",
+    "description": (
+        "Fetch one web page and return its FULL extracted text (prose, "
+        "lists, tables) under a character budget. Use this after "
+        "web_search when an excerpt cites a page you need in full - for "
+        "complete lists, tables, or detailed context that excerpts cut "
+        "off. Public http(s) URLs only. Long pages are truncated with an "
+        "explicit marker."
+    ),
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "url": {
+                "type": "string",
+                "description": ("The page URL, usually taken from a "
+                                "web_search result's [Source: ...] label."),
+            },
+        },
+        "required": ["url"],
     },
 }
 
@@ -278,6 +306,80 @@ def _save_finding_nudge() -> str:
             "calling save_finding to cache it for next time.")
 
 
+def _is_public_http_url(url: str) -> bool:
+    """Reject non-http schemes and obviously private/internal hosts.
+
+    fetch_url takes MODEL-supplied URLs (search-result URLs come from
+    engines and never pass through here), so a confused or prompted model
+    must not be able to point the fetcher at localhost, RFC1918 space, or
+    cloud metadata endpoints. Pattern-based: hostnames are not resolved,
+    so this does not defend against DNS rebinding - acceptable for a
+    client-side tool, documented for server deployments.
+    """
+    import ipaddress
+    from urllib.parse import urlparse
+    try:
+        p = urlparse(url)
+    except ValueError:
+        return False
+    if p.scheme not in ("http", "https"):
+        return False
+    host = (p.hostname or "").lower()
+    if not host or host == "localhost" or host.endswith(".local"):
+        return False
+    try:
+        ip = ipaddress.ip_address(host)
+    except ValueError:
+        return True  # a hostname, not a literal IP
+    return not (ip.is_private or ip.is_loopback or ip.is_link_local
+                or ip.is_reserved or ip.is_unspecified)
+
+
+def handle_fetch_url(
+    tool_input: dict,
+    pipeline: Pipeline | None = None,
+    budget_chars: int = FETCH_URL_BUDGET,
+) -> str:
+    """Execute a fetch_url tool call. Never raises.
+
+    Args:
+        tool_input: {"url": ...}.
+        pipeline: Pipeline whose page cache/fetcher to use. Defaults to
+            the shared singleton.
+        budget_chars: Max characters of page text to return.
+
+    Returns:
+        The page's full extracted text (truncated with a marker if longer
+        than the budget), or a readable error message.
+    """
+    try:
+        url = str(tool_input.get("url", "")).strip()
+        if not url:
+            return "fetch_url error: empty url."
+        if not _is_public_http_url(url):
+            return (f"fetch_url error: {url!r} is not a public http(s) "
+                    "URL. Only public web pages can be fetched.")
+
+        pipe = pipeline if pipeline is not None else get_default_pipeline()
+        text = pipe.fetch_page(url)
+        if not text:
+            return (f"fetch_url error: could not fetch or extract {url!r}. "
+                    "The page may be blocked, empty, or non-HTML - try a "
+                    "different source from the search results.")
+
+        header = f"[full page: {url}]\n"
+        if len(text) > budget_chars:
+            text = (text[:budget_chars]
+                    + f"\n[... truncated at {budget_chars} chars - the "
+                      "page continues]")
+        out = header + text
+        pipe.bump_stats(tool_chars_returned=len(out))
+        return out
+    except Exception as exc:
+        logger.warning("fetch_url tool call failed", exc_info=True)
+        return f"fetch_url error: {type(exc).__name__}: {exc}."
+
+
 def handle_save_finding(
     tool_input: dict,
     pipeline: Pipeline | None = None,
@@ -322,5 +424,6 @@ def handle_save_finding(
         return f"save_finding error: {type(exc).__name__}: {exc}."
 
 
-__all__ = ["WEB_SEARCH_TOOL", "SAVE_FINDING_TOOL", "handle_web_search",
-           "handle_save_finding", "get_default_pipeline"]
+__all__ = ["WEB_SEARCH_TOOL", "SAVE_FINDING_TOOL", "FETCH_URL_TOOL",
+           "handle_web_search", "handle_save_finding", "handle_fetch_url",
+           "get_default_pipeline"]

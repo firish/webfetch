@@ -552,6 +552,16 @@ hosted-search results is architecturally impossible (they never pass
 through us) - voluntary contribution with provenance is the honest
 version.
 
+### fetch_url: the full-page escape hatch, guarded
+web_search returns bounded excerpts by design; fetch_url returns ONE
+page's full extracted text under a budget with an explicit truncation
+marker. It rides the pages cache (which already stores complete extracted
+text - chunks are the bounded view), so seen pages serve instantly.
+Because its URLs come from the MODEL rather than a search engine, the
+handler rejects non-http schemes and private/loopback/link-local/
+metadata hosts (pattern-based, no DNS resolution - documented limit for
+server deployments).
+
 ### Tool handler as the error boundary
 Pipeline (library layer) raises on search failure; handle_web_search (agent
 boundary) catches everything and returns readable error strings. An exception
@@ -647,7 +657,9 @@ Scanned PDFs or pages where specs appear only as images require OCR
 justified for the current use case volume.
 
 ## Status
-> Last updated: 2026-07-18 - full_results tool flag (list eval:
+> Last updated: 2026-07-18 (later) - fetch_url tool (guarded full-page
+> reads, pages-cache-instant); MCP server now exposes four tools.
+> Previous: 2026-07-18 - full_results tool flag (list eval:
 > evals/run_list_eval.py + list_queries.jsonl) and save_finding tool
 > (distrust provenance, kill switch); MCP server now exposes three tools.
 > Previous: 2026-07-14 (release) - v0.1.0 packaging: MCP server

@@ -33,9 +33,11 @@ def main() -> None:
 
     from webfetch.receipts import savings_report as _savings_report
     from webfetch.tool import (
+        FETCH_URL_TOOL,
         SAVE_FINDING_TOOL,
         WEB_SEARCH_TOOL,
         get_default_pipeline,
+        handle_fetch_url,
         handle_save_finding,
         handle_web_search,
     )
@@ -66,6 +68,15 @@ def main() -> None:
              "freshness": freshness, "full_results": full_results},
             pipeline=pipeline,
         )
+
+    @server.tool(description=FETCH_URL_TOOL["description"])
+    def fetch_url(url: str) -> str:
+        """Fetch one page's full extracted text under a budget.
+
+        Args:
+            url: The page URL, usually from a web_search [Source: ...] label.
+        """
+        return handle_fetch_url({"url": url}, pipeline=pipeline)
 
     @server.tool(description=SAVE_FINDING_TOOL["description"])
     def save_finding(query: str, content: str,

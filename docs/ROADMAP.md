@@ -53,12 +53,6 @@ Small lifts with clear value, orderable ahead of or between the numbered items:
 
 ## Backlog (unordered)
 
-- fetch_url tool: let the model pull ONE page it saw cited, full extracted
-  text under a budget. Cheaper than it sounds: the pages cache already
-  stores the complete extracted text (chunks are just the bounded view),
-  so cached pages serve instantly. Fixes the honest limit of full_results
-  ("uncompressed excerpts, not full pages") observed in real usage
-  2026-07-18
 - save_finding elicitation eval: measure whether the calling model CALLS
   save_finding at fallback moments (with vs without the failure-message
   nudge shipped 2026-07-18) - current tests cover serving, not elicitation
@@ -91,6 +85,13 @@ with the library's design; revisit only with a concrete use case:
   different product
 
 ## Shipped
+
+- 2026-07-18: fetch_url tool (full extracted page text under a 24k-char
+  budget, truncation marker, public-http(s)-only guard against
+  private/metadata endpoints since URLs are model-supplied). Pages cache
+  serves already-fetched pages instantly (measured: 0.7s fresh, 0.000s
+  cached). Also same day: full_results flag + list eval, save_finding
+  with distrust provenance, failure-exit nudge, update notice
 
 - 2026-07-14 (v0.1.0 release prep): MCP stdio server (webfetch-mcp),
   offline test suite + CI, packaging fixes, README with benchmark tables,

@@ -30,7 +30,7 @@ from webfetch.config import (
     DEFAULT_TOKEN_BUDGET,
 )
 from webfetch.extract.base import AbstractExtractor
-from webfetch.fetch import fetch_all
+from webfetch.fetch import fetch, fetch_all
 from webfetch.rank import AbstractRanker, Chunk, chunk_text, default_rankers
 from webfetch.search import AbstractSearchAdapter, SearchResult, get_search_adapter
 
@@ -105,6 +105,32 @@ class Pipeline:
         self._cache = cache
         self._n_results = n_results
         self._max_workers = max_workers
+
+    def fetch_page(self, url: str, use_cache: bool = True) -> str | None:
+        """Return one page's FULL extracted text, cache-first.
+
+        The pages cache stores complete extracted text (chunks are the
+        bounded view of it), so pages the pipeline has already touched
+        serve instantly. Fresh fetches go through the normal extraction
+        chain and are cached for future queries too.
+
+        Args:
+            url: The page URL.
+            use_cache: When False, always refetch (still stores).
+
+        Returns:
+            Extracted text, or None when the fetch/extraction failed.
+        """
+        if use_cache and self._cache is not None:
+            text = self._cache.get_page(url)
+            if text is not None:
+                self.bump_stats(fetch_url_cache_hits=1)
+                return text
+        text = fetch(url)
+        if text and self._cache is not None:
+            self._cache.set_page(url, text)
+        self.bump_stats(fetch_url_fetches=1)
+        return text
 
     def store_chunks(self, query: str, chunks: list[Chunk],
                      freshness: str | None = None) -> None:
