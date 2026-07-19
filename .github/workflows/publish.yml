@@ -8,6 +8,11 @@ name: publish
 on:
   release:
     types: [published]
+  # Manual lane to re-publish the MCP Registry listing without cutting a
+  # release (e.g. a registry-side validation fix). Safe end to end: the
+  # PyPI upload is skip-existing and the registry publish is idempotent
+  # per version.
+  workflow_dispatch:
 
 jobs:
   build:
@@ -51,9 +56,17 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+      # Release runs take the version from the tag; manual dispatches run
+      # from a branch, where the checked-in server.json is the truth.
+      - name: Resolve version (release tag, else server.json)
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+          else
+            echo "VERSION=$(jq -r .version server.json)" >> "$GITHUB_ENV"
+          fi
       - name: Wait for PyPI to serve the released version
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
           for i in $(seq 1 30); do
             if curl -s https://pypi.org/pypi/webfetch-llm/json \
                 | python3 -c "import json,sys; d=json.load(sys.stdin); sys.exit(0 if '$VERSION' in d.get('releases', {}) else 1)"; then
@@ -68,11 +81,10 @@ jobs:
       - name: Authenticate to MCP Registry (GitHub OIDC)
         run: ./mcp-publisher login github-oidc
       # server.json is checked in with the current release's version, but
-      # the tag is the source of truth - override so a re-run of an old
-      # release can never publish a stale version string.
-      - name: Set version from release tag
+      # the resolved version wins - a release re-run can never publish a
+      # stale version string.
+      - name: Stamp resolved version into server.json
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
           jq --arg v "$VERSION" '.version = $v | .packages[].version = $v' server.json > server.tmp
           mv server.tmp server.json
       - name: Publish to MCP Registry

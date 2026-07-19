@@ -43,6 +43,12 @@ def test_readme_carries_mcp_name_marker():
     assert re.search(rf"mcp-name: {re.escape(name)}(\s|-->)", readme)
 
 
+def test_registry_description_within_limit():
+    # The registry rejects descriptions over 100 chars with a 422 at
+    # publish time - learned from the failed v0.1.3 first publish.
+    assert len(_server_json()["description"]) <= 100
+
+
 def test_server_json_points_at_published_package():
     pkg = _server_json()["packages"][0]
     assert pkg["registryType"] == "pypi"
