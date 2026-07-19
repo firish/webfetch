@@ -81,6 +81,12 @@ keys to unlock more engines (all have free tiers) and better recall:
 cp .env.example .env   # then fill in what you have
 ```
 
+The console scripts and the MCP server pick up a `.env` in the directory
+they run from (Claude Code launches the server in your project
+directory, so a project `.env` just works). Exported env vars and
+`--env` flags always take precedence. `import webfetch` as a library
+never reads `.env` - your process env is yours.
+
 The benchmark numbers above use the 4-engine fusion config
 (DDG + Brave + Serper + Tavily) with the `[rerank]` extra installed.
 

@@ -129,6 +129,8 @@ def status_report() -> str:
 
 def main() -> None:
     """Console entry point: `webfetch-status`."""
+    from webfetch._env import load_env_for_entry_point
+    load_env_for_entry_point()
     print(status_report())
 
 

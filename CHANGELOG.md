@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Entry points (webfetch-mcp, webfetch-status, webfetch-savings) now load
+  a .env from the working directory (cwd-upward search, never overriding
+  real env vars) - "my keys are in .env but everything shows off" was the
+  first trap every user hit. The library itself still never reads .env.
+
 - New status surface: `webfetch-status` CLI, MCP `status` tool, and
   `webfetch.status_report()` - shows detected engine keys (names only),
   the active search configuration, degraded optional features, and cache

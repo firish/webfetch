@@ -133,6 +133,8 @@ def main() -> None:
     """Console entry point: `webfetch-savings [--db PATH]`."""
     import argparse
 
+    from webfetch._env import load_env_for_entry_point
+    load_env_for_entry_point()
     parser = argparse.ArgumentParser(
         description="Print the webfetch savings receipt.")
     parser.add_argument("--db", default=DEFAULT_CACHE_DB,

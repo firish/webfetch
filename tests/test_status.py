@@ -39,3 +39,19 @@ def test_default_pipeline_honors_env_overrides(tmp_path, monkeypatch):
     assert pipe._search.provider_name == "ddg"
     assert (tmp_path / "custom.db").exists()
     monkeypatch.setattr(tool, "_default_pipeline", None)
+
+
+def test_entry_points_load_dotenv_without_overriding(tmp_path, monkeypatch):
+    (tmp_path / ".env").write_text(
+        "BRAVE_API_KEY=from-dotenv\nTAVILY_API_KEY=from-dotenv\n")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.delenv("BRAVE_API_KEY", raising=False)
+    monkeypatch.setenv("TAVILY_API_KEY", "from-shell")
+    from webfetch._env import load_env_for_entry_point
+    load_env_for_entry_point()
+    import os
+    # Compare via booleans so a failure can never print a real key value.
+    loaded_ok = os.environ.get("BRAVE_API_KEY") == "from-dotenv"
+    shell_wins = os.environ.get("TAVILY_API_KEY") == "from-shell"
+    assert loaded_ok
+    assert shell_wins

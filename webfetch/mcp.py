@@ -25,6 +25,8 @@ import threading
 
 def main() -> None:
     """Start the stdio MCP server (console script entry point)."""
+    from webfetch._env import load_env_for_entry_point
+    load_env_for_entry_point()
     try:
         from mcp.server.fastmcp import FastMCP
     except ImportError:
