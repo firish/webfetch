@@ -47,6 +47,10 @@ def main() -> None:
     # One pipeline for the server's lifetime: encoder models stay warm and
     # the sqlite cache stays open across every tool call.
     pipeline = get_default_pipeline()
+    # Counter snapshot at startup: savings_report shows "this session"
+    # (since the server started) alongside the lifetime total.
+    from webfetch.receipts import get_counters
+    session_baseline = get_counters()
 
     @server.tool(description=WEB_SEARCH_TOOL["description"])
     def web_search(query: str, force_fresh: bool = False,
@@ -95,9 +99,9 @@ def main() -> None:
 
     @server.tool()
     def savings_report() -> str:
-        """What webfetch has saved vs hosted web-search pricing (lifetime
-        of this machine's cache)."""
-        report = _savings_report()
+        """What webfetch has saved vs hosted web-search pricing: this
+        session (since the server started) plus the lifetime total."""
+        report = _savings_report(baseline=session_baseline)
         notice = available_update()
         return report + ("\n\n" + notice if notice else "")
 

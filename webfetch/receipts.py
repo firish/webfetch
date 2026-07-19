@@ -51,29 +51,12 @@ def get_counters(db_path: str = DEFAULT_CACHE_DB) -> dict[str, float]:
         conn.close()
 
 
-def savings_report(
-    db_path: str = DEFAULT_CACHE_DB,
-    hosted_fee: float = RECEIPT_HOSTED_SEARCH_FEE,
-    hosted_tokens_per_call: int = RECEIPT_HOSTED_TOKENS_PER_CALL,
-    token_price_per_mtok: float = RECEIPT_TOKEN_PRICE_PER_MTOK,
-) -> str:
-    """Format a savings receipt against hosted web-search pricing.
-
-    Args:
-        db_path: Path to the sqlite cache file holding the counters.
-        hosted_fee: Hosted per-search fee ($10/1k at both major vendors).
-        hosted_tokens_per_call: Content tokens a hosted search injects per
-            call (measured mean; override to be more conservative).
-        token_price_per_mtok: $/MTok of the model reading the results
-            (default: Opus-class input pricing).
-
-    Returns:
-        A multi-line receipt string; a short notice if no counters exist.
-    """
-    c = get_counters(db_path)
+def _render(c: dict[str, float], title: str, hosted_fee: float,
+            hosted_tokens_per_call: int, token_price_per_mtok: float) -> str:
+    """Render one counters dict as a receipt block."""
     searches = int(c.get("searches_total", 0))
     if not searches:
-        return "webfetch receipts: no searches recorded yet."
+        return f"webfetch receipts: no searches recorded {title}."
     exact = int(c.get("cache_hits_exact", 0))
     semantic = int(c.get("cache_hits_semantic", 0))
     fresh = int(c.get("fresh_searches", 0))
@@ -85,7 +68,7 @@ def savings_report(
     token_savings = max(0, hosted_tokens - our_tokens) \
         * token_price_per_mtok / 1e6
     lines = [
-        "webfetch savings receipt (lifetime of this cache)",
+        f"webfetch savings receipt ({title})",
         f"  searches served:      {searches}",
         f"  from cache:           {cached} ({cached / searches:.0%})"
         f" - exact {exact}, semantic {semantic}"
@@ -101,6 +84,49 @@ def savings_report(
         f"  ESTIMATED TOTAL AVOIDED:     ${fee_avoided + token_savings:.2f}",
     ]
     return "\n".join(lines)
+
+
+def savings_report(
+    db_path: str = DEFAULT_CACHE_DB,
+    hosted_fee: float = RECEIPT_HOSTED_SEARCH_FEE,
+    hosted_tokens_per_call: int = RECEIPT_HOSTED_TOKENS_PER_CALL,
+    token_price_per_mtok: float = RECEIPT_TOKEN_PRICE_PER_MTOK,
+    baseline: dict[str, float] | None = None,
+) -> str:
+    """Format a savings receipt against hosted web-search pricing.
+
+    Args:
+        db_path: Path to the sqlite cache file holding the counters.
+        hosted_fee: Hosted per-search fee ($10/1k at both major vendors).
+        hosted_tokens_per_call: Content tokens a hosted search injects per
+            call (measured mean; override to be more conservative).
+        token_price_per_mtok: $/MTok of the model reading the results
+            (default: Opus-class input pricing).
+        baseline: Counter snapshot taken earlier (e.g. at server startup,
+            via get_counters()). When given, the receipt covers the DELTA
+            since the snapshot ("this session") plus a one-line lifetime
+            summary. Counters are monotonic, so deltas are clamped at 0
+            only to survive a cache db deleted mid-session.
+
+    Returns:
+        A multi-line receipt string; a short notice if no counters exist.
+    """
+    c = get_counters(db_path)
+    if baseline is None:
+        return _render(c, "lifetime of this cache", hosted_fee,
+                       hosted_tokens_per_call, token_price_per_mtok)
+    delta = {k: max(0.0, v - baseline.get(k, 0.0)) for k, v in c.items()}
+    out = _render(delta, "this session", hosted_fee,
+                  hosted_tokens_per_call, token_price_per_mtok)
+    lifetime_searches = int(c.get("searches_total", 0))
+    if lifetime_searches:
+        fee = lifetime_searches * hosted_fee
+        tok = max(0, lifetime_searches * hosted_tokens_per_call
+                  - int(c.get("tool_chars_returned", 0)) // CHARS_PER_TOKEN) \
+            * token_price_per_mtok / 1e6
+        out += (f"\n  lifetime: {lifetime_searches} searches, "
+                f"~${fee + tok:.2f} avoided")
+    return out
 
 
 def main() -> None:
