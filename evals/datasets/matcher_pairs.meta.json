@@ -1,17 +1,19 @@
 {
   "build_command": "python evals/build_datasets.py",
   "counts": {
+    "cross_form": 38,
     "factoid_neg": 15,
     "factoid_pos": 15,
     "handwritten": 17,
     "qqp_hard_neg": 100,
     "qqp_pos": 100,
-    "total": 247
+    "total": 285
   },
   "license": "QQP per original Quora terms; SimpleQA MIT; handwritten pairs same license as repo",
-  "retrieved": "2026-07-09",
+  "retrieved": "2026-07-18",
   "seed": 42,
   "sources": {
+    "cross-form": "question<->keyword-form pairs; first 10 positives are real pairs from a 2026-07-18 live run",
     "factoid-negative": "factoid entity/year/role swaps written for this repo",
     "handwritten": "adversarial pairs written for this repo",
     "qqp": "https://huggingface.co/datasets/nyu-mll/glue (validation split)",

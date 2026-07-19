@@ -1,14 +1,17 @@
 """
 Freshness (volatility) classifier for cache TTL selection.
 
-Hybrid classifier picked by the eval bake-off (evals/run_volatility_eval.py,
-FreshQA-labeled, seeded split): keyword cue rules decide when a cue fires,
-a nearest-centroid embedding classifier decides the uncued remainder.
-Measured: accuracy 0.627, realtime recall 0.885 - dominating keywords-only
-(0.520/0.612), centroid-only (0.613/0.673), and kNN (0.487/0.750).
+Hybrid classifier picked by the eval bake-off (evals/run_volatility_eval.py):
+keyword cue rules decide when a cue fires, a nearest-centroid embedding
+classifier decides the uncued remainder. Re-baked 2026-07-18 on FreshQA +
+a hand-labeled tech-release/listicle slice (413 queries) after a live run
+showed versioned-release and listicle queries bucketed realtime: hybrid
+won again (accuracy 0.588, realtime recall 0.705 on the merged test
+split), and the retrained centroids now classify release-notes queries
+stable and listicles recent instead of realtime.
 
 The centroids ship as a ~25KB JSON artifact (webfetch/data/) derived from
-FreshQA (CC) - the library never ships the dataset itself. Without the
+FreshQA (CC) + the tech slice - the library never ships the datasets. Without the
 rerank extra the centroid stage drops out and uncued queries fall back to
 DEFAULT_FRESHNESS, which is exactly the measured keywords-only behavior.
 
@@ -22,6 +25,7 @@ import json
 import logging
 import re
 import threading
+import time
 from pathlib import Path
 
 from webfetch.config import BIENCODER_MODEL, DEFAULT_FRESHNESS
@@ -32,13 +36,23 @@ _CENTROIDS_PATH = Path(__file__).resolve().parent / "data" / "volatility_centroi
 
 # Cue rules, checked in order: realtime first (the expensive class to miss),
 # then stable (clearly historical). Mirrors evals/run_volatility_eval.py.
+# 2026-07-18 repair: year mentions ("in 2026") only count as STABLE cues
+# for PAST years - during 2026 they are currency markers, and the old rule
+# gave listicles like "tools to use instead of Docker in 2026" a 90-day
+# TTL. Measured on FreshQA+tech (413 queries): fixes the one query it
+# targets, changes nothing else. Known limitation kept deliberately:
+# "this year" stays a realtime cue because FreshQA news/sports queries
+# need it - a listicle carrying that phrase gets a shorter TTL than ideal.
 _REALTIME_RE = re.compile(
     r"\b(latest|newest|most recent|current|currently|today|tonight|right now|"
     r"this (week|month|year|season)|so far|as of|price|stock|score|standings|"
     r"ranking|rank|record for|now)\b", re.IGNORECASE)
 _STABLE_RE = re.compile(
     r"\b(first|invented|founded|discovered|original|originally|history of|"
-    r"was born|born in|died|in \d{4}|of \d{4}|\d{4}s)\b", re.IGNORECASE)
+    r"was born|born in|died|\d{4}s)\b", re.IGNORECASE)
+# Compared in code - a "past years" regex alternation breaks at decade
+# boundaries.
+_YEAR_MENTION_RE = re.compile(r"\b(?:in|of) (\d{4})\b", re.IGNORECASE)
 
 _bi_model = None
 _centroids: dict[str, list[float]] | None = None
@@ -94,6 +108,9 @@ def classify_freshness(query: str) -> str:
     if _REALTIME_RE.search(query):
         return "realtime"
     if _STABLE_RE.search(query):
+        return "stable"
+    year = _YEAR_MENTION_RE.search(query)
+    if year and int(year.group(1)) < time.localtime().tm_year:
         return "stable"
     return _centroid_class(query) or DEFAULT_FRESHNESS
 

@@ -38,6 +38,7 @@ BI_MODEL = "all-MiniLM-L6-v2"
 # Two candidate verifiers: the library's ranking cross-encoder (zero new
 # downloads) and a duplicate-question model purpose-trained on QQP.
 CE_MODELS = (
+    "cross-encoder/nli-deberta-v3-base",
     "cross-encoder/ms-marco-MiniLM-L-6-v2",
     "cross-encoder/quora-distilroberta-base",
 )
@@ -191,6 +192,38 @@ def sweep_cascade(
     return rows
 
 
+def sweep_or_ensemble(labels: list[int], cos: list[float], p1: list[float],
+                      p2: list[float], bi_ts, ce_ts) -> list[dict]:
+    """Sweep OR-ensemble configs: cos >= bi AND (p1 >= t1 OR p2 >= t2).
+
+    Motivated by the 2026-07-18 live run: the NLI verifier scores certain
+    question<->keyword-form paraphrases near zero (out-of-distribution),
+    while a duplicate-question model handles them - and vice versa for the
+    entity-swap traps NLI kills natively. The OR lets each verifier cover
+    the other's blind spot; precision discipline comes from the sweep.
+    """
+    y = np.asarray(labels, dtype=bool)
+    c = np.asarray(cos)
+    a1 = np.asarray(p1)
+    a2 = np.asarray(p2)
+    rows: list[dict] = []
+    for bi_t in bi_ts:
+        base = c >= bi_t
+        for t1 in ce_ts:
+            m1 = a1 >= t1
+            for t2 in ce_ts:
+                pred = base & (m1 | (a2 >= t2))
+                tp = int(np.sum(pred & y))
+                fp = int(np.sum(pred & ~y))
+                fn = int(np.sum(~pred & y))
+                precision, recall, f1 = precision_recall_f1(tp, fp, fn)
+                rows.append({"bi_threshold": bi_t, "t1": t1, "t2": t2,
+                             "tp": tp, "fp": fp, "fn": fn,
+                             "precision": precision, "recall": recall,
+                             "f1": f1})
+    return rows
+
+
 def _fmt(x: float) -> str:
     return f"{x:.3f}"
 
@@ -262,6 +295,30 @@ def main() -> None:
         else:
             print(f"No cascade config reaches precision >= {args.min_precision}")
 
+    # OR-ensemble sweeps over every verifier pair.
+    or_results: dict[tuple[str, str], list[dict]] = {}
+    model_list = list(ce_probs_by_model)
+    for i in range(len(model_list)):
+        for j in range(i + 1, len(model_list)):
+            m1, m2 = model_list[i], model_list[j]
+            rows = sweep_or_ensemble(labels, cos_scores,
+                                     ce_probs_by_model[m1],
+                                     ce_probs_by_model[m2],
+                                     SHORTLIST_THRESHOLDS, CE_THRESHOLDS)
+            or_results[(m1, m2)] = rows
+            eligible = [r for r in rows if r["precision"] >= args.min_precision]
+            best = max(eligible, key=lambda r: r["recall"]) if eligible else None
+            short1, short2 = m1.split("/")[-1], m2.split("/")[-1]
+            if best:
+                print(f"\n## OR-ensemble {short1} | {short2}: "
+                      f"bi>={best['bi_threshold']:.2f}, "
+                      f"{short1}>={best['t1']:.2f} OR {short2}>={best['t2']:.2f} "
+                      f"-> recall {best['recall']:.3f} at precision "
+                      f"{best['precision']:.3f}")
+            else:
+                print(f"\n## OR-ensemble {short1} | {short2}: no config "
+                      f"reaches precision >= {args.min_precision}")
+
     # Pick overall winner: best recall among (bi-only rec, each cascade best),
     # at the primary precision bar; fall back to FALLBACK_MIN_PRECISION.
     def candidates_at(bar: float) -> list[dict]:
@@ -280,6 +337,16 @@ def main() -> None:
                 out.append({
                     "mode": "bi+ce", "threshold": best["bi_threshold"],
                     "ce_model": ce_model, "ce_threshold": best["ce_threshold"],
+                    "precision": best["precision"], "recall": best["recall"],
+                })
+        for (m1, m2), rows in or_results.items():
+            eligible = [r for r in rows if r["precision"] >= bar]
+            if eligible:
+                best = max(eligible, key=lambda r: r["recall"])
+                out.append({
+                    "mode": "bi+ce_or", "threshold": best["bi_threshold"],
+                    "ce_model": m1, "ce_threshold": best["t1"],
+                    "ce_model_2": m2, "ce_threshold_2": best["t2"],
                     "precision": best["precision"], "recall": best["recall"],
                 })
         return out
@@ -324,11 +391,17 @@ def main() -> None:
 
     # Predictions for every pair at the winning config (reusing stored CE
     # probs - the winner's model was already scored during the sweep).
-    win_probs = ce_probs_by_model.get(winner["ce_model"]) if winner["mode"] == "bi+ce" else None
+    win_probs = (ce_probs_by_model.get(winner["ce_model"])
+                 if winner["mode"] in ("bi+ce", "bi+ce_or") else None)
+    win_probs2 = (ce_probs_by_model.get(winner.get("ce_model_2"))
+                  if winner["mode"] == "bi+ce_or" else None)
 
     def predict(i: int) -> bool:
         if cos_scores[i] < winner["threshold"]:
             return False
+        if winner["mode"] == "bi+ce_or":
+            return (win_probs[i] >= winner["ce_threshold"]
+                    or win_probs2[i] >= winner["ce_threshold_2"])
         if win_probs is not None:
             return win_probs[i] >= winner["ce_threshold"]
         return True
@@ -356,6 +429,18 @@ def main() -> None:
             f"{neg_fp}/{len(neg)}" if neg else "-",
         ])
     print(markdown_table(["source", "n", "recall (pos)", "false pos (neg)"], source_rows))
+
+    # Trusted-negative precision: QQP labels are noisy (audited mislabels
+    # depress measured precision), so ALSO report FPs on the hand-written
+    # negative sources only - the number that actually maps to wrong-answer
+    # risk in production.
+    trusted_sources = {"handwritten", "factoid-negative", "cross-form"}
+    t_neg = [i for i, p in enumerate(pairs)
+             if p["source"] in trusted_sources and p["label"] == 0]
+    t_fp = sum(1 for i in t_neg if predict(i))
+    print(f"Trusted-negative FPs at winning config: {t_fp}/{len(t_neg)}")
+    winner["trusted_negative_fp"] = t_fp
+    winner["trusted_negative_n"] = len(t_neg)
 
     # Detailed audit of the hand-crafted negatives (must all be no-match).
     adv = [(i, p) for i, p in enumerate(pairs)
@@ -387,6 +472,10 @@ def main() -> None:
                        "n_pairs": len(pairs)},
             "bi_sweep": [asdict(m) for m in bi_metrics],
             "cascade_sweeps": cascade_results,
+            "or_ensemble_bests": {
+                f"{m1}|{m2}": max(rows, key=lambda r: (r["precision"] >= args.min_precision, r["recall"]))
+                for (m1, m2), rows in or_results.items()
+            },
             "recommendation": winner,
         }, f, indent=2)
     rec_path = args.out_dir / "matcher_recommendation.json"

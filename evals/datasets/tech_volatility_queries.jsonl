@@ -1,0 +1,36 @@
+{"id": "tech-001", "query": "Rust 1.80 release notes highlights", "volatility": "never-changing", "note": "released version content is immutable"}
+{"id": "tech-002", "query": "what changed in the Rust 1.80 release", "volatility": "never-changing", "note": "real query 2026-07-18 run; classifier said realtime"}
+{"id": "tech-003", "query": "TypeScript 5.9 new features", "volatility": "never-changing", "note": null}
+{"id": "tech-004", "query": "what did TypeScript 5.9 add", "volatility": "never-changing", "note": "real query; classifier said recent (ok-ish)"}
+{"id": "tech-005", "query": "React 19 new features server components", "volatility": "never-changing", "note": null}
+{"id": "tech-006", "query": "Kubernetes 1.31 release changes", "volatility": "never-changing", "note": null}
+{"id": "tech-007", "query": "Linux kernel 6.10 changelog", "volatility": "never-changing", "note": null}
+{"id": "tech-008", "query": "Django 5.1 new features", "volatility": "never-changing", "note": null}
+{"id": "tech-009", "query": "iOS 19 features list", "volatility": "never-changing", "note": null}
+{"id": "tech-010", "query": "what is new in Kubernetes 1.31", "volatility": "never-changing", "note": null}
+{"id": "tech-011", "query": "PostgreSQL 17 performance improvements", "volatility": "slow-changing", "note": "benchmarks accumulate for months post-release"}
+{"id": "tech-012", "query": "how much faster is Postgres 17", "volatility": "slow-changing", "note": "real query; classifier said realtime"}
+{"id": "tech-013", "query": "Python 3.13 free threading performance benchmarks", "volatility": "slow-changing", "note": "real query; classifier said realtime"}
+{"id": "tech-014", "query": "Node 22 performance benchmarks", "volatility": "slow-changing", "note": null}
+{"id": "tech-015", "query": "best noise cancelling headphones 2026", "volatility": "slow-changing", "note": "real query; listicles update monthly; classifier said realtime"}
+{"id": "tech-016", "query": "top ANC headphones this year 2026", "volatility": "slow-changing", "note": "real query; keyword cue 'this year' fired realtime"}
+{"id": "tech-017", "query": "Docker alternatives comparison 2026", "volatility": "slow-changing", "note": "real query; classifier said realtime"}
+{"id": "tech-018", "query": "tools to use instead of Docker in 2026", "volatility": "slow-changing", "note": "real query; keyword cue 'in 2026' fired STABLE (future-year bug)"}
+{"id": "tech-019", "query": "best programming languages to learn 2026", "volatility": "slow-changing", "note": null}
+{"id": "tech-020", "query": "cheapest electric cars 2026", "volatility": "slow-changing", "note": null}
+{"id": "tech-021", "query": "best laptops for students 2026", "volatility": "slow-changing", "note": null}
+{"id": "tech-022", "query": "top 10 project management tools", "volatility": "slow-changing", "note": null}
+{"id": "tech-023", "query": "M4 MacBook Air reviews", "volatility": "slow-changing", "note": null}
+{"id": "tech-024", "query": "best budget mechanical keyboards", "volatility": "slow-changing", "note": null}
+{"id": "tech-025", "query": "Apple M5 chip specifications", "volatility": "never-changing", "note": "specs of a shipped product are immutable"}
+{"id": "tech-026", "query": "specs of the Apple M5 processor", "volatility": "never-changing", "note": "real query, hit"}
+{"id": "tech-027", "query": "iPhone 16 battery capacity mAh", "volatility": "never-changing", "note": null}
+{"id": "tech-028", "query": "GPT-5.6 context window size", "volatility": "never-changing", "note": null}
+{"id": "tech-029", "query": "current price of Bitcoin in USD", "volatility": "fast-changing", "note": "realtime control - must stay realtime"}
+{"id": "tech-030", "query": "how much is Bitcoin worth right now in dollars", "volatility": "fast-changing", "note": "realtime control"}
+{"id": "tech-031", "query": "US federal funds rate today", "volatility": "fast-changing", "note": "realtime control"}
+{"id": "tech-032", "query": "SpaceX Starship latest launch news", "volatility": "fast-changing", "note": "realtime control"}
+{"id": "tech-033", "query": "World Cup 2026 top scorers golden boot list", "volatility": "fast-changing", "note": "live tournament standings - realtime control"}
+{"id": "tech-034", "query": "Ethereum staking yield current", "volatility": "fast-changing", "note": "realtime control"}
+{"id": "tech-035", "query": "Mediterranean diet health benefits research", "volatility": "slow-changing", "note": null}
+{"id": "tech-036", "query": "intermittent fasting weight loss studies", "volatility": "slow-changing", "note": null}

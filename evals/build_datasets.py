@@ -87,6 +87,58 @@ FACTOID_NEGATIVE_PAIRS: list[dict] = [
     {"id": "fact-neg-15", "q1": "Who was the CEO of Twitter in 2020?", "q2": "Who was the CEO of Twitter in 2023?", "note": "time swap"},
 ]
 
+# Cross-form pairs: question form <-> keyword/noun-phrase form. Added
+# 2026-07-18 after a 31-call live run measured 40% semantic recall on
+# genuinely-equivalent rewordings - all misses died at the NLI gate, and
+# the original 247-pair set (QQP question<->question + factoid slices)
+# underrepresented this pair FORM. The first ten positives are the real
+# pairs from that run (4 hits, 6 misses), verbatim. Negatives are
+# cross-form entity/version/attribute swaps: any config that recovers the
+# positives must still kill these.
+CROSS_FORM_PAIRS: list[dict] = [
+    # --- real pairs from the 2026-07-18 live run (label 1) ---
+    {"id": "xform-pos-01", "q1": "React 19 new features server components", "q2": "what's new in React 19 with server components", "label": 1, "note": "real miss"},
+    {"id": "xform-pos-02", "q1": "Rust 1.80 release notes highlights", "q2": "what changed in the Rust 1.80 release", "label": 1, "note": "real miss"},
+    {"id": "xform-pos-03", "q1": "best noise cancelling headphones 2026", "q2": "top ANC headphones this year 2026", "label": 1, "note": "real miss, vocab swap"},
+    {"id": "xform-pos-04", "q1": "PostgreSQL 17 performance improvements", "q2": "how much faster is Postgres 17", "label": 1, "note": "real miss"},
+    {"id": "xform-pos-05", "q1": "TypeScript 5.9 new features", "q2": "what did TypeScript 5.9 add", "label": 1, "note": "real miss"},
+    {"id": "xform-pos-06", "q1": "Docker alternatives comparison 2026", "q2": "tools to use instead of Docker in 2026", "label": 1, "note": "real miss, vocab swap"},
+    {"id": "xform-pos-07", "q1": "current price of Bitcoin in USD", "q2": "how much is Bitcoin worth right now in dollars", "label": 1, "note": "real hit"},
+    {"id": "xform-pos-08", "q1": "SpaceX Starship latest launch news", "q2": "most recent SpaceX Starship flight update", "label": 1, "note": "real hit"},
+    {"id": "xform-pos-09", "q1": "Mediterranean diet health benefits research", "q2": "studies on health effects of the Mediterranean diet", "label": 1, "note": "real hit"},
+    {"id": "xform-pos-10", "q1": "Apple M5 chip specifications", "q2": "specs of the Apple M5 processor", "label": 1, "note": "real hit"},
+    # --- synthesized cross-form positives ---
+    {"id": "xform-pos-11", "q1": "Kubernetes 1.31 release changes", "q2": "what is new in Kubernetes 1.31", "label": 1},
+    {"id": "xform-pos-12", "q1": "Django 5.1 new features", "q2": "what does Django 5.1 introduce", "label": 1},
+    {"id": "xform-pos-13", "q1": "iPhone 16 battery capacity mAh", "q2": "how big is the battery in the iPhone 16", "label": 1},
+    {"id": "xform-pos-14", "q1": "cheapest electric cars 2026", "q2": "what are the most affordable EVs this year", "label": 1},
+    {"id": "xform-pos-15", "q1": "Node 22 performance benchmarks", "q2": "how fast is Node 22", "label": 1},
+    {"id": "xform-pos-16", "q1": "Linux kernel 6.10 changelog", "q2": "what changed in Linux kernel 6.10", "label": 1},
+    {"id": "xform-pos-17", "q1": "M4 MacBook Air reviews", "q2": "is the M4 MacBook Air any good", "label": 1},
+    {"id": "xform-pos-18", "q1": "intermittent fasting weight loss studies", "q2": "does intermittent fasting help you lose weight", "label": 1},
+    {"id": "xform-pos-19", "q1": "US federal funds rate today", "q2": "what is the current Fed interest rate", "label": 1},
+    {"id": "xform-pos-20", "q1": "best programming languages to learn 2026", "q2": "which coding language should I learn this year", "label": 1},
+    {"id": "xform-pos-21", "q1": "Ozempic side effects list", "q2": "what are the side effects of Ozempic", "label": 1},
+    {"id": "xform-pos-22", "q1": "Ethereum staking yield current", "q2": "how much can you earn staking Ethereum right now", "label": 1},
+    {"id": "xform-pos-23", "q1": "remote work productivity research", "q2": "does working from home make people more productive", "label": 1},
+    {"id": "xform-pos-24", "q1": "GPT-5.6 context window size", "q2": "how long is the context window of GPT-5.6", "label": 1},
+    # --- cross-form negatives: swaps across the form boundary (label 0) ---
+    {"id": "xform-neg-01", "q1": "how much faster is Postgres 17", "q2": "PostgreSQL 16 performance improvements", "label": 0, "note": "version swap"},
+    {"id": "xform-neg-02", "q1": "what did TypeScript 5.9 add", "q2": "TypeScript 5.8 new features", "label": 0, "note": "version swap"},
+    {"id": "xform-neg-03", "q1": "what's new in React 19 with server components", "q2": "Vue 3 new features", "label": 0, "note": "framework swap"},
+    {"id": "xform-neg-04", "q1": "what changed in the Rust 1.80 release", "q2": "Rust 1.80 install instructions", "label": 0, "note": "attribute swap"},
+    {"id": "xform-neg-05", "q1": "specs of the Apple M5 processor", "q2": "Apple M4 chip specifications", "label": 0, "note": "version swap"},
+    {"id": "xform-neg-06", "q1": "how much is Bitcoin worth right now in dollars", "q2": "Ethereum price today USD", "label": 0, "note": "entity swap"},
+    {"id": "xform-neg-07", "q1": "top ANC headphones this year 2026", "q2": "best wireless earbuds 2026", "label": 0, "note": "category swap"},
+    {"id": "xform-neg-08", "q1": "tools to use instead of Docker in 2026", "q2": "Docker installation guide 2026", "label": 0, "note": "attribute swap"},
+    {"id": "xform-neg-09", "q1": "what is the current Fed interest rate", "q2": "federal funds rate 2020 historical", "label": 0, "note": "time swap"},
+    {"id": "xform-neg-10", "q1": "how big is the battery in the iPhone 16", "q2": "iPhone 16 screen size specs", "label": 0, "note": "attribute swap"},
+    {"id": "xform-neg-11", "q1": "what is new in Kubernetes 1.31", "q2": "Kubernetes 1.30 release changes", "label": 0, "note": "version swap"},
+    {"id": "xform-neg-12", "q1": "does intermittent fasting help you lose weight", "q2": "keto diet weight loss results", "label": 0, "note": "method swap"},
+    {"id": "xform-neg-13", "q1": "how fast is Node 22", "q2": "Deno 2 performance benchmarks", "label": 0, "note": "runtime swap"},
+    {"id": "xform-neg-14", "q1": "what are the side effects of Ozempic", "q2": "Ozempic dosage guide", "label": 0, "note": "attribute swap"},
+]
+
 # Hand-written paraphrases for a subset of the sampled SimpleQA queries,
 # keyed by the sampled row id (stable because sampling is seeded). Written
 # by hand: programmatic rewording stays too lexically close and would
@@ -295,8 +347,13 @@ def main() -> None:
          "label": 1, "source": "simpleqa-paraphrase", "note": None}
         for base_id, text in sorted(PARAPHRASES.items()) if base_id in by_id
     ]
+    cross_form = [
+        {"id": p["id"], "q1": p["q1"], "q2": p["q2"], "label": p["label"],
+         "source": "cross-form", "note": p.get("note")}
+        for p in CROSS_FORM_PAIRS
+    ]
     qqp_pairs = sample_qqp_pairs(RAW_DIR / "qqp_validation.parquet", N_QQP_POS, N_QQP_NEG, SEED)
-    matcher_pairs = qqp_pairs + adversarial + factoid_neg + factoid_pos
+    matcher_pairs = qqp_pairs + adversarial + factoid_neg + factoid_pos + cross_form
     write_jsonl(OUT_DIR / "matcher_pairs.jsonl", matcher_pairs)
     _write_meta(OUT_DIR / "matcher_pairs.meta.json", {
         "sources": {
@@ -304,13 +361,15 @@ def main() -> None:
             "handwritten": "adversarial pairs written for this repo",
             "factoid-negative": "factoid entity/year/role swaps written for this repo",
             "simpleqa-paraphrase": "SimpleQA queries (MIT) + paraphrases written for this repo",
+            "cross-form": "question<->keyword-form pairs; first 10 positives are real pairs from a 2026-07-18 live run",
         },
         "license": "QQP per original Quora terms; SimpleQA MIT; handwritten pairs same license as repo",
         "retrieved": today, "seed": SEED,
         "counts": {
             "qqp_pos": N_QQP_POS, "qqp_hard_neg": N_QQP_NEG,
             "handwritten": len(adversarial), "factoid_neg": len(factoid_neg),
-            "factoid_pos": len(factoid_pos), "total": len(matcher_pairs),
+            "factoid_pos": len(factoid_pos), "cross_form": len(cross_form),
+            "total": len(matcher_pairs),
         },
         "build_command": "python evals/build_datasets.py",
     })

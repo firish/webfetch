@@ -108,12 +108,21 @@ RECEIPT_TOKEN_PRICE_PER_MTOK: float = 5.00
 DEFAULT_EXTRACT_MODEL: str = "claude-haiku-4-5-20251001"
 
 # --- Semantic query cache ---
-# Thresholds picked by the eval harness (evals/run_matcher_eval.py, 247-pair
-# factoid-enriched set): bi >= 0.60 keeps paraphrase recall at 0.98 as a
-# shortlist gate; NLI bidirectional entailment >= 0.97 gives precision 0.955
-# with zero trusted-negative false positives. See matcher_recommendation.json.
+# Thresholds picked by the eval harness (evals/run_matcher_eval.py; 285
+# pairs after the 2026-07-18 cross-form slice). bi >= 0.60 shortlist gate;
+# NLI bidirectional entailment >= 0.92. The 0.97 -> 0.92 lowering is a
+# documented manual override of the recommender: the only FPs it adds are
+# three audited QQP mislabels (e.g. "resistance in this circuit" vs "of
+# this circuit", cosine 1.00, labeled non-duplicate) while TRUSTED-negative
+# precision stays 1.000 at both settings (highest trusted-negative NLI
+# anywhere: 0.186) and it recovers 4 cross-form + 3 QQP true paraphrases.
+# Measured on the 10 real pairs from the 2026-07-18 live run: 4/10 -> 6/10.
+# OR-ensemble with the quora verifier was tested and REJECTED: its ceiling
+# against entity-swap traps (Portland 0.984) limits it to recovering one
+# pair. Known ceiling: ~half the cross-form positives score ~0 on every
+# available verifier - misses cost a re-search, never a wrong answer.
 SEMCACHE_BI_THRESHOLD: float = 0.60
-SEMCACHE_CE_THRESHOLD: float = 0.97
+SEMCACHE_CE_THRESHOLD: float = 0.92
 
 # NLI verifier won the 4-model bake-off: only model to clear the 0.95
 # precision bar, natively rejects entity/number swaps (Portland trap: 0.000).

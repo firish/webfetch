@@ -245,3 +245,41 @@
 {"id": "fact-pos-simpleqa-3027", "label": 1, "note": null, "q1": "How many sons did Charles Wheatstone have?", "q2": "What number of sons did Charles Wheatstone father?", "source": "simpleqa-paraphrase"}
 {"id": "fact-pos-simpleqa-3672", "label": 1, "note": null, "q1": "What team came second in Group C in the 2018–19 UEFA Champions League?", "q2": "Who finished runner-up in Group C of the 2018-19 Champions League?", "source": "simpleqa-paraphrase"}
 {"id": "fact-pos-simpleqa-4207", "label": 1, "note": null, "q1": "The Black Widow Pulsar (PSR B1957+20) is located within which constellation?", "q2": "Which constellation contains the Black Widow Pulsar PSR B1957+20?", "source": "simpleqa-paraphrase"}
+{"id": "xform-pos-01", "label": 1, "note": "real miss", "q1": "React 19 new features server components", "q2": "what's new in React 19 with server components", "source": "cross-form"}
+{"id": "xform-pos-02", "label": 1, "note": "real miss", "q1": "Rust 1.80 release notes highlights", "q2": "what changed in the Rust 1.80 release", "source": "cross-form"}
+{"id": "xform-pos-03", "label": 1, "note": "real miss, vocab swap", "q1": "best noise cancelling headphones 2026", "q2": "top ANC headphones this year 2026", "source": "cross-form"}
+{"id": "xform-pos-04", "label": 1, "note": "real miss", "q1": "PostgreSQL 17 performance improvements", "q2": "how much faster is Postgres 17", "source": "cross-form"}
+{"id": "xform-pos-05", "label": 1, "note": "real miss", "q1": "TypeScript 5.9 new features", "q2": "what did TypeScript 5.9 add", "source": "cross-form"}
+{"id": "xform-pos-06", "label": 1, "note": "real miss, vocab swap", "q1": "Docker alternatives comparison 2026", "q2": "tools to use instead of Docker in 2026", "source": "cross-form"}
+{"id": "xform-pos-07", "label": 1, "note": "real hit", "q1": "current price of Bitcoin in USD", "q2": "how much is Bitcoin worth right now in dollars", "source": "cross-form"}
+{"id": "xform-pos-08", "label": 1, "note": "real hit", "q1": "SpaceX Starship latest launch news", "q2": "most recent SpaceX Starship flight update", "source": "cross-form"}
+{"id": "xform-pos-09", "label": 1, "note": "real hit", "q1": "Mediterranean diet health benefits research", "q2": "studies on health effects of the Mediterranean diet", "source": "cross-form"}
+{"id": "xform-pos-10", "label": 1, "note": "real hit", "q1": "Apple M5 chip specifications", "q2": "specs of the Apple M5 processor", "source": "cross-form"}
+{"id": "xform-pos-11", "label": 1, "note": null, "q1": "Kubernetes 1.31 release changes", "q2": "what is new in Kubernetes 1.31", "source": "cross-form"}
+{"id": "xform-pos-12", "label": 1, "note": null, "q1": "Django 5.1 new features", "q2": "what does Django 5.1 introduce", "source": "cross-form"}
+{"id": "xform-pos-13", "label": 1, "note": null, "q1": "iPhone 16 battery capacity mAh", "q2": "how big is the battery in the iPhone 16", "source": "cross-form"}
+{"id": "xform-pos-14", "label": 1, "note": null, "q1": "cheapest electric cars 2026", "q2": "what are the most affordable EVs this year", "source": "cross-form"}
+{"id": "xform-pos-15", "label": 1, "note": null, "q1": "Node 22 performance benchmarks", "q2": "how fast is Node 22", "source": "cross-form"}
+{"id": "xform-pos-16", "label": 1, "note": null, "q1": "Linux kernel 6.10 changelog", "q2": "what changed in Linux kernel 6.10", "source": "cross-form"}
+{"id": "xform-pos-17", "label": 1, "note": null, "q1": "M4 MacBook Air reviews", "q2": "is the M4 MacBook Air any good", "source": "cross-form"}
+{"id": "xform-pos-18", "label": 1, "note": null, "q1": "intermittent fasting weight loss studies", "q2": "does intermittent fasting help you lose weight", "source": "cross-form"}
+{"id": "xform-pos-19", "label": 1, "note": null, "q1": "US federal funds rate today", "q2": "what is the current Fed interest rate", "source": "cross-form"}
+{"id": "xform-pos-20", "label": 1, "note": null, "q1": "best programming languages to learn 2026", "q2": "which coding language should I learn this year", "source": "cross-form"}
+{"id": "xform-pos-21", "label": 1, "note": null, "q1": "Ozempic side effects list", "q2": "what are the side effects of Ozempic", "source": "cross-form"}
+{"id": "xform-pos-22", "label": 1, "note": null, "q1": "Ethereum staking yield current", "q2": "how much can you earn staking Ethereum right now", "source": "cross-form"}
+{"id": "xform-pos-23", "label": 1, "note": null, "q1": "remote work productivity research", "q2": "does working from home make people more productive", "source": "cross-form"}
+{"id": "xform-pos-24", "label": 1, "note": null, "q1": "GPT-5.6 context window size", "q2": "how long is the context window of GPT-5.6", "source": "cross-form"}
+{"id": "xform-neg-01", "label": 0, "note": "version swap", "q1": "how much faster is Postgres 17", "q2": "PostgreSQL 16 performance improvements", "source": "cross-form"}
+{"id": "xform-neg-02", "label": 0, "note": "version swap", "q1": "what did TypeScript 5.9 add", "q2": "TypeScript 5.8 new features", "source": "cross-form"}
+{"id": "xform-neg-03", "label": 0, "note": "framework swap", "q1": "what's new in React 19 with server components", "q2": "Vue 3 new features", "source": "cross-form"}
+{"id": "xform-neg-04", "label": 0, "note": "attribute swap", "q1": "what changed in the Rust 1.80 release", "q2": "Rust 1.80 install instructions", "source": "cross-form"}
+{"id": "xform-neg-05", "label": 0, "note": "version swap", "q1": "specs of the Apple M5 processor", "q2": "Apple M4 chip specifications", "source": "cross-form"}
+{"id": "xform-neg-06", "label": 0, "note": "entity swap", "q1": "how much is Bitcoin worth right now in dollars", "q2": "Ethereum price today USD", "source": "cross-form"}
+{"id": "xform-neg-07", "label": 0, "note": "category swap", "q1": "top ANC headphones this year 2026", "q2": "best wireless earbuds 2026", "source": "cross-form"}
+{"id": "xform-neg-08", "label": 0, "note": "attribute swap", "q1": "tools to use instead of Docker in 2026", "q2": "Docker installation guide 2026", "source": "cross-form"}
+{"id": "xform-neg-09", "label": 0, "note": "time swap", "q1": "what is the current Fed interest rate", "q2": "federal funds rate 2020 historical", "source": "cross-form"}
+{"id": "xform-neg-10", "label": 0, "note": "attribute swap", "q1": "how big is the battery in the iPhone 16", "q2": "iPhone 16 screen size specs", "source": "cross-form"}
+{"id": "xform-neg-11", "label": 0, "note": "version swap", "q1": "what is new in Kubernetes 1.31", "q2": "Kubernetes 1.30 release changes", "source": "cross-form"}
+{"id": "xform-neg-12", "label": 0, "note": "method swap", "q1": "does intermittent fasting help you lose weight", "q2": "keto diet weight loss results", "source": "cross-form"}
+{"id": "xform-neg-13", "label": 0, "note": "runtime swap", "q1": "how fast is Node 22", "q2": "Deno 2 performance benchmarks", "source": "cross-form"}
+{"id": "xform-neg-14", "label": 0, "note": "attribute swap", "q1": "what are the side effects of Ozempic", "q2": "Ozempic dosage guide", "source": "cross-form"}

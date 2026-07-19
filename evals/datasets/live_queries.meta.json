@@ -6,7 +6,7 @@
     "total": 65
   },
   "license": "SimpleQA: MIT (openai/simple-evals)",
-  "retrieved": "2026-07-09",
+  "retrieved": "2026-07-18",
   "seed": 42,
   "sources": {
     "handwritten-paraphrase": "paraphrases written for this repo",

@@ -657,7 +657,11 @@ Scanned PDFs or pages where specs appear only as images require OCR
 justified for the current use case volume.
 
 ## Status
-> Last updated: 2026-07-18 (later) - fetch_url tool (guarded full-page
+> Last updated: 2026-07-18 (night) - live-run retune: semantic-cache NLI
+> gate 0.97 -> 0.92 (cross-form slice; trusted-negative precision 1.000
+> preserved; OR-ensemble tested and rejected), freshness centroids
+> retrained on FreshQA + tech slice, past-year-only stable cue.
+> Previous: 2026-07-18 (later) - fetch_url tool (guarded full-page
 > reads, pages-cache-instant); MCP server now exposes four tools.
 > Previous: 2026-07-18 - full_results tool flag (list eval:
 > evals/run_list_eval.py + list_queries.jsonl) and save_finding tool

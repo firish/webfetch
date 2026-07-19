@@ -53,12 +53,17 @@ Small lifts with clear value, orderable ahead of or between the numbered items:
 
 ## Backlog (unordered)
 
+- Cross-form paraphrase verifier: ~half the question<->keyword-form
+  paraphrases score ~0 on EVERY available CE verifier (measured
+  2026-07-18; OR-ensemble tested and rejected - quora's entity-swap
+  ceiling limits it to one recovered pair). Needs a different mechanism
+  (small LLM judge or query canonicalization); misses are safe (re-search,
+  never a wrong answer), so this is a hit-rate optimization
 - save_finding elicitation eval: measure whether the calling model CALLS
   save_finding at fallback moments (with vs without the failure-message
   nudge shipped 2026-07-18) - current tests cover serving, not elicitation
 
 - OpenAI function-calling example loop
-- OR-ensemble semantic-cache verifier (only if live hit rates disappoint)
 - Cache eviction policy (size cap / LRU) - required before any shared
   remote deployment
 - Negative caching of failed fetches; per-adapter retry/backoff
@@ -85,6 +90,15 @@ with the library's design; revisit only with a concrete use case:
   different product
 
 ## Shipped
+
+- 2026-07-18 (later): semantic-cache + freshness retune from a 31-call
+  live run. Matcher: cross-form slice (38 pairs incl. the 10 real ones) ->
+  NLI gate 0.97 -> 0.92 (all marginal FPs are audited QQP mislabels;
+  trusted-negative precision 1.000 at both; real-pair recall 4/10 -> 6/10;
+  OR-ensemble rejected on data). Freshness: tech/listicle slice (36
+  queries) -> retrained centroids + past-year-only stable cue (release
+  queries now stable, listicles recent, realtime controls intact; the one
+  keyword change fixes its target query and nothing else on 413)
 
 - 2026-07-18: fetch_url tool (full extracted page text under a 24k-char
   budget, truncation marker, public-http(s)-only guard against

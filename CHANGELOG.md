@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Semantic cache: NLI verification threshold 0.92 (was 0.97) - recovers
+  question<->keyword-form paraphrases (React/TypeScript-style rewords)
+  with zero trusted-negative false positives; the only additional matches
+  on the eval set are audited QQP mislabels. Cross-form eval slice added.
+- Freshness classifier: retrained centroids (FreshQA + new tech/listicle
+  slice) - release-notes queries now classify stable and listicles recent
+  instead of realtime (15-min TTL); "in <year>" only counts as historical
+  for past years.
+
 - New fetch_url tool (library + MCP): full extracted text of one page
   under a 24k-char budget with a truncation marker. Serves instantly from
   the pages cache for already-fetched pages; rejects non-public URLs
