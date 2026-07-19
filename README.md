@@ -151,9 +151,20 @@ Pip installs are frozen until you `pip install -U webfetch-llm`. Note: if
 you installed into a venv, `webfetch-mcp` is only on PATH while it is
 active - register the absolute path to the script instead.
 
-The MCP server exposes `web_search`, `save_finding`, and
-`savings_report`. Run one server per machine - the semantic cache assumes
-a single process owns its file.
+The MCP server exposes `web_search`, `fetch_url`, `save_finding`,
+`status`, and `savings_report`. Run one server per machine - the semantic
+cache assumes a single process owns its file.
+
+To check your setup after installing, run `webfetch-status` (or ask the
+model to call the `status` tool). It shows which engine keys are detected
+(names only, never values), the active search configuration
+(`multi(ddg+brave+serper+tavily)` fusion, `fallback` chain, or a single
+engine), which optional features are on or degraded, and where the cache
+lives. Configuration is environment variables, read at server start:
+engine keys (`BRAVE_API_KEY` etc.), `WEBFETCH_PROVIDER` to pick the
+search config, and `WEBFETCH_CACHE_DB` to relocate the cache. Library
+users can also pass everything explicitly (`Pipeline(search=...,
+cache=...)`).
 
 Update notice: the server makes one request to pypi.org per process to
 check whether a newer release exists, and if so appends a single line to

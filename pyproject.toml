@@ -87,6 +87,7 @@ Issues = "https://github.com/firish/webfetch/issues"
 [project.scripts]
 webfetch-mcp = "webfetch.mcp:main"
 webfetch-savings = "webfetch.receipts:main"
+webfetch-status = "webfetch.status:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["webfetch"]

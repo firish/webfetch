@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- New status surface: `webfetch-status` CLI, MCP `status` tool, and
+  `webfetch.status_report()` - shows detected engine keys (names only),
+  the active search configuration, degraded optional features, and cache
+  location. New env config for the MCP server: WEBFETCH_PROVIDER and
+  WEBFETCH_CACHE_DB.
+- savings_report (MCP) now shows this-session and lifetime scopes.
+
 - Semantic cache: NLI verification threshold 0.92 (was 0.97) - recovers
   question<->keyword-form paraphrases (React/TypeScript-style rewords)
   with zero trusted-negative false positives; the only additional matches

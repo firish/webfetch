@@ -32,6 +32,7 @@ def main() -> None:
                  "pip install 'webfetch-llm[mcp]'")
 
     from webfetch.receipts import savings_report as _savings_report
+    from webfetch.status import status_report as _status_report
     from webfetch.tool import (
         FETCH_URL_TOOL,
         SAVE_FINDING_TOOL,
@@ -96,6 +97,13 @@ def main() -> None:
             {"query": query, "content": content, "source_url": source_url},
             pipeline=pipeline,
         )
+
+    @server.tool()
+    def status() -> str:
+        """Setup status: which search engines have keys and will serve,
+        which optional features are on or degraded, cache location, and
+        the env-var configuration surface."""
+        return _status_report()
 
     @server.tool()
     def savings_report() -> str:

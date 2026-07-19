@@ -177,17 +177,27 @@ def get_default_pipeline() -> Pipeline:
     Module-level singleton: encoder models stay warm and the sqlite cache
     stays open across every tool call in an agent loop.
 
+    Configurable via env vars (the MCP server has no other config surface):
+    WEBFETCH_PROVIDER picks the search config ("multi" fusion default,
+    "fallback" for priority failover, or a single engine name);
+    WEBFETCH_CACHE_DB relocates the cache file.
+
     Returns:
-        A Pipeline with multi-engine fusion over every search engine that
-        has credentials in the environment (just DDG when none do - still
-        zero-config), the full ranking cascade, and a SemanticSqliteCache
-        (which degrades to exact-match caching without webfetch-llm[rerank]).
+        A Pipeline with the chosen search config (default: multi-engine
+        fusion over every engine with credentials - just DDG when none do),
+        the full ranking cascade, and a SemanticSqliteCache (which degrades
+        to exact-match caching without webfetch-llm[rerank]).
     """
     global _default_pipeline
     if _default_pipeline is None:
+        import os
+
         from webfetch.search import get_search_adapter
-        _default_pipeline = Pipeline(search=get_search_adapter("multi"),
-                                     cache=SemanticSqliteCache())
+        provider = os.environ.get("WEBFETCH_PROVIDER", "multi")
+        db = os.environ.get("WEBFETCH_CACHE_DB")
+        cache = SemanticSqliteCache(db_path=db) if db else SemanticSqliteCache()
+        _default_pipeline = Pipeline(search=get_search_adapter(provider),
+                                     cache=cache)
     return _default_pipeline
 
 
