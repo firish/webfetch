@@ -1,5 +1,7 @@
 # webfetch
 
+<!-- mcp-name: io.github.firish/webfetch -->
+
 Web search for LLM agents that you run yourself - up to 8x fewer input
 tokens and 3x lower cost than hosted web_search, at the same accuracy.
 
@@ -145,7 +147,7 @@ never reads `.env` - your process env is yours.
 "is my key being picked up, and what am I actually running?":
 
 ```
-webfetch 0.1.2
+webfetch 0.1.3
 
 search engines:
   ddg      ready (no key needed)
@@ -216,8 +218,16 @@ harness, datasets, and per-question records are in [evals/](evals/).
 
 ## Using it in Claude Code / Claude Desktop
 
-After [registering the server](#getting-started), a new session shows
-`webfetch` under `/mcp` with five tools: `web_search`, `fetch_url`,
+Fastest route in Claude Code - install it as a plugin, two slash
+commands (runs the same uv one-liner under the hood):
+
+```
+/plugin marketplace add firish/webfetch
+/plugin install webfetch@webfetch
+```
+
+Or [register the MCP server yourself](#getting-started). Either way, a
+new session shows `webfetch` under `/mcp` with five tools: `web_search`, `fetch_url`,
 `save_finding`, `status`, and `savings_report`. Ask anything recent and
 watch the tool calls; ask the same thing reworded and the result comes
 back with a `[cache: semantic match ...]` header instead of a fresh
@@ -225,7 +235,8 @@ search. First call in a session is slow (encoder warm-up plus real page
 fetches, 10-40s); cached calls are instant.
 
 Toggle the server off per-session in `/mcp`; remove it with
-`claude mcp remove webfetch`. Your cache and its receipt history live in
+`/plugin uninstall webfetch` or `claude mcp remove webfetch`, matching
+how you installed it. Your cache and its receipt history live in
 `~/.webfetch/` and survive reinstalls. Run one server per machine - the
 semantic cache assumes a single process owns its file.
 

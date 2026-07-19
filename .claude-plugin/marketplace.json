@@ -1,0 +1,16 @@
+{
+  "name": "webfetch",
+  "owner": {
+    "name": "Rishi Gulati"
+  },
+  "description": "Self-hosted web search for LLM agents - same accuracy as hosted web_search at a third of the cost",
+  "plugins": [
+    {
+      "name": "webfetch",
+      "source": "./plugin",
+      "description": "web_search, fetch_url, save_finding, status, and savings_report tools backed by a local search -> fetch -> rank pipeline with semantic caching. Up to 8x fewer input tokens and 3x lower cost than hosted web search. Needs uv; API keys optional (DDG works with none).",
+      "category": "search",
+      "tags": ["web-search", "mcp", "cache", "cost-optimization", "research"]
+    }
+  ]
+}

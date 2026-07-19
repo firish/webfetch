@@ -150,7 +150,23 @@ evals/                   # standalone eval scripts - NOT part of the webfetch pa
 ├── test_metrics.py      # plain-assert self-test of the metric primitives
 ├── datasets/            # checked-in JSONL samples (+ .meta.json provenance sidecars)
 └── results/             # gitignored run outputs
+
+server.json              # MCP Registry listing (io.github.firish/webfetch);
+                         # CI overrides both version fields from the release tag
+.claude-plugin/          # marketplace.json - the repo doubles as a Claude Code
+                         # plugin marketplace (/plugin marketplace add firish/webfetch)
+plugin/                  # the Claude Code plugin: manifest + .mcp.json that
+                         # launches the PyPI release via uvx (config only, no code)
 ```
+
+Distribution invariants (guarded by tests/test_packaging.py): the version
+in server.json matches pyproject.toml; the README keeps the
+`mcp-name: io.github.firish/webfetch` marker (the MCP Registry verifies
+PyPI ownership by finding it in the package description); a
+`webfetch-llm` console script mirrors the package name so
+`uvx webfetch-llm` starts the MCP server. The publish workflow's
+mcp-registry job re-publishes the registry listing on every GitHub
+Release using GitHub OIDC (no stored credentials).
 
 ## Component Interfaces
 

@@ -100,6 +100,16 @@ with the library's design; revisit only with a concrete use case:
   queries now stable, listicles recent, realtime controls intact; the one
   keyword change fixes its target query and nothing else on 413)
 
+- 2026-07-18 (distribution, v0.1.3): listed in the official MCP Registry
+  (io.github.firish/webfetch) with CI auto-publish per release (GitHub
+  OIDC, zero stored credentials); Claude Code plugin shipped in-repo
+  (config-only, launches the PyPI release via uvx @latest);
+  `uvx webfetch-llm` alias added. Remaining distribution queue:
+  community-marketplace form (user action), awesome-mcp-servers PR,
+  PulseMCP/mcp.so/Glama/Smithery submissions, VS Code MCP list comment,
+  HN/reddit/dev.to posts. Claude Desktop .mcpb bundle deferred (Python
+  runtime + compiled deps do not bundle portably)
+
 - 2026-07-18: fetch_url tool (full extracted page text under a 24k-char
   budget, truncation marker, public-http(s)-only guard against
   private/metadata endpoints since URLs are model-supplied). Pages cache

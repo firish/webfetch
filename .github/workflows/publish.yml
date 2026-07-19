@@ -2,7 +2,8 @@ name: publish
 
 # Publishes webfetch-llm to PyPI whenever a GitHub Release is published,
 # authenticated with the PYPI_API_TOKEN repo secret. skip-existing makes
-# re-published releases a no-op instead of a failure.
+# re-published releases a no-op instead of a failure. A follow-up job
+# then updates the server's listing in the official MCP Registry.
 
 on:
   release:
@@ -35,3 +36,44 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           skip-existing: true
+
+  # Lists/updates the server in the official MCP Registry
+  # (registry.modelcontextprotocol.io). Auth is GitHub OIDC - no secret;
+  # the registry grants the io.github.firish/* namespace to workflows
+  # running in this repo. Ownership of the PyPI package is verified via
+  # the "mcp-name:" marker in the README, so this job first waits until
+  # pypi.org actually serves the release published by the job above.
+  mcp-registry:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for PyPI to serve the released version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          for i in $(seq 1 30); do
+            if curl -s https://pypi.org/pypi/webfetch-llm/json \
+                | python3 -c "import json,sys; d=json.load(sys.stdin); sys.exit(0 if '$VERSION' in d.get('releases', {}) else 1)"; then
+              echo "PyPI serves $VERSION"; exit 0
+            fi
+            echo "PyPI does not serve $VERSION yet (attempt $i/30)"; sleep 20
+          done
+          echo "gave up waiting for PyPI to serve $VERSION" >&2; exit 1
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+      - name: Authenticate to MCP Registry (GitHub OIDC)
+        run: ./mcp-publisher login github-oidc
+      # server.json is checked in with the current release's version, but
+      # the tag is the source of truth - override so a re-run of an old
+      # release can never publish a stale version string.
+      - name: Set version from release tag
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          jq --arg v "$VERSION" '.version = $v | .packages[].version = $v' server.json > server.tmp
+          mv server.tmp server.json
+      - name: Publish to MCP Registry
+        run: ./mcp-publisher publish

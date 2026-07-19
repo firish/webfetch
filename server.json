@@ -1,0 +1,49 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.firish/webfetch",
+  "title": "webfetch",
+  "description": "Own your LLM's web search: a local search -> fetch -> rank pipeline that replaces hosted web_search tools at a fraction of the cost",
+  "repository": {
+    "url": "https://github.com/firish/webfetch",
+    "source": "github"
+  },
+  "version": "0.1.3",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "webfetch-llm",
+      "version": "0.1.3",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "BRAVE_API_KEY",
+          "description": "Optional - adds Brave to the multi-engine fusion. DDG works with no keys at all.",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "SERPER_API_KEY",
+          "description": "Optional - adds Serper (Google results) to the multi-engine fusion.",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "TAVILY_API_KEY",
+          "description": "Optional - adds Tavily to the multi-engine fusion.",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "WEBFETCH_PROVIDER",
+          "description": "Optional - search strategy: multi (RRF fusion of available engines, default), fallback (priority failover), or a single engine name like ddg.",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "webfetch",
+  "displayName": "webfetch",
+  "version": "0.1.3",
+  "description": "Own your LLM's web search: web_search, fetch_url, and save_finding tools backed by a local search -> fetch -> rank pipeline with semantic caching - up to 8x fewer input tokens and 3x lower cost than hosted web search.",
+  "author": {
+    "name": "Rishi Gulati",
+    "url": "https://github.com/firish"
+  },
+  "homepage": "https://github.com/firish/webfetch",
+  "repository": "https://github.com/firish/webfetch",
+  "license": "MIT",
+  "keywords": ["web-search", "search", "mcp", "semantic-cache", "cost-optimization"]
+}

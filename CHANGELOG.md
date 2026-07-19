@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.3 - 2026-07-18
+
+- Listed in the official MCP Registry as `io.github.firish/webfetch`:
+  checked-in server.json plus an mcp-name marker in the README, published
+  automatically by CI on every release (GitHub OIDC, no tokens). The
+  publish workflow gained an mcp-registry job that waits for PyPI to
+  serve the release before publishing the listing.
+- Claude Code plugin: `/plugin marketplace add firish/webfetch` then
+  `/plugin install webfetch@webfetch`. The plugin ships config only - it
+  launches the PyPI release via `uvx --from webfetch-llm@latest`, so it
+  stays current without plugin updates.
+- `uvx webfetch-llm` now starts the MCP server directly: console-script
+  alias named after the package, since uvx and MCP registry clients
+  derive the run command from the package name.
+- New offline test module (test_packaging) guarding version/marker
+  agreement across pyproject.toml, server.json, README, and the plugin.
+
 ## 0.1.2 - 2026-07-18
 
 - Entry points (webfetch-mcp, webfetch-status, webfetch-savings) now load

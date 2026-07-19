@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "webfetch": {
+      "command": "uvx",
+      "args": ["--from", "webfetch-llm@latest", "webfetch-mcp"]
+    }
+  }
+}
