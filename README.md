@@ -145,7 +145,7 @@ never reads `.env` - your process env is yours.
 "is my key being picked up, and what am I actually running?":
 
 ```
-webfetch 0.1.1
+webfetch 0.1.2
 
 search engines:
   ddg      ready (no key needed)

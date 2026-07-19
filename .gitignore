@@ -21,3 +21,6 @@ evals/results/
 dist/
 build/
 *.egg-info/
+
+# Internal project context (kept locally, not published)
+docs/context.md

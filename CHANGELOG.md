@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.2 - 2026-07-18
 
 - Entry points (webfetch-mcp, webfetch-status, webfetch-savings) now load
   a .env from the working directory (cwd-upward search, never overriding
