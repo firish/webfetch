@@ -23,9 +23,9 @@ from webfetch.cache import AbstractCache, CacheMatch, SqliteCache
 from webfetch.pipeline import Pipeline, SearchChunksResult
 from webfetch.rank import Chunk
 from webfetch.receipts import get_counters, savings_report
-from webfetch.status import status_report
 from webfetch.search import SearchResult, get_search_adapter
 from webfetch.semcache import SemanticSqliteCache
+from webfetch.status import status_report
 from webfetch.tool import (
     FETCH_URL_TOOL,
     SAVE_FINDING_TOOL,
