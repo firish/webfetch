@@ -50,6 +50,15 @@ Small lifts with clear value, orderable ahead of or between the numbered items:
 - Expose structured extraction in tool mode: extraction mode (keys dict ->
   JSON via extractor adapters) is already built; surfacing it as an
   optional tool capability is packaging, not building. Lift: half a day.
+- New fusion engines (2026-07-22 session): SearXNG adapter - metasearch
+  returning ranked lists, self-hosted, $0/query; strengthens the free tier
+  (DDG-only is the weakest arm at 84%). Perplexity Search API adapter is
+  the right shape too (ranked results endpoint, NOT the Sonar answer API -
+  Sonar returns an answer, nothing to fuse; its citations-as-ranking hack
+  costs LLM generation we discard and seconds of latency, skip it). Both
+  gated by the pipeline eval: fused recall@k + e2e accuracy/cost/latency
+  deltas decide inclusion, defaults unchanged unless the data says so.
+  Lift: a day each incl. eval runs.
 
 ## Backlog (unordered)
 
