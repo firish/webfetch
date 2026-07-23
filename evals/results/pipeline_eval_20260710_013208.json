@@ -1,0 +1,240 @@
+{
+  "config": {
+    "dataset": "/Users/rishisg2/Desktop/Rishi/coding/prototypes/websearch/evals/datasets/live_queries.jsonl",
+    "limit": 2,
+    "sleep_secs": 2.0,
+    "budget_chars": 8000,
+    "cache_db": "/var/folders/s0/ssj4lp0x1b523jm2d538cvwh0000gn/T/webfetch_eval_wu8mjamg/cache.db",
+    "provider": "brave",
+    "matcher": {
+      "mode": "bi+ce",
+      "threshold": 0.6,
+      "ce_model": "cross-encoder/nli-deberta-v3-base",
+      "ce_threshold": 0.97,
+      "precision": 0.9545454545454546,
+      "recall": 0.3559322033898305,
+      "met_bar": true,
+      "min_precision": 0.95,
+      "primary_bar": 0.98,
+      "bi_model": "all-MiniLM-L6-v2",
+      "n_pairs": 247,
+      "per_source": {
+        "factoid-negative": {
+          "n": 15,
+          "pos": 0,
+          "pos_hit": 0,
+          "neg": 15,
+          "neg_fp": 0
+        },
+        "handwritten": {
+          "n": 17,
+          "pos": 3,
+          "pos_hit": 2,
+          "neg": 14,
+          "neg_fp": 0
+        },
+        "qqp": {
+          "n": 100,
+          "pos": 100,
+          "pos_hit": 29,
+          "neg": 0,
+          "neg_fp": 0
+        },
+        "qqp-hard-negative": {
+          "n": 100,
+          "pos": 0,
+          "pos_hit": 0,
+          "neg": 100,
+          "neg_fp": 2
+        },
+        "simpleqa-paraphrase": {
+          "n": 15,
+          "pos": 15,
+          "pos_hit": 11,
+          "neg": 0,
+          "neg_fp": 0
+        }
+      }
+    }
+  },
+  "records": [
+    {
+      "id": "simpleqa-4207",
+      "query": "The Black Widow Pulsar (PSR B1957+20) is located within which constellation?",
+      "kind": "base",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 1,
+      "elapsed_secs": 14.676,
+      "est_tokens": 640,
+      "from_cache": false,
+      "error": null,
+      "cache_kind": null,
+      "matched_query": null
+    },
+    {
+      "id": "simpleqa-4207",
+      "query": "The Black Widow Pulsar (PSR B1957+20) is located within which constellation?",
+      "kind": "exact_replay",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 0,
+      "elapsed_secs": 0.0,
+      "est_tokens": 640,
+      "from_cache": true,
+      "error": null,
+      "cache_kind": "exact",
+      "matched_query": null
+    },
+    {
+      "id": "simpleqa-1591",
+      "query": "In which month of 1996 did Puntsagiin Jasrai's tenure as Prime Minister of Mongolia end?",
+      "kind": "base",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 2,
+      "elapsed_secs": 32.272,
+      "est_tokens": 637,
+      "from_cache": false,
+      "error": null,
+      "cache_kind": null,
+      "matched_query": null
+    },
+    {
+      "id": "simpleqa-1591",
+      "query": "In which month of 1996 did Puntsagiin Jasrai's tenure as Prime Minister of Mongolia end?",
+      "kind": "exact_replay",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 0,
+      "elapsed_secs": 0.001,
+      "est_tokens": 637,
+      "from_cache": true,
+      "error": null,
+      "cache_kind": "exact",
+      "matched_query": null
+    },
+    {
+      "id": "simpleqa-1591-p1",
+      "query": "When in 1996 did Puntsagiin Jasrai stop being Mongolia's Prime Minister?",
+      "kind": "paraphrase",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 1,
+      "elapsed_secs": 1.426,
+      "est_tokens": 637,
+      "from_cache": false,
+      "error": null,
+      "cache_kind": null,
+      "matched_query": null
+    },
+    {
+      "id": "simpleqa-4207-p1",
+      "query": "Which constellation contains the Black Widow Pulsar PSR B1957+20?",
+      "kind": "paraphrase",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 0,
+      "elapsed_secs": 0.207,
+      "est_tokens": 640,
+      "from_cache": true,
+      "error": null,
+      "cache_kind": "semantic",
+      "matched_query": "The Black Widow Pulsar (PSR B1957+20) is located within which constellation?"
+    }
+  ],
+  "aggregate": {
+    "n_base": 2,
+    "n_errors": 0,
+    "recall_hits": 2,
+    "recall_rate": 1.0,
+    "latency_secs": {
+      "mean": 23.47,
+      "median": 23.47,
+      "p95": 32.27
+    },
+    "tokens": {
+      "mean": 638.5,
+      "median": 638.5,
+      "p95": 640.0
+    },
+    "failed_urls_mean": 1.5,
+    "exact_replay_hit_rate": 1.0,
+    "exact_replay_all_exact_kind": true,
+    "exact_replay_max_secs": 0.001,
+    "base_semantic_hits": 0,
+    "paraphrase_semantic_hits": 1,
+    "paraphrase_exact_cache_hits": 0,
+    "n_paraphrases": 2
+  },
+  "wrong_targets": [],
+  "semantic_opportunity": {
+    "matcher": {
+      "mode": "bi+ce",
+      "threshold": 0.6,
+      "ce_model": "cross-encoder/nli-deberta-v3-base",
+      "ce_threshold": 0.97,
+      "precision": 0.9545454545454546,
+      "recall": 0.3559322033898305,
+      "met_bar": true,
+      "min_precision": 0.95,
+      "primary_bar": 0.98,
+      "bi_model": "all-MiniLM-L6-v2",
+      "n_pairs": 247,
+      "per_source": {
+        "factoid-negative": {
+          "n": 15,
+          "pos": 0,
+          "pos_hit": 0,
+          "neg": 15,
+          "neg_fp": 0
+        },
+        "handwritten": {
+          "n": 17,
+          "pos": 3,
+          "pos_hit": 2,
+          "neg": 14,
+          "neg_fp": 0
+        },
+        "qqp": {
+          "n": 100,
+          "pos": 100,
+          "pos_hit": 29,
+          "neg": 0,
+          "neg_fp": 0
+        },
+        "qqp-hard-negative": {
+          "n": 100,
+          "pos": 0,
+          "pos_hit": 0,
+          "neg": 100,
+          "neg_fp": 2
+        },
+        "simpleqa-paraphrase": {
+          "n": 15,
+          "pos": 15,
+          "pos_hit": 11,
+          "neg": 0,
+          "neg_fp": 0
+        }
+      }
+    },
+    "n_paraphrases": 2,
+    "opportunity_hits": 1,
+    "opportunity_rate": 0.5,
+    "per_paraphrase": [
+      {
+        "id": "simpleqa-1591-p1",
+        "own_cosine": 0.949,
+        "hit": false
+      },
+      {
+        "id": "simpleqa-4207-p1",
+        "own_cosine": 0.949,
+        "hit": true
+      }
+    ],
+    "wrong_target_matches": [],
+    "base_false_matches": []
+  }
+}

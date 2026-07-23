@@ -1,0 +1,149 @@
+{
+  "candidates": [
+    {
+      "name": "keyword-heuristics",
+      "n": 377,
+      "accuracy": 0.52,
+      "recalls": {
+        "realtime": 0.612,
+        "recent": 0.702,
+        "stable": 0.242
+      },
+      "realtime_as_stable_rate": 0.016,
+      "confusion": {
+        "realtime": {
+          "realtime": 79,
+          "recent": 48,
+          "stable": 2
+        },
+        "recent": {
+          "realtime": 35,
+          "recent": 87,
+          "stable": 2
+        },
+        "stable": {
+          "realtime": 4,
+          "recent": 90,
+          "stable": 30
+        }
+      }
+    },
+    {
+      "name": "nearest-centroid (all-MiniLM-L6-v2, test 40%)",
+      "n": 150,
+      "accuracy": 0.613,
+      "recalls": {
+        "realtime": 0.673,
+        "recent": 0.625,
+        "stable": 0.54
+      },
+      "realtime_as_stable_rate": 0.058,
+      "confusion": {
+        "realtime": {
+          "realtime": 35,
+          "recent": 14,
+          "stable": 3
+        },
+        "recent": {
+          "realtime": 13,
+          "recent": 30,
+          "stable": 5
+        },
+        "stable": {
+          "realtime": 5,
+          "recent": 18,
+          "stable": 27
+        }
+      }
+    },
+    {
+      "name": "kNN k=5 (test 40%)",
+      "n": 150,
+      "accuracy": 0.487,
+      "recalls": {
+        "realtime": 0.75,
+        "recent": 0.375,
+        "stable": 0.32
+      },
+      "realtime_as_stable_rate": 0.0,
+      "confusion": {
+        "realtime": {
+          "realtime": 39,
+          "recent": 13,
+          "stable": 0
+        },
+        "recent": {
+          "realtime": 25,
+          "recent": 18,
+          "stable": 5
+        },
+        "stable": {
+          "realtime": 17,
+          "recent": 17,
+          "stable": 16
+        }
+      }
+    },
+    {
+      "name": "hybrid: keywords -> centroid fallback (test 40%)",
+      "n": 150,
+      "accuracy": 0.627,
+      "recalls": {
+        "realtime": 0.885,
+        "recent": 0.396,
+        "stable": 0.58
+      },
+      "realtime_as_stable_rate": 0.058,
+      "confusion": {
+        "realtime": {
+          "realtime": 46,
+          "recent": 3,
+          "stable": 3
+        },
+        "recent": {
+          "realtime": 24,
+          "recent": 19,
+          "stable": 5
+        },
+        "stable": {
+          "realtime": 6,
+          "recent": 15,
+          "stable": 29
+        }
+      }
+    }
+  ],
+  "recommendation": {
+    "ship_classifier": true,
+    "winner": "hybrid: keywords -> centroid fallback (test 40%)",
+    "min_realtime_recall": 0.6,
+    "winner_metrics": {
+      "name": "hybrid: keywords -> centroid fallback (test 40%)",
+      "n": 150,
+      "accuracy": 0.627,
+      "recalls": {
+        "realtime": 0.885,
+        "recent": 0.396,
+        "stable": 0.58
+      },
+      "realtime_as_stable_rate": 0.058,
+      "confusion": {
+        "realtime": {
+          "realtime": 46,
+          "recent": 3,
+          "stable": 3
+        },
+        "recent": {
+          "realtime": 24,
+          "recent": 19,
+          "stable": 5
+        },
+        "stable": {
+          "realtime": 6,
+          "recent": 15,
+          "stable": 29
+        }
+      }
+    }
+  }
+}

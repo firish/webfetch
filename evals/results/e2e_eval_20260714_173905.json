@@ -1,0 +1,783 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 50,
+    "arms": [
+      "ours-haiku"
+    ],
+    "dataset": "/Users/rishisg2/Desktop/Rishi/coding/prototypes/websearch/evals/datasets/live_queries.jsonl",
+    "engine_fees": {
+      "ours-multi": 0.012,
+      "ours-ddg": 0.0
+    }
+  },
+  "summaries": [
+    {
+      "arm": "ours-haiku",
+      "n": 50,
+      "correct": 38,
+      "accuracy": 0.76,
+      "errors": 8,
+      "total_cost": 1.559,
+      "cost_per_q": 0.0312,
+      "tok_in_per_q": 3021,
+      "tok_out_per_q": 177,
+      "searches_per_q": 1.36,
+      "median_secs": 71.8
+    }
+  ],
+  "records": {
+    "ours-haiku": [
+      {
+        "answer": "The Black Widow Pulsar (PSR B1957+20) is located in the constellation **Sagitta**.",
+        "searches": 1,
+        "usage": {
+          "input": 2402,
+          "output": 116,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 81.86631800001487,
+        "cost": 0.014982,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results, Puntsagiin Jasrai's tenure as Prime Minister of Mongolia ended on July 19, 1996.\n\n**July**",
+        "searches": 1,
+        "usage": {
+          "input": 2512,
+          "output": 152,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 70.04288395890035,
+        "cost": 0.015272,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results, the dimensions of \"Holy Mount Athos\" from The Slav Epic by Alphonse Mucha are **405 x 480 centimeters** (159\u00bc x 188\u00be inches).",
+        "searches": 2,
+        "usage": {
+          "input": 3106,
+          "output": 234,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 103.34969950001687,
+        "cost": 0.028276000000000003,
+        "error": null,
+        "id": "simpleqa-0882",
+        "grade": "correct"
+      },
+      {
+        "answer": "Basanti Dulal Nag Chaudhuri's wife was **Dipali Nag** (n\u00e9e Talukdar). She was a well-known classical vocalist.",
+        "searches": 1,
+        "usage": {
+          "input": 2211,
+          "output": 115,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 58.934188374783844,
+        "cost": 0.014786,
+        "error": null,
+        "id": "simpleqa-2055",
+        "grade": "correct"
+      },
+      {
+        "answer": "According to the India State of Forest Report 2019, the forest cover area of Bihar is **7,306 square kilometers** (or more precisely 7,305.99 sq km), which represents 7.76% of the state's total geographical area.",
+        "searches": 1,
+        "usage": {
+          "input": 2311,
+          "output": 167,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 107.7615037499927,
+        "cost": 0.015146,
+        "error": null,
+        "id": "simpleqa-2972",
+        "grade": "correct"
+      },
+      {
+        "answer": "Rugged Lark won the AQHA World Show Superhorse title in **1985 and 1987**.",
+        "searches": 1,
+        "usage": {
+          "input": 2289,
+          "output": 123,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 45.92218174994923,
+        "cost": 0.014904,
+        "error": null,
+        "id": "simpleqa-0275",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 14155,
+          "output": 664,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 596.0202055410482,
+        "cost": 0.08947500000000001,
+        "error": "max turns exceeded",
+        "id": "simpleqa-3633",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 14101,
+          "output": 632,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 563.5646947501227,
+        "cost": 0.08926100000000001,
+        "error": "max turns exceeded",
+        "id": "simpleqa-0225",
+        "grade": "error"
+      },
+      {
+        "answer": "The \"Line of Control\" dividing Indian and Pakistani portions was established in **1947** as a ceasefire line following the partition of India and Pakistan and their first military conflict over Kashmir.",
+        "searches": 1,
+        "usage": {
+          "input": 2180,
+          "output": 103,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 79.90382829098962,
+        "cost": 0.014695,
+        "error": null,
+        "id": "simpleqa-2505",
+        "grade": "incorrect"
+      },
+      {
+        "answer": "The Dragonborn DLC takes place off the **north coast** of Morrowind, on the island of Solstheim.",
+        "searches": 1,
+        "usage": {
+          "input": 2334,
+          "output": 116,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 56.43468241696246,
+        "cost": 0.014914,
+        "error": null,
+        "id": "simpleqa-0415",
+        "grade": "correct"
+      },
+      {
+        "answer": "Perfect! I found the publication date.\n\n**March 2011**",
+        "searches": 5,
+        "usage": {
+          "input": 6038,
+          "output": 485,
+          "cache_read": 0,
+          "cache_write": 4258
+        },
+        "secs": 253.73020879202522,
+        "cost": 0.0737855,
+        "error": null,
+        "id": "simpleqa-0348",
+        "grade": "correct"
+      },
+      {
+        "answer": "The 6th ASEM Education Ministers' Meeting was held in **Seoul**.",
+        "searches": 1,
+        "usage": {
+          "input": 2424,
+          "output": 118,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 118.14986949996091,
+        "cost": 0.015014,
+        "error": null,
+        "id": "simpleqa-2009",
+        "grade": "correct"
+      },
+      {
+        "answer": "William Cochran's sculpture \"Pillar of Fire\" is made of **370** egg-shaped layers of float glass.",
+        "searches": 1,
+        "usage": {
+          "input": 2439,
+          "output": 140,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 34.44330266700126,
+        "cost": 0.015139,
+        "error": null,
+        "id": "simpleqa-0180",
+        "grade": "correct"
+      },
+      {
+        "answer": "The ship is named **CGS Habba Khatoon** (CGS stands for Coast Guard Ship). It was named after Habba Khatoon by the Indian Coast Guard.",
+        "searches": 1,
+        "usage": {
+          "input": 2236,
+          "output": 125,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 222.15667195804417,
+        "cost": 0.014861,
+        "error": null,
+        "id": "simpleqa-2355",
+        "grade": "correct"
+      },
+      {
+        "answer": "1863",
+        "searches": 1,
+        "usage": {
+          "input": 2308,
+          "output": 87,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 177.71679554111324,
+        "cost": 0.014743000000000001,
+        "error": null,
+        "id": "simpleqa-0719",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 14742,
+          "output": 601,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 533.4235458329786,
+        "cost": 0.08974700000000001,
+        "error": "max turns exceeded",
+        "id": "simpleqa-0721",
+        "grade": "error"
+      },
+      {
+        "answer": "Based on the search results, Kristof's album \"The Talkshow\" (also referred to as \"Talkshow\") was released in **May 2020**.",
+        "searches": 1,
+        "usage": {
+          "input": 2261,
+          "output": 125,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 63.128436292055994,
+        "cost": 0.014886,
+        "error": null,
+        "id": "simpleqa-3604",
+        "grade": "correct"
+      },
+      {
+        "answer": "The title of Episode 12, Season 3 of Airwolf is **\"Half-Pint\"**.",
+        "searches": 1,
+        "usage": {
+          "input": 2429,
+          "output": 134,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 53.811418999917805,
+        "cost": 0.015099000000000001,
+        "error": null,
+        "id": "simpleqa-1506",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results from \"A Survey of London\" (1603 text), the fourth justice who presided along with William of York, Richard Passelew, and Henry Bathe over Crown pleas in the Tower of London in 1206, 1220, 1224, and 1243 was **Jerome of Saxton** (also spelled \"Ierome of Saxton\").",
+        "searches": 2,
+        "usage": {
+          "input": 3187,
+          "output": 292,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 126.97490400006063,
+        "cost": 0.028647,
+        "error": null,
+        "id": "simpleqa-2878",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results, the Leather Whip cost was reduced from 15 Gold to 10 Gold in the **\"Labor of Love\" update** for Terraria.",
+        "searches": 1,
+        "usage": {
+          "input": 2398,
+          "output": 153,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 134.02773783402517,
+        "cost": 0.015163,
+        "error": null,
+        "id": "simpleqa-3744",
+        "grade": "incorrect"
+      },
+      {
+        "answer": "Perfect! The search results clearly show that **Tei-ichi Ito** (also written as Tea-ichi Ito) was the recipient of the Roebling Medal in 1968.\n\n**Tei-ichi Ito**",
+        "searches": 5,
+        "usage": {
+          "input": 12865,
+          "output": 592,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 509.22499300003983,
+        "cost": 0.075825,
+        "error": null,
+        "id": "simpleqa-2287",
+        "grade": "correct"
+      },
+      {
+        "answer": "\"The Hawk of Lebanon\" is about Hassan Nasrallah, the leader of Hezbollah.",
+        "searches": 1,
+        "usage": {
+          "input": 2279,
+          "output": 111,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 75.70220629195683,
+        "cost": 0.014834,
+        "error": null,
+        "id": "simpleqa-0737",
+        "grade": "correct"
+      },
+      {
+        "answer": "The Victoria and Albert Museum was initially known as the **Museum of Manufactures** when it was established in 1852.",
+        "searches": 1,
+        "usage": {
+          "input": 2341,
+          "output": 111,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 73.16868374985643,
+        "cost": 0.014896,
+        "error": null,
+        "id": "simpleqa-2286",
+        "grade": "correct"
+      },
+      {
+        "answer": "John Chapple, the royal beekeeper, needed to notify **the bees** at Buckingham Palace and Clarence House of Queen Elizabeth II's death. This was part of an ancient traditional practice of \"telling the bees\" about the death of their master or mistress, dating back centuries. Chapple performed this ritual by knocking on each hive and informing them of the Queen's passing.",
+        "searches": 2,
+        "usage": {
+          "input": 4236,
+          "output": 275,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 221.2451289591845,
+        "cost": 0.029611,
+        "error": null,
+        "id": "simpleqa-2840",
+        "grade": "correct"
+      },
+      {
+        "answer": "Heidelberg Observatory (located in Heidelberg, Germany)",
+        "searches": 1,
+        "usage": {
+          "input": 2375,
+          "output": 97,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 52.31429541716352,
+        "cost": 0.01486,
+        "error": null,
+        "id": "simpleqa-1046",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 13707,
+          "output": 532,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 464.17768595786765,
+        "cost": 0.088367,
+        "error": "max turns exceeded",
+        "id": "simpleqa-3672",
+        "grade": "error"
+      },
+      {
+        "answer": "I can answer this from my knowledge without needing a web search.\n\nThe bebop scale is a variation of the major scale with an added chromatic note. In the key of A major, the bebop scale includes all the notes of the A major scale plus an added passing tone.\n\n**A Major Bebop Scale (ascending):**\nA - B - C# - D - E - F# - G# - G - A\n\nThe notes are:\n1. A (root)\n2. B (major 2nd)\n3. C# (major 3rd)\n4. D (perfect 4th)\n5. E (perfect 5th)\n6. F# (major 6th)\n7. G# (major 7th)\n8. G (flat 7th/passing tone)\n\nThe added chromatic note is the **G natural** (or flat 7), which falls between the major 7th (G#) and the octave (A). This creates the characteristic eight-note scale used in bebop jazz, providing smooth chromatic passages and a unique feel to improvisation.",
+        "searches": 0,
+        "usage": {
+          "input": 900,
+          "output": 247,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 2.5287074581719935,
+        "cost": 0.002135,
+        "error": null,
+        "id": "simpleqa-2619",
+        "grade": "not_attempted"
+      },
+      {
+        "answer": "The twins' names from \"The Cosby Show\" are **Nelson and Winnie** (the twin children of Sondra Huxtable and Elvin Tibideaux).",
+        "searches": 1,
+        "usage": {
+          "input": 2452,
+          "output": 201,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 42.60590650001541,
+        "cost": 0.015457,
+        "error": null,
+        "id": "simpleqa-2377",
+        "grade": "correct"
+      },
+      {
+        "answer": "April 20, 1931",
+        "searches": 1,
+        "usage": {
+          "input": 2422,
+          "output": 101,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 90.28311737510376,
+        "cost": 0.014927,
+        "error": null,
+        "id": "simpleqa-3806",
+        "grade": "correct"
+      },
+      {
+        "answer": "The Short Spear sold by the Dregling Merchant in Demon's Souls costs **1500 souls**.",
+        "searches": 1,
+        "usage": {
+          "input": 2377,
+          "output": 143,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 101.43810066697188,
+        "cost": 0.015092000000000001,
+        "error": null,
+        "id": "simpleqa-1466",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results, the **Gamma Parallel Database** won the 2008 ACM Software System Award. The award was given to David DeWitt, Bob Gerber, and their colleagues at the University of Wisconsin for their work on this project.",
+        "searches": 1,
+        "usage": {
+          "input": 2351,
+          "output": 139,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 41.684818542096764,
+        "cost": 0.015046,
+        "error": null,
+        "id": "simpleqa-0745",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results, Ashraf Abbasi was a member of the West Pakistan Assembly from **1962 to 1965**.",
+        "searches": 1,
+        "usage": {
+          "input": 2340,
+          "output": 140,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 44.82398641691543,
+        "cost": 0.015040000000000001,
+        "error": null,
+        "id": "simpleqa-0226",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results, Kiki Smith earned the Nelson A. Rockefeller Award in **2010**.",
+        "searches": 1,
+        "usage": {
+          "input": 2323,
+          "output": 114,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 63.71913420804776,
+        "cost": 0.014893,
+        "error": null,
+        "id": "simpleqa-2072",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results, Sarah Young and her husband started a counseling practice for women who had been sexually or spiritually abused in **Australia** (specifically Melbourne).",
+        "searches": 1,
+        "usage": {
+          "input": 2255,
+          "output": 117,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 57.185272332979366,
+        "cost": 0.01484,
+        "error": null,
+        "id": "simpleqa-1968",
+        "grade": "correct"
+      },
+      {
+        "answer": "1880\n\nThe municipality of Salgar, Antioquia, Colombia was founded in 1880 during the Antioquian colonization.",
+        "searches": 1,
+        "usage": {
+          "input": 2303,
+          "output": 117,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 52.09597320808098,
+        "cost": 0.014888,
+        "error": null,
+        "id": "simpleqa-2221",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results, William Hodgson \"Hod\" Stuart was suspended on **December 11, 1905** (December 11th, 1905).",
+        "searches": 2,
+        "usage": {
+          "input": 4299,
+          "output": 297,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 115.72934270906262,
+        "cost": 0.029784,
+        "error": null,
+        "id": "simpleqa-2746",
+        "grade": "correct"
+      },
+      {
+        "answer": "**Doki Doki Morning** by Babymetal.",
+        "searches": 2,
+        "usage": {
+          "input": 4557,
+          "output": 263,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 123.59721837495454,
+        "cost": 0.029872,
+        "error": null,
+        "id": "simpleqa-3021",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 13753,
+          "output": 589,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 389.67321833386086,
+        "cost": 0.08869800000000001,
+        "error": "max turns exceeded",
+        "id": "simpleqa-0982",
+        "grade": "error"
+      },
+      {
+        "answer": "Based on the search results, Charles Wheatstone had **2 sons**. He married Emma West in 1847 and they had two sons and three daughters together.",
+        "searches": 1,
+        "usage": {
+          "input": 2097,
+          "output": 132,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 48.25856770807877,
+        "cost": 0.014757,
+        "error": null,
+        "id": "simpleqa-3027",
+        "grade": "correct"
+      },
+      {
+        "answer": "Perfect! I found the answer. The first search result clearly shows that the Partisan weapon is dropped by **Lance Armor** with an 8.00% drop rate.\n\nLance Armor",
+        "searches": 4,
+        "usage": {
+          "input": 6585,
+          "output": 414,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 174.74799012509175,
+        "cost": 0.056655,
+        "error": null,
+        "id": "simpleqa-3751",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 11756,
+          "output": 533,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 375.5611263329629,
+        "cost": 0.08642100000000001,
+        "error": "max turns exceeded",
+        "id": "simpleqa-2616",
+        "grade": "error"
+      },
+      {
+        "answer": "**Rajindar Singh Dhatt**, a 101-year-old Sikh soldier and World War II veteran, was conferred with the \"Points of Light Honour\" by British Prime Minister Rishi Sunak. He was recognized for his military service and his work running the \"Undivided Indian Ex-Servicemen's Association.\"",
+        "searches": 1,
+        "usage": {
+          "input": 2447,
+          "output": 191,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 77.2041334589012,
+        "cost": 0.015402,
+        "error": null,
+        "id": "simpleqa-1593",
+        "grade": "correct"
+      },
+      {
+        "answer": "Based on the search results, there appears to be some conflicting information. The most reliable source indicates that Monir Shahroudy Farmanfarmaian was awarded the Gold Medal at the Venice Biennale in **1958** when she represented the Iranian Pavilion. However, one source mentions 1966 as a year she won a gold medal at the Venice Biennale. The 1958 award appears to be the most prominently cited.\n\n**1958**",
+        "searches": 1,
+        "usage": {
+          "input": 2449,
+          "output": 201,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 70.42225933400914,
+        "cost": 0.015454,
+        "error": null,
+        "id": "simpleqa-1839",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 13766,
+          "output": 631,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 292.26370833301917,
+        "cost": 0.088921,
+        "error": "max turns exceeded",
+        "id": "simpleqa-0400",
+        "grade": "error"
+      },
+      {
+        "answer": "Based on the search results, the municipality of Ituango, Antioquia, Colombia became a municipality in **1853**. (The town itself was officially founded in 1847, but it became a municipality in 1853.)",
+        "searches": 1,
+        "usage": {
+          "input": 2229,
+          "output": 137,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 30.436323374975473,
+        "cost": 0.014914,
+        "error": null,
+        "id": "simpleqa-3562",
+        "grade": "incorrect"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 14277,
+          "output": 528,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 282.4565927500371,
+        "cost": 0.08891700000000001,
+        "error": "max turns exceeded",
+        "id": "simpleqa-0068",
+        "grade": "error"
+      },
+      {
+        "answer": "Teatro Lyrico Fluminense in Rio de Janeiro, Brazil.",
+        "searches": 1,
+        "usage": {
+          "input": 2283,
+          "output": 124,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 41.08138200012036,
+        "cost": 0.014903,
+        "error": null,
+        "id": "simpleqa-2180",
+        "grade": "correct"
+      },
+      {
+        "answer": "The main characters of \"The Parkers\" lived in **Santa Monica, California**.",
+        "searches": 1,
+        "usage": {
+          "input": 2208,
+          "output": 103,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 80.1775506248232,
+        "cost": 0.014723,
+        "error": null,
+        "id": "simpleqa-0588",
+        "grade": "correct"
+      },
+      {
+        "answer": "In ancient India, the science of architecture and civil construction was known as **Sthapatya-Shastra** (also called **Sthapatya Kala**).",
+        "searches": 1,
+        "usage": {
+          "input": 2298,
+          "output": 121,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 49.65145754185505,
+        "cost": 0.014903,
+        "error": null,
+        "id": "simpleqa-1825",
+        "grade": "correct"
+      },
+      {
+        "answer": "Shinnosuke Tachibana is the Japanese voice actor for Jusis Albarea in The Legend of Heroes: Trails of Cold Steel 1.",
+        "searches": 1,
+        "usage": {
+          "input": 2274,
+          "output": 150,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 47.42140479199588,
+        "cost": 0.015024000000000001,
+        "error": null,
+        "id": "simpleqa-1437",
+        "grade": "correct"
+      }
+    ]
+  }
+}

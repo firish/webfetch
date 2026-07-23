@@ -1,0 +1,126 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 3
+  },
+  "summaries": [
+    {
+      "arm": "ours",
+      "n": 3,
+      "correct": 1,
+      "accuracy": 0.333,
+      "errors": 2,
+      "total_cost": 0.137,
+      "cost_per_q": 0.0457,
+      "searches_per_q": 0,
+      "median_secs": 1.9
+    },
+    {
+      "arm": "hosted",
+      "n": 3,
+      "correct": 3,
+      "accuracy": 1.0,
+      "errors": 0,
+      "total_cost": 0.255,
+      "cost_per_q": 0.0848,
+      "searches_per_q": 1,
+      "median_secs": 12.0
+    }
+  ],
+  "records": {
+    "ours": [
+      {
+        "answer": "The Black Widow Pulsar (PSR B1957+20) is located in the constellation **Sagitta**.",
+        "searches": 0,
+        "usage": {
+          "input": 1176,
+          "output": 40,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 1.8578432919457555,
+        "cost": 0.00688,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 7846,
+          "output": 521,
+          "cache_read": 0,
+          "cache_write": 2119
+        },
+        "secs": 43.205063957953826,
+        "cost": 0.06549875,
+        "error": "max turns exceeded",
+        "id": "simpleqa-1591",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 7816,
+          "output": 501,
+          "cache_read": 0,
+          "cache_write": 2119
+        },
+        "secs": 30.00954154203646,
+        "cost": 0.06484875,
+        "error": "max turns exceeded",
+        "id": "simpleqa-0882",
+        "grade": "error"
+      }
+    ],
+    "hosted": [
+      {
+        "answer": "Sagitta",
+        "searches": 1,
+        "usage": {
+          "input": 13736,
+          "output": 209,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 12.047461790964007,
+        "cost": 0.083905,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "July.  Puntsagiin Jasrai served as prime minister of Mongolia from 21 July 1992 to 19 July 1996.",
+        "searches": 1,
+        "usage": {
+          "input": 13732,
+          "output": 258,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 12.446271375054494,
+        "cost": 0.08510999999999999,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      },
+      {
+        "answer": "405 x 480 cm",
+        "searches": 1,
+        "usage": {
+          "input": 14007,
+          "output": 219,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 10.55153733305633,
+        "cost": 0.08550999999999999,
+        "error": null,
+        "id": "simpleqa-0882",
+        "grade": "correct"
+      }
+    ]
+  }
+}

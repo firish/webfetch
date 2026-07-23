@@ -1,0 +1,61 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 2,
+    "arms": [
+      "ours-gpt"
+    ],
+    "dataset": "/Users/rishisg2/Desktop/Rishi/coding/prototypes/websearch/evals/datasets/live_queries.jsonl",
+    "engine_fees": {
+      "ours-multi": 0.012,
+      "ours-ddg": 0.0
+    }
+  },
+  "summaries": [
+    {
+      "arm": "ours-gpt",
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1.0,
+      "errors": 0,
+      "total_cost": 0.082,
+      "cost_per_q": 0.0411,
+      "searches_per_q": 2.5,
+      "median_secs": 91.0
+    }
+  ],
+  "records": {
+    "ours-gpt": [
+      {
+        "answer": "Sagitta (the Arrow).",
+        "searches": 3,
+        "usage": {
+          "input": 1959,
+          "output": 102,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 106.70626445813105,
+        "cost": 0.048855,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "July.",
+        "searches": 2,
+        "usage": {
+          "input": 1359,
+          "output": 85,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 75.21407124982215,
+        "cost": 0.033345,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      }
+    ]
+  }
+}

@@ -1,0 +1,683 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 50,
+    "arms": [
+      "broke"
+    ],
+    "dataset": "/Users/rishisg2/Desktop/Rishi/coding/prototypes/websearch/evals/datasets/live_queries.jsonl",
+    "engine_fees": {
+      "ours-multi": 0.012,
+      "ours-ddg": 0.0
+    }
+  },
+  "summaries": [
+    {
+      "arm": "broke",
+      "n": 50,
+      "correct": 22,
+      "accuracy": 0.44,
+      "errors": 26,
+      "total_cost": 0.0,
+      "cost_per_q": 0.0,
+      "tok_in_per_q": 1879,
+      "tok_out_per_q": 213,
+      "searches_per_q": 1.96,
+      "median_secs": 51.7
+    }
+  ],
+  "records": {
+    "broke": [
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-4207",
+        "grade": "error"
+      },
+      {
+        "answer": "July.",
+        "searches": 2,
+        "usage": {
+          "input": 2769,
+          "output": 144,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 38.42179849999957,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      },
+      {
+        "answer": "405\u202fcm\u202f\u00d7\u202f480\u202fcm\u3010The Slav Epic: No.\u202f17: The Holy Mount Athos \u2013 Art Renewal Center\u3011",
+        "searches": 1,
+        "usage": {
+          "input": 915,
+          "output": 127,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 28.119870000053197,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-0882",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-2055",
+        "grade": "error"
+      },
+      {
+        "answer": "7,306\u202fsq\u202fkm.",
+        "searches": 1,
+        "usage": {
+          "input": 990,
+          "output": 130,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 12.058776542078704,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-2972",
+        "grade": "correct"
+      },
+      {
+        "answer": "1990 and 1991.",
+        "searches": 2,
+        "usage": {
+          "input": 1318,
+          "output": 222,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 25.637334916973487,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-0275",
+        "grade": "incorrect"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-3633",
+        "grade": "error"
+      },
+      {
+        "answer": "Javier\u202fOlgu\u00edn (Javier\u202fOlgu\u00edn\u202fVega).",
+        "searches": 3,
+        "usage": {
+          "input": 3443,
+          "output": 326,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 56.4056425828021,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-0225",
+        "grade": "correct"
+      },
+      {
+        "answer": "1972",
+        "searches": 3,
+        "usage": {
+          "input": 2926,
+          "output": 213,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 65.9493631250225,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-2505",
+        "grade": "correct"
+      },
+      {
+        "answer": "The north coast of Morrowind.",
+        "searches": 1,
+        "usage": {
+          "input": 1035,
+          "output": 302,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 28.615682083182037,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-0415",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 8787,
+          "output": 333,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 261.90888958401047,
+        "cost": 0.0,
+        "error": "max turns exceeded",
+        "id": "simpleqa-0348",
+        "grade": "error"
+      },
+      {
+        "answer": "Seoul, South Korea.",
+        "searches": 2,
+        "usage": {
+          "input": 1710,
+          "output": 129,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 64.83321833400987,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-2009",
+        "grade": "correct"
+      },
+      {
+        "answer": "370\u202fegg\u2011shaped layers of float glass.",
+        "searches": 2,
+        "usage": {
+          "input": 1619,
+          "output": 185,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 28.72473774990067,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-0180",
+        "grade": "correct"
+      },
+      {
+        "answer": "CGS\u202fHabba\u202fKhatoon.",
+        "searches": 2,
+        "usage": {
+          "input": 1547,
+          "output": 196,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 154.72099850000814,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-2355",
+        "grade": "correct"
+      },
+      {
+        "answer": "1850",
+        "searches": 4,
+        "usage": {
+          "input": 3105,
+          "output": 454,
+          "cache_read": 256,
+          "cache_write": 0
+        },
+        "secs": 34.35265866597183,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-0719",
+        "grade": "incorrect"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 7026,
+          "output": 645,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 137.15381475002505,
+        "cost": 0.0,
+        "error": "max turns exceeded",
+        "id": "simpleqa-0721",
+        "grade": "error"
+      },
+      {
+        "answer": "May\u202f2020",
+        "searches": 3,
+        "usage": {
+          "input": 3257,
+          "output": 227,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 79.74082004209049,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-3604",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 4331,
+          "output": 295,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 233.76502187503502,
+        "cost": 0.0,
+        "error": "max turns exceeded",
+        "id": "simpleqa-1506",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-2878",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 7542,
+          "output": 309,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 176.0804889590945,
+        "cost": 0.0,
+        "error": "max turns exceeded",
+        "id": "simpleqa-3744",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-2287",
+        "grade": "error"
+      },
+      {
+        "answer": "Hassan\u202fNasrallah.",
+        "searches": 1,
+        "usage": {
+          "input": 823,
+          "output": 84,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 9.643249167129397,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-0737",
+        "grade": "correct"
+      },
+      {
+        "answer": "It was originally called the **Museum of Manufactures**.",
+        "searches": 4,
+        "usage": {
+          "input": 3429,
+          "output": 311,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 161.48071279213764,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-2286",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-2840",
+        "grade": "error"
+      },
+      {
+        "answer": "Heidelberg Observatory.",
+        "searches": 1,
+        "usage": {
+          "input": 854,
+          "output": 172,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 14.650408499874175,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-1046",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 5888,
+          "output": 385,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 110.4048857090529,
+        "cost": 0.0,
+        "error": "max turns exceeded",
+        "id": "simpleqa-3672",
+        "grade": "error"
+      },
+      {
+        "answer": "A\u202f\u2013\u202fB\u202f\u2013\u202fC\u266f\u202f\u2013\u202fD\u202f\u2013\u202fE\u202f\u2013\u202fF\u202f\u2013\u202fF\u266f\u202f\u2013\u202fG\u266f.",
+        "searches": 1,
+        "usage": {
+          "input": 1267,
+          "output": 437,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 23.965636832872406,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-2619",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 6237,
+          "output": 404,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 176.85541641595773,
+        "cost": 0.0,
+        "error": "max turns exceeded",
+        "id": "simpleqa-2377",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-3806",
+        "grade": "error"
+      },
+      {
+        "answer": "1500\u202fsouls.",
+        "searches": 2,
+        "usage": {
+          "input": 2104,
+          "output": 151,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 118.17446166696027,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-1466",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-0745",
+        "grade": "error"
+      },
+      {
+        "answer": "She was a member of the West Pakistan Assembly from 1962 to 1965.",
+        "searches": 2,
+        "usage": {
+          "input": 1725,
+          "output": 130,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 21.49062933283858,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-0226",
+        "grade": "correct"
+      },
+      {
+        "answer": "2010",
+        "searches": 3,
+        "usage": {
+          "input": 2810,
+          "output": 254,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 47.066605208208784,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-2072",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-1968",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-2221",
+        "grade": "error"
+      },
+      {
+        "answer": "11\u202fDecember\u202f1905.",
+        "searches": 1,
+        "usage": {
+          "input": 886,
+          "output": 137,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 107.37078800005838,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-2746",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-3021",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-0982",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-3027",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-3751",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-2616",
+        "grade": "error"
+      },
+      {
+        "answer": "Rajindar\u202fSingh\u202fDhatt.",
+        "searches": 3,
+        "usage": {
+          "input": 2913,
+          "output": 202,
+          "cache_read": 512,
+          "cache_write": 0
+        },
+        "secs": 4372.869530458003,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-1593",
+        "grade": "correct"
+      },
+      {
+        "answer": "1958",
+        "searches": 1,
+        "usage": {
+          "input": 933,
+          "output": 200,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 4262.768556792056,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-1839",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-0400",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-3562",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-0068",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-2180",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-0588",
+        "grade": "error"
+      },
+      {
+        "answer": "Sthapatya\u2011\u015a\u0101stra.",
+        "searches": 1,
+        "usage": {
+          "input": 911,
+          "output": 234,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 998.5880679581314,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-1825",
+        "grade": "correct"
+      },
+      {
+        "answer": "Shinnosuke\u202fTachibana.",
+        "searches": 1,
+        "usage": {
+          "input": 1036,
+          "output": 137,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 2177.4739910000935,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-1437",
+        "grade": "correct"
+      }
+    ]
+  }
+}

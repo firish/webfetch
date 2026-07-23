@@ -1,0 +1,34 @@
+{
+  "ship_classifier": true,
+  "winner": "hybrid: current keywords -> centroid (test 40%)",
+  "min_realtime_recall": 0.6,
+  "winner_metrics": {
+    "name": "hybrid: current keywords -> centroid (test 40%)",
+    "n": 165,
+    "accuracy": 0.588,
+    "recalls": {
+      "realtime": 0.705,
+      "recent": 0.417,
+      "stable": 0.672
+    },
+    "realtime_as_stable_rate": 0.136,
+    "confusion": {
+      "realtime": {
+        "realtime": 31,
+        "recent": 7,
+        "stable": 6
+      },
+      "recent": {
+        "realtime": 31,
+        "recent": 25,
+        "stable": 4
+      },
+      "stable": {
+        "realtime": 10,
+        "recent": 10,
+        "stable": 41
+      }
+    },
+    "tech_accuracy": 0.667
+  }
+}

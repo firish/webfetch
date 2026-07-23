@@ -1,0 +1,212 @@
+{
+  "candidates": [
+    {
+      "name": "keyword-heuristics (current)",
+      "n": 413,
+      "accuracy": 0.521,
+      "recalls": {
+        "realtime": 0.622,
+        "recent": 0.721,
+        "stable": 0.217
+      },
+      "realtime_as_stable_rate": 0.015,
+      "confusion": {
+        "realtime": {
+          "realtime": 84,
+          "recent": 49,
+          "stable": 2
+        },
+        "recent": {
+          "realtime": 36,
+          "recent": 101,
+          "stable": 3
+        },
+        "stable": {
+          "realtime": 4,
+          "recent": 104,
+          "stable": 30
+        }
+      },
+      "tech_accuracy": 0.528
+    },
+    {
+      "name": "keyword-heuristics (fixed cues)",
+      "n": 413,
+      "accuracy": 0.494,
+      "recalls": {
+        "realtime": 0.511,
+        "recent": 0.75,
+        "stable": 0.217
+      },
+      "realtime_as_stable_rate": 0.015,
+      "confusion": {
+        "realtime": {
+          "realtime": 69,
+          "recent": 64,
+          "stable": 2
+        },
+        "recent": {
+          "realtime": 33,
+          "recent": 105,
+          "stable": 2
+        },
+        "stable": {
+          "realtime": 4,
+          "recent": 104,
+          "stable": 30
+        }
+      },
+      "tech_accuracy": 0.583
+    },
+    {
+      "name": "nearest-centroid (all-MiniLM-L6-v2, test 40%)",
+      "n": 165,
+      "accuracy": 0.606,
+      "recalls": {
+        "realtime": 0.568,
+        "recent": 0.6,
+        "stable": 0.639
+      },
+      "realtime_as_stable_rate": 0.159,
+      "confusion": {
+        "realtime": {
+          "realtime": 25,
+          "recent": 12,
+          "stable": 7
+        },
+        "recent": {
+          "realtime": 18,
+          "recent": 36,
+          "stable": 6
+        },
+        "stable": {
+          "realtime": 10,
+          "recent": 12,
+          "stable": 39
+        }
+      },
+      "tech_accuracy": 0.667
+    },
+    {
+      "name": "kNN k=5 (test 40%)",
+      "n": 165,
+      "accuracy": 0.491,
+      "recalls": {
+        "realtime": 0.727,
+        "recent": 0.4,
+        "stable": 0.41
+      },
+      "realtime_as_stable_rate": 0.023,
+      "confusion": {
+        "realtime": {
+          "realtime": 32,
+          "recent": 11,
+          "stable": 1
+        },
+        "recent": {
+          "realtime": 30,
+          "recent": 24,
+          "stable": 6
+        },
+        "stable": {
+          "realtime": 26,
+          "recent": 10,
+          "stable": 25
+        }
+      },
+      "tech_accuracy": 0.583
+    },
+    {
+      "name": "hybrid: current keywords -> centroid (test 40%)",
+      "n": 165,
+      "accuracy": 0.588,
+      "recalls": {
+        "realtime": 0.705,
+        "recent": 0.417,
+        "stable": 0.672
+      },
+      "realtime_as_stable_rate": 0.136,
+      "confusion": {
+        "realtime": {
+          "realtime": 31,
+          "recent": 7,
+          "stable": 6
+        },
+        "recent": {
+          "realtime": 31,
+          "recent": 25,
+          "stable": 4
+        },
+        "stable": {
+          "realtime": 10,
+          "recent": 10,
+          "stable": 41
+        }
+      },
+      "tech_accuracy": 0.667
+    },
+    {
+      "name": "hybrid: FIXED keywords -> centroid (test 40%)",
+      "n": 165,
+      "accuracy": 0.582,
+      "recalls": {
+        "realtime": 0.682,
+        "recent": 0.417,
+        "stable": 0.672
+      },
+      "realtime_as_stable_rate": 0.136,
+      "confusion": {
+        "realtime": {
+          "realtime": 30,
+          "recent": 8,
+          "stable": 6
+        },
+        "recent": {
+          "realtime": 31,
+          "recent": 25,
+          "stable": 4
+        },
+        "stable": {
+          "realtime": 10,
+          "recent": 10,
+          "stable": 41
+        }
+      },
+      "tech_accuracy": 0.667
+    }
+  ],
+  "recommendation": {
+    "ship_classifier": true,
+    "winner": "hybrid: current keywords -> centroid (test 40%)",
+    "min_realtime_recall": 0.6,
+    "winner_metrics": {
+      "name": "hybrid: current keywords -> centroid (test 40%)",
+      "n": 165,
+      "accuracy": 0.588,
+      "recalls": {
+        "realtime": 0.705,
+        "recent": 0.417,
+        "stable": 0.672
+      },
+      "realtime_as_stable_rate": 0.136,
+      "confusion": {
+        "realtime": {
+          "realtime": 31,
+          "recent": 7,
+          "stable": 6
+        },
+        "recent": {
+          "realtime": 31,
+          "recent": 25,
+          "stable": 4
+        },
+        "stable": {
+          "realtime": 10,
+          "recent": 10,
+          "stable": 41
+        }
+      },
+      "tech_accuracy": 0.667
+    }
+  }
+}

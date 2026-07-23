@@ -1,0 +1,3253 @@
+{
+ "config": {
+  "model": "claude-opus-4-7",
+  "n": 27,
+  "arms": [
+   "ours-multi",
+   "ours-ddg",
+   "ours-gpt",
+   "hosted",
+   "openai-hosted",
+   "tavily",
+   "exa",
+   "broke"
+  ],
+  "dataset": "evals/datasets/fresh_queries_2026_07.jsonl",
+  "engine_fees": {
+   "ours-multi": 0.012,
+   "ours-ddg": 0.0
+  }
+ },
+ "summaries": [
+  {
+   "arm": "ours-multi",
+   "n": 27,
+   "correct": 27,
+   "accuracy": 1.0,
+   "errors": 0,
+   "total_cost": 0.96,
+   "cost_per_q": 0.0356,
+   "tok_in_per_q": 3639,
+   "tok_out_per_q": 125,
+   "searches_per_q": 1.19,
+   "median_secs": 139.2
+  },
+  {
+   "arm": "ours-ddg",
+   "n": 27,
+   "correct": 27,
+   "accuracy": 1.0,
+   "errors": 0,
+   "total_cost": 0.647,
+   "cost_per_q": 0.024,
+   "tok_in_per_q": 4035,
+   "tok_out_per_q": 144,
+   "searches_per_q": 1.37,
+   "median_secs": 157.2
+  },
+  {
+   "arm": "ours-gpt",
+   "n": 27,
+   "correct": 26,
+   "accuracy": 0.963,
+   "errors": 0,
+   "total_cost": 1.188,
+   "cost_per_q": 0.044,
+   "tok_in_per_q": 2202,
+   "tok_out_per_q": 135,
+   "searches_per_q": 2.59,
+   "median_secs": 241.6
+  },
+  {
+   "arm": "hosted",
+   "n": 27,
+   "correct": 27,
+   "accuracy": 1.0,
+   "errors": 0,
+   "total_cost": 2.802,
+   "cost_per_q": 0.1038,
+   "tok_in_per_q": 16747,
+   "tok_out_per_q": 298,
+   "searches_per_q": 1.26,
+   "median_secs": 11.7
+  },
+  {
+   "arm": "openai-hosted",
+   "n": 27,
+   "correct": 27,
+   "accuracy": 1.0,
+   "errors": 0,
+   "total_cost": 1.817,
+   "cost_per_q": 0.0673,
+   "tok_in_per_q": 10662,
+   "tok_out_per_q": 108,
+   "searches_per_q": 1.07,
+   "median_secs": 7.6
+  },
+  {
+   "arm": "tavily",
+   "n": 27,
+   "correct": 27,
+   "accuracy": 1.0,
+   "errors": 0,
+   "total_cost": 1.239,
+   "cost_per_q": 0.0459,
+   "tok_in_per_q": 6597,
+   "tok_out_per_q": 136,
+   "searches_per_q": 1.26,
+   "median_secs": 6.9
+  },
+  {
+   "arm": "exa",
+   "n": 27,
+   "correct": 27,
+   "accuracy": 1.0,
+   "errors": 0,
+   "total_cost": 1.119,
+   "cost_per_q": 0.0415,
+   "tok_in_per_q": 5345,
+   "tok_out_per_q": 110,
+   "searches_per_q": 1.04,
+   "median_secs": 5.6
+  },
+  {
+   "arm": "broke",
+   "n": 27,
+   "correct": 0,
+   "accuracy": 0.0,
+   "errors": 27,
+   "total_cost": 0.0,
+   "cost_per_q": 0.0,
+   "tok_in_per_q": null,
+   "tok_out_per_q": null,
+   "searches_per_q": null,
+   "median_secs": null
+  }
+ ],
+ "records": {
+  "ours-multi": [
+   {
+    "answer": "Jannik Sinner, who defeated Alexander Zverev in four sets for his second consecutive Wimbledon title.",
+    "searches": 1,
+    "usage": {
+     "input": 3252,
+     "output": 145,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 186.22069220803678,
+    "cost": 0.031885,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev.",
+    "searches": 1,
+    "usage": {
+     "input": 1231,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 2049
+    },
+    "secs": 48.28336333390325,
+    "cost": 0.03328625,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "correct"
+   },
+   {
+    "answer": "Linda Noskov\u00e1, who defeated fellow Czech Karol\u00edna Muchov\u00e1 6\u20132, 5\u20137, 6\u20133 in the final for her first Grand Slam title.",
+    "searches": 1,
+    "usage": {
+     "input": 1219,
+     "output": 160,
+     "cache_read": 0,
+     "cache_write": 2055
+    },
+    "secs": 36.340655625099316,
+    "cost": 0.034938750000000005,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Karol\u00edna Muchov\u00e1.",
+    "searches": 1,
+    "usage": {
+     "input": 3192,
+     "output": 118,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 28.009363333927467,
+    "cost": 0.03091,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev \u2014 he defeated Flavio Cobolli in the final for his first Grand Slam title.",
+    "searches": 1,
+    "usage": {
+     "input": 3095,
+     "output": 114,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 297.2120982911438,
+    "cost": 0.030325,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "Flavio Cobolli.",
+    "searches": 1,
+    "usage": {
+     "input": 3190,
+     "output": 91,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 299.5953401250299,
+    "cost": 0.030225000000000002,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "Mirra Andreeva, who defeated Maja Chwali\u0144ska 6\u20133, 6\u20132 in the final for her first Grand Slam title.",
+    "searches": 1,
+    "usage": {
+     "input": 3117,
+     "output": 125,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 427.565696708858,
+    "cost": 0.03071,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "correct"
+   },
+   {
+    "answer": "The New York Knicks won the 2026 NBA Finals, defeating the San Antonio Spurs.",
+    "searches": 1,
+    "usage": {
+     "input": 3163,
+     "output": 135,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 314.11166291707195,
+    "cost": 0.03119,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "correct"
+   },
+   {
+    "answer": "Jalen Brunson (New York Knicks).",
+    "searches": 1,
+    "usage": {
+     "input": 1219,
+     "output": 118,
+     "cache_read": 0,
+     "cache_write": 2137
+    },
+    "secs": 187.61122225015424,
+    "cost": 0.03440125,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "correct"
+   },
+   {
+    "answer": "45 points.",
+    "searches": 1,
+    "usage": {
+     "input": 1231,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 2114
+    },
+    "secs": 188.4061794159934,
+    "cost": 0.0336925,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ecuador.",
+    "searches": 1,
+    "usage": {
+     "input": 3235,
+     "output": 98,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 61.50864850007929,
+    "cost": 0.030625,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China.",
+    "searches": 1,
+    "usage": {
+     "input": 1228,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 2079
+    },
+    "secs": 45.24992770794779,
+    "cost": 0.033333749999999995,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "Long March 10B (Chang Zheng 10B).",
+    "searches": 1,
+    "usage": {
+     "input": 1236,
+     "output": 109,
+     "cache_read": 0,
+     "cache_write": 2095
+    },
+    "secs": 38.506022334098816,
+    "cost": 0.03399875,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano.",
+    "searches": 1,
+    "usage": {
+     "input": 3222,
+     "output": 97,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 35.59605933306739,
+    "cost": 0.030535,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy Bresnik.",
+    "searches": 2,
+    "usage": {
+     "input": 3117,
+     "output": 168,
+     "cache_read": 0,
+     "cache_write": 2627
+    },
+    "secs": 179.85135808307678,
+    "cost": 0.06020375,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida.",
+    "searches": 1,
+    "usage": {
+     "input": 3264,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 40.13205304206349,
+    "cost": 0.03052,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine.",
+    "searches": 1,
+    "usage": {
+     "input": 3108,
+     "output": 90,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 147.38104420807213,
+    "cost": 0.02979,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Found it \u2014 Malaysia.\n\n**Malaysia** \u2014 its ban on social media for under-16s came into force on 1 June 2026.",
+    "searches": 5,
+    "usage": {
+     "input": 2995,
+     "output": 500,
+     "cache_read": 5277,
+     "cache_write": 4214
+    },
+    "secs": 502.43094887491316,
+    "cost": 0.116451,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso.",
+    "searches": 1,
+    "usage": {
+     "input": 3279,
+     "output": 95,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 139.16056233388372,
+    "cost": 0.03077,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "45.",
+    "searches": 1,
+    "usage": {
+     "input": 3101,
+     "output": 89,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 138.35405995789915,
+    "cost": 0.02973,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "January 2028.",
+    "searches": 1,
+    "usage": {
+     "input": 3142,
+     "output": 108,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 137.45446641696617,
+    "cost": 0.03041,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "correct"
+   },
+   {
+    "answer": "Pricerunner.",
+    "searches": 1,
+    "usage": {
+     "input": 3205,
+     "output": 98,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 136.60716616595164,
+    "cost": 0.030475,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Indonesian rupiah fell past 18,000 per US dollar for the first time on June 4, 2026, trading as high as around 18,015\u201318,045.",
+    "searches": 1,
+    "usage": {
+     "input": 3121,
+     "output": 137,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 29.614000499946997,
+    "cost": 0.03103,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "correct"
+   },
+   {
+    "answer": "$43 million.",
+    "searches": 1,
+    "usage": {
+     "input": 3219,
+     "output": 114,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 161.47567766695283,
+    "cost": 0.030945,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Singh Digwa, 23.",
+    "searches": 1,
+    "usage": {
+     "input": 3174,
+     "output": 106,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 159.6366227089893,
+    "cost": 0.03052,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine, Iowa.",
+    "searches": 1,
+    "usage": {
+     "input": 3019,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 170.78349275002256,
+    "cost": 0.029445,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "She was ranked **No. 114** at the time.",
+    "searches": 1,
+    "usage": {
+     "input": 3044,
+     "output": 113,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 53.84079879196361,
+    "cost": 0.030045,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "ours-ddg": [
+   {
+    "answer": "Jannik Sinner, who defeated Alexander Zverev in four sets (6-7, 7-6, 6-3, 6-4) to defend his title.",
+    "searches": 1,
+    "usage": {
+     "input": 3238,
+     "output": 156,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 157.224447542103,
+    "cost": 0.02009,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev.",
+    "searches": 1,
+    "usage": {
+     "input": 3016,
+     "output": 117,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 17.22894375002943,
+    "cost": 0.018005,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "correct"
+   },
+   {
+    "answer": "Linda Noskov\u00e1 won the 2026 Wimbledon women's singles title, defeating fellow Czech Karol\u00edna Muchov\u00e1 6\u20132, 5\u20137, 6\u20133 in the final for her first Grand Slam.",
+    "searches": 1,
+    "usage": {
+     "input": 3091,
+     "output": 175,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 167.1710793331731,
+    "cost": 0.01983,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Karol\u00edna Muchov\u00e1.",
+    "searches": 1,
+    "usage": {
+     "input": 3183,
+     "output": 118,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 175.01203804207034,
+    "cost": 0.018865,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev \u2014 he defeated Flavio Cobolli in the final (6\u20131, 4\u20136, 6\u20134, 6\u20137(5\u20137), 6\u20131) for his first Grand Slam title.",
+    "searches": 1,
+    "usage": {
+     "input": 3077,
+     "output": 143,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 168.08078408287838,
+    "cost": 0.01896,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "Flavio Cobolli, in five sets (6\u20131, 4\u20136, 6\u20134, 6\u20137(5\u20137), 6\u20131).",
+    "searches": 1,
+    "usage": {
+     "input": 3208,
+     "output": 124,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 42.87863687518984,
+    "cost": 0.01914,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "Mirra Andreeva, who defeated Maja Chwali\u0144ska 6\u20133, 6\u20132 in the final.",
+    "searches": 1,
+    "usage": {
+     "input": 3110,
+     "output": 115,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 39.52647320809774,
+    "cost": 0.018425,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "correct"
+   },
+   {
+    "answer": "The New York Knicks, defeating the San Antonio Spurs in five games.",
+    "searches": 1,
+    "usage": {
+     "input": 3053,
+     "output": 126,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 173.66027554194443,
+    "cost": 0.018415,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "correct"
+   },
+   {
+    "answer": "Jalen Brunson (New York Knicks).",
+    "searches": 1,
+    "usage": {
+     "input": 3131,
+     "output": 118,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 177.43586433306336,
+    "cost": 0.018605,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "correct"
+   },
+   {
+    "answer": "45 points.",
+    "searches": 1,
+    "usage": {
+     "input": 1231,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 2212
+    },
+    "secs": 181.05096420901828,
+    "cost": 0.022305,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ecuador (Mexico won 2-0 in the Round of 32).",
+    "searches": 1,
+    "usage": {
+     "input": 1234,
+     "output": 113,
+     "cache_read": 0,
+     "cache_write": 2073
+    },
+    "secs": 191.18928079097532,
+    "cost": 0.02195125,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China (with the Long March 10B).",
+    "searches": 1,
+    "usage": {
+     "input": 3174,
+     "output": 97,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 89.290525584016,
+    "cost": 0.018295,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Long March 10B.",
+    "searches": 1,
+    "usage": {
+     "input": 3151,
+     "output": 103,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 90.99689645902254,
+    "cost": 0.01833,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano.",
+    "searches": 1,
+    "usage": {
+     "input": 3202,
+     "output": 95,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 81.77212629118003,
+    "cost": 0.018385,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy Bresnik.",
+    "searches": 2,
+    "usage": {
+     "input": 3009,
+     "output": 196,
+     "cache_read": 0,
+     "cache_write": 2341
+    },
+    "secs": 285.87351266713813,
+    "cost": 0.03457625,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida.",
+    "searches": 1,
+    "usage": {
+     "input": 3129,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 44.203803041018546,
+    "cost": 0.017845,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Based on the first result, in June 2026 Hungary dropped its objection to Moldova's EU accession (Moldova had been held back by Hungary's veto through the package approach with Ukraine).\n\n**Moldova**",
+    "searches": 2,
+    "usage": {
+     "input": 2969,
+     "output": 235,
+     "cache_read": 0,
+     "cache_write": 2386
+    },
+    "secs": 372.44121245783754,
+    "cost": 0.0356325,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Malaysia.",
+    "searches": 4,
+    "usage": {
+     "input": 2997,
+     "output": 367,
+     "cache_read": 5362,
+     "cache_write": 3474
+    },
+    "secs": 630.103082792135,
+    "cost": 0.0485535,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso.",
+    "searches": 1,
+    "usage": {
+     "input": 3142,
+     "output": 95,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 336.0823536249809,
+    "cost": 0.018085,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "45.",
+    "searches": 1,
+    "usage": {
+     "input": 3124,
+     "output": 89,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 282.5440516669769,
+    "cost": 0.017845,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "January 2028.",
+    "searches": 1,
+    "usage": {
+     "input": 3033,
+     "output": 92,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 149.37911041709594,
+    "cost": 0.017465,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "correct"
+   },
+   {
+    "answer": "PriceRunner.",
+    "searches": 3,
+    "usage": {
+     "input": 3017,
+     "output": 251,
+     "cache_read": 0,
+     "cache_write": 3072
+    },
+    "secs": 233.80574258393608,
+    "cost": 0.04056,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Indonesian rupiah hit a record low of over **18,000 per US dollar** on June 4, 2026, breaching that psychological threshold for the first time amid surging energy costs and US\u2013Iran geopolitical tensions.",
+    "searches": 2,
+    "usage": {
+     "input": 3190,
+     "output": 244,
+     "cache_read": 0,
+     "cache_write": 2759
+    },
+    "secs": 113.21416350011714,
+    "cost": 0.03929375,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "correct"
+   },
+   {
+    "answer": "$43 million.",
+    "searches": 1,
+    "usage": {
+     "input": 3157,
+     "output": 90,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 40.8872539580334,
+    "cost": 0.018035,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Digwa.",
+    "searches": 1,
+    "usage": {
+     "input": 3159,
+     "output": 100,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 76.87027687509544,
+    "cost": 0.018295,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine.",
+    "searches": 2,
+    "usage": {
+     "input": 3113,
+     "output": 167,
+     "cache_read": 0,
+     "cache_write": 2447
+    },
+    "secs": 82.96149908308871,
+    "cost": 0.03503375,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "WTA No. 114.",
+    "searches": 2,
+    "usage": {
+     "input": 3126,
+     "output": 183,
+     "cache_read": 0,
+     "cache_write": 2549
+    },
+    "secs": 70.81317216693424,
+    "cost": 0.03613625,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "ours-gpt": [
+   {
+    "answer": "Jannik Sinner.",
+    "searches": 2,
+    "usage": {
+     "input": 1130,
+     "output": 109,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 600.7339005840477,
+    "cost": 0.032920000000000005,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev.",
+    "searches": 1,
+    "usage": {
+     "input": 868,
+     "output": 57,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 155.46334991697222,
+    "cost": 0.01805,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "correct"
+   },
+   {
+    "answer": "Linda Noskov\u00e1.",
+    "searches": 2,
+    "usage": {
+     "input": 1859,
+     "output": 90,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 313.9731482078787,
+    "cost": 0.035995,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Karol\u00edna Muchov\u00e1.",
+    "searches": 2,
+    "usage": {
+     "input": 1209,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 306.8008410409093,
+    "cost": 0.032865,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev.",
+    "searches": 4,
+    "usage": {
+     "input": 2436,
+     "output": 145,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1027.997077709064,
+    "cost": 0.06453,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "Flavio Cobolli.",
+    "searches": 2,
+    "usage": {
+     "input": 1211,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 716.8130335831083,
+    "cost": 0.032845,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "Mirra Andreeva.",
+    "searches": 2,
+    "usage": {
+     "input": 1048,
+     "output": 78,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 431.7589955830481,
+    "cost": 0.03158,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "correct"
+   },
+   {
+    "answer": "The New York Knicks.",
+    "searches": 4,
+    "usage": {
+     "input": 2738,
+     "output": 136,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 698.7802017091308,
+    "cost": 0.06577,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "correct"
+   },
+   {
+    "answer": "Jalen Brunson.",
+    "searches": 1,
+    "usage": {
+     "input": 773,
+     "output": 45,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 450.86731750005856,
+    "cost": 0.017215,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "correct"
+   },
+   {
+    "answer": "45 points.",
+    "searches": 1,
+    "usage": {
+     "input": 914,
+     "output": 49,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 165.44233820890076,
+    "cost": 0.01804,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ecuador.",
+    "searches": 3,
+    "usage": {
+     "input": 2368,
+     "output": 156,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 167.09915470797569,
+    "cost": 0.052520000000000004,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China.",
+    "searches": 5,
+    "usage": {
+     "input": 3240,
+     "output": 221,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 241.5589657088276,
+    "cost": 0.08283,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "Long March-10B.",
+    "searches": 4,
+    "usage": {
+     "input": 2854,
+     "output": 212,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 119.27445679204538,
+    "cost": 0.06863,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano.",
+    "searches": 4,
+    "usage": {
+     "input": 2733,
+     "output": 172,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 70.81399587495252,
+    "cost": 0.066825,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "NASA astronaut Randy Bresnik.",
+    "searches": 2,
+    "usage": {
+     "input": 1602,
+     "output": 102,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 120.60481291706674,
+    "cost": 0.035070000000000004,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida.",
+    "searches": 1,
+    "usage": {
+     "input": 793,
+     "output": 49,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 91.9249698750209,
+    "cost": 0.017435,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine.",
+    "searches": 5,
+    "usage": {
+     "input": 3669,
+     "output": 257,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 659.1953857089393,
+    "cost": 0.08605499999999999,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Malaysia.",
+    "searches": 2,
+    "usage": {
+     "input": 1649,
+     "output": 105,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 442.3546627089381,
+    "cost": 0.035395,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso.",
+    "searches": 1,
+    "usage": {
+     "input": 775,
+     "output": 52,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 164.8118203340564,
+    "cost": 0.017435,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "45 years old.",
+    "searches": 1,
+    "usage": {
+     "input": 760,
+     "output": 50,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 284.32103358302265,
+    "cost": 0.0173,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "January 2028.",
+    "searches": 2,
+    "usage": {
+     "input": 1657,
+     "output": 155,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 474.6386597501114,
+    "cost": 0.036935,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "correct"
+   },
+   {
+    "answer": "PriceRunner, a subsidiary of Klarna.",
+    "searches": 1,
+    "usage": {
+     "input": 755,
+     "output": 58,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 165.13265662500635,
+    "cost": 0.017515,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "The rupiah hit a record intraday low of **Rp18,234 per US dollar** in June 2026.",
+    "searches": 8,
+    "usage": {
+     "input": 8588,
+     "output": 589,
+     "cache_read": 4567,
+     "cache_write": 0
+    },
+    "secs": 350.11552683403715,
+    "cost": 0.1360585,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "$43,142,824 domestically in its opening weekend.",
+    "searches": 4,
+    "usage": {
+     "input": 3831,
+     "output": 239,
+     "cache_read": 1547,
+     "cache_write": 0
+    },
+    "secs": 189.20199145795777,
+    "cost": 0.06736349999999999,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Digwa.",
+    "searches": 1,
+    "usage": {
+     "input": 767,
+     "output": 55,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 31.32537779211998,
+    "cost": 0.017485,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine, Iowa.",
+    "searches": 2,
+    "usage": {
+     "input": 1541,
+     "output": 108,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 113.7015578339342,
+    "cost": 0.034945000000000004,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "World No. 114.",
+    "searches": 3,
+    "usage": {
+     "input": 1585,
+     "output": 159,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 90.78545062500052,
+    "cost": 0.048695,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "hosted": [
+   {
+    "answer": "Jannik Sinner defeated Alexander Zverev in the final, 6\u20137(7\u20139), 7\u20136(7\u20132), 6\u20133, 6\u20134 to win the 2026 Wimbledon men's singles title \u2014 his second Wimbledon title and fifth major overall.",
+    "searches": 1,
+    "usage": {
+     "input": 14109,
+     "output": 302,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 12.10938745783642,
+    "cost": 0.08809499999999999,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev , 6\u20137(7\u20139), 7\u20136(7\u20132), 6\u20133, 6\u20134.",
+    "searches": 1,
+    "usage": {
+     "input": 13915,
+     "output": 239,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.800762583967298,
+    "cost": 0.08555,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "correct"
+   },
+   {
+    "answer": "Linda Noskov\u00e1  won the 2026 Wimbledon women's singles title,  defeating Karol\u00edna Muchov\u00e1 in the final, 6\u20132, 5\u20137, 6\u20133 .",
+    "searches": 1,
+    "usage": {
+     "input": 14086,
+     "output": 273,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.489737750031054,
+    "cost": 0.087255,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Karol\u00edna Muchov\u00e1  was the runner-up.",
+    "searches": 1,
+    "usage": {
+     "input": 14183,
+     "output": 216,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.745081249857321,
+    "cost": 0.08631499999999999,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev won the 2026 French Open men's singles title, defeating Flavio Cobolli in the final 6\u20131, 4\u20136, 6\u20134, 6\u20137(5\u20137), 6\u20131 for his first major title.",
+    "searches": 1,
+    "usage": {
+     "input": 13907,
+     "output": 273,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 15.402904875110835,
+    "cost": 0.08635999999999999,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev defeated Flavio Cobolli  in the 2026 French Open men's singles final, 6\u20131, 4\u20136, 6\u20134, 6\u20137(5\u20137), 6\u20131.",
+    "searches": 1,
+    "usage": {
+     "input": 14039,
+     "output": 263,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.891652332851663,
+    "cost": 0.08677,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "Mirra Andreeva defeated Maja Chwali\u0144ska in the final, 6\u20133, 6\u20132  to win the 2026 French Open women's singles title.",
+    "searches": 1,
+    "usage": {
+     "input": 13885,
+     "output": 243,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.36989758303389,
+    "cost": 0.08549999999999999,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "correct"
+   },
+   {
+    "answer": "The New York Knicks won the 2026 NBA Finals, defeating the San Antonio Spurs 4-1 , with  Jalen Brunson earning Finals MVP .",
+    "searches": 1,
+    "usage": {
+     "input": 13888,
+     "output": 269,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 25.42267604195513,
+    "cost": 0.08616499999999999,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "correct"
+   },
+   {
+    "answer": "Jalen Brunson  \u2014  the New York Knicks point guard was named 2026 NBA Finals MVP unanimously, receiving all 11 votes .",
+    "searches": 1,
+    "usage": {
+     "input": 14034,
+     "output": 269,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.796017332933843,
+    "cost": 0.086895,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "correct"
+   },
+   {
+    "answer": "I'll search for this information. 45 points",
+    "searches": 1,
+    "usage": {
+     "input": 14132,
+     "output": 247,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.453854333143681,
+    "cost": 0.086835,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Yahoo result mentions Mexico 2, Ecuador 0 on June 30, not July 1. Let me search more specifically for Mexico's July 1 match. Mexico's Round of 32 match against Ecuador was on June 30, not July 1. Let me check for a July 1 Mexico match (possibly Round of 16). The Round of 32 match Mexico vs Ecuador appears to be reported as June 30 by Yahoo but the FourFourTwo mentions it. Let me check if there was a Mexico match on July 1 specifically \u2014 perhaps the Round of 32 match was on July 1 per some sources. The FIFA page shows the match was on 2026-06-30 20:00 UTC, which is July 1 UTC (02:00 local of next day in some timezones, though Mexico City local time was June 30 evening). So the match was technically June 30 local. Given the FIFA official page shows \"01 Jul 2026\" in some displays (likely UTC), the answer is Ecuador.\n\n Mexico beat Ecuador 2-0 in the Round of 32  at Mexico City Stadium.",
+    "searches": 4,
+    "usage": {
+     "input": 46860,
+     "output": 1104,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 39.714519625063986,
+    "cost": 0.3019,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China  \u2014 on July 10, 2026, by catching a Long March 10B first stage in a sea-based net.",
+    "searches": 1,
+    "usage": {
+     "input": 14010,
+     "output": 232,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.03092904179357,
+    "cost": 0.08585,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "Long March 10B",
+    "searches": 1,
+    "usage": {
+     "input": 14184,
+     "output": 221,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.464055457850918,
+    "cost": 0.086445,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "ESA astronaut Luca Parmitano  (Italy).",
+    "searches": 1,
+    "usage": {
+     "input": 14045,
+     "output": 221,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.164527209009975,
+    "cost": 0.08574999999999999,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy Bresnik  is the commander of the Artemis III crew.",
+    "searches": 1,
+    "usage": {
+     "input": 13887,
+     "output": 223,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 20.44072570791468,
+    "cost": 0.08500999999999999,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida",
+    "searches": 1,
+    "usage": {
+     "input": 14069,
+     "output": 202,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 14.689114416949451,
+    "cost": 0.085395,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine",
+    "searches": 1,
+    "usage": {
+     "input": 13884,
+     "output": 204,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.31515762489289,
+    "cost": 0.08452,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "The UK's ban was announced 15 June 2026, not \"came into force on 1 June 2026\". Let me check Australia's, which was set for December 2025, and search specifically for a June 1, 2026 date. Not New Zealand. Let me search more specifically for a country whose ban took effect exactly on 1 June 2026. Malaysia",
+    "searches": 4,
+    "usage": {
+     "input": 41327,
+     "output": 854,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 36.905842875130475,
+    "cost": 0.267985,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso",
+    "searches": 1,
+    "usage": {
+     "input": 20654,
+     "output": 305,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 18.12350866594352,
+    "cost": 0.12089499999999999,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "45",
+    "searches": 1,
+    "usage": {
+     "input": 13985,
+     "output": 208,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 13.067180667072535,
+    "cost": 0.08512499999999999,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "January 2028",
+    "searches": 1,
+    "usage": {
+     "input": 13908,
+     "output": 209,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.82151283393614,
+    "cost": 0.084765,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "correct"
+   },
+   {
+    "answer": "PriceRunner",
+    "searches": 1,
+    "usage": {
+     "input": 14004,
+     "output": 212,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.577720750123262,
+    "cost": 0.08532,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Indonesian rupiah breached the psychological 18,000 per US dollar threshold  for the first time in June 2026.",
+    "searches": 1,
+    "usage": {
+     "input": 13993,
+     "output": 241,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.296046958072111,
+    "cost": 0.08599,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "correct"
+   },
+   {
+    "answer": "About $43 million .",
+    "searches": 1,
+    "usage": {
+     "input": 14000,
+     "output": 208,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 9.231169417034835,
+    "cost": 0.0852,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Singh Digwa .",
+    "searches": 1,
+    "usage": {
+     "input": 13538,
+     "output": 220,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 19.110355667071417,
+    "cost": 0.08319,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine .",
+    "searches": 1,
+    "usage": {
+     "input": 13887,
+     "output": 206,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.48268112493679,
+    "cost": 0.084585,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "World No. 114",
+    "searches": 2,
+    "usage": {
+     "input": 21752,
+     "output": 384,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 30.44552466692403,
+    "cost": 0.13836,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "openai-hosted": [
+   {
+    "answer": "Jannik Sinner won the 2026 Wimbledon men\u2019s singles title. ([rolandgarros.com](https://www.rolandgarros.com/en-us/article/wimbledon-2026-final-men-jannik-sinner-victory-alexander-zverev?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8748,
+     "output": 103,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 33.99116391688585,
+    "cost": 0.05683,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev. ([rolandgarros.com](https://www.rolandgarros.com/en-us/article/wimbledon-2026-final-men-jannik-sinner-victory-alexander-zverev?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8588,
+     "output": 76,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 35.202128417091444,
+    "cost": 0.055220000000000005,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "correct"
+   },
+   {
+    "answer": "Linda Noskov\u00e1 won the 2026 Wimbledon women\u2019s singles title. ([rolandgarros.com](https://www.rolandgarros.com/en-us/article/wimbledon-2026-final-women-linda-noskova-victory-karolina-muchova-first-grand-slam?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8580,
+     "output": 71,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 32.31508804205805,
+    "cost": 0.05503,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Karol\u00edna Muchov\u00e1. ([usopen.org](https://www.usopen.org/amp/en_US/news/articles/2026-07-11/linda_noskova_defeats_karolina_muchova_to_claim_2026_wimbledon_title.html?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8760,
+     "output": 74,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 33.849192042136565,
+    "cost": 0.05602,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev won the 2026 French Open men\u2019s singles title. ([rolandgarros.com](https://www.rolandgarros.com/en-us/photo-gallery/2026-edition-gallery-photos-champions-finalists-roland-garros-2026?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8677,
+     "output": 75,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 7.636319166980684,
+    "cost": 0.055635000000000004,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "Flavio Cobolli. ([rolandgarros.com](https://www.rolandgarros.com/en-us/matches/2026/SM001?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8740,
+     "output": 80,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 32.31285437499173,
+    "cost": 0.056100000000000004,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "Mirra Andreeva won the 2026 French Open women\u2019s singles title. ([rolandgarros.com](https://www.rolandgarros.com/en-us/article/2026-edition-final-andreeva-chwalinska?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8691,
+     "output": 69,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 26.365589458029717,
+    "cost": 0.055525000000000005,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "correct"
+   },
+   {
+    "answer": "The New York Knicks won the 2026 NBA Finals. ([cdn-uat.nba.com](https://cdn-uat.nba.com/news/knicks-rally-win-nba-title?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8667,
+     "output": 58,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 5.424079957883805,
+    "cost": 0.055075,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "correct"
+   },
+   {
+    "answer": "Jalen Brunson of the New York Knicks. ([nba.com](https://www.nba.com/news/jalen-brunson-wins-bill-russell-trophy-as-2026-nba-finals-mvp?lid=ep2ukzzyd4z5&utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8759,
+     "output": 71,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 6.948355624917895,
+    "cost": 0.055925,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "correct"
+   },
+   {
+    "answer": "45 points. ([nba.com](https://www.nba.com/game/nyk-vs-sas-0042500405?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8724,
+     "output": 106,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 16.424708917038515,
+    "cost": 0.0568,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ecuador. ([fifa.com](https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/mexico-ecuador-review-highlights?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 12867,
+     "output": 108,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 6.039335916982964,
+    "cost": 0.07757499999999999,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China. ([apnews.com](https://apnews.com/article/6d695fcad64a101dc3991c1bfa0e7357?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 12987,
+     "output": 112,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 6.693813416175544,
+    "cost": 0.07829499999999999,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "The **Long March 10B (Chang Zheng 10B)** rocket. ([cnsa.gov.cn](https://www.cnsa.gov.cn/n6758823/n6758838/c10761540/content.html?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 13035,
+     "output": 130,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 7.749827292049304,
+    "cost": 0.07907499999999999,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano. ([esa.int](https://www.esa.int/Newsroom/Press_Releases/ESA_astronaut_Luca_Parmitano_joins_NASA_s_Artemis_III_Mission_as_Pilot?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8381,
+     "output": 92,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 5.202635625144467,
+    "cost": 0.054665000000000005,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "NASA astronaut **Randy Bresnik**. ([nasa.gov](https://www.nasa.gov/news-release/nasa-marches-toward-artemis-iii-mission-in-2027-names-crew-members/?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 10884,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 5.616417083190754,
+    "cost": 0.06720999999999999,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida. ([myfloridalegal.com](https://www.myfloridalegal.com/print/pdf/node/28209?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 12949,
+     "output": 104,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 7.212742374977097,
+    "cost": 0.07786499999999999,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine. ([washingtonpost.com](https://www.washingtonpost.com/world/2026/06/04/hungary-lifts-block-ukraines-eu-bid-opposes-fast-track-sought-by-kyiv/?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8748,
+     "output": 110,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 6.241070290794596,
+    "cost": 0.05704,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Malaysia. ([engadget.com](https://www.engadget.com/2179225/malaysia-under-16-social-media-ban-june-1/?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8815,
+     "output": 115,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 6.332431583898142,
+    "cost": 0.057525,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso. ([hrw.org](https://www.hrw.org/news/2026/07/02/sahel-countries-withdrawal-from-icc-betrays-victims?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8724,
+     "output": 84,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 6.739365291083232,
+    "cost": 0.05614,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "Age **45**, down from 50. ([news.ontario.ca](https://news.ontario.ca/en/release/1007685/regulations-and-statutes-in-force-as-of-july-1-2026?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8705,
+     "output": 107,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 7.161791292019188,
+    "cost": 0.056735,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "January 2028. ([blog.playstation.com](https://blog.playstation.com/2026/07/01/physical-disc-production-ending-in-january-2028-for-new-games-releasing-on-playstation-consoles/comment-page-17/?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 13042,
+     "output": 80,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 7.664946332806721,
+    "cost": 0.07761,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "correct"
+   },
+   {
+    "answer": "PriceRunner, owned by Klarna. ([domstol.se](https://www.domstol.se/nyheter/2026/07/google-is-to-pay-damages-to-pricerunner/?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8746,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 4.823683333816007,
+    "cost": 0.05655,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "18,028 rupiah per U.S. dollar. ([aljazeera.com](https://www.aljazeera.com/economy/2026/6/4/indonesias-rupiah-falls-to-record-low-against-us-dollar))",
+    "searches": 3,
+    "usage": {
+     "input": 29531,
+     "output": 493,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 21.168584665982053,
+    "cost": 0.192445,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "correct"
+   },
+   {
+    "answer": "$43.1 million in the U.S. and Canada. ([the-numbers.com](https://www.the-numbers.com/weekend-box-office-chart?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 13036,
+     "output": 128,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.727732291910797,
+    "cost": 0.07901999999999999,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Singh Digwa. ([itv.com](https://www.itv.com/news/meridian/2026-06-02/attorney-general-considering-jail-sentence-of-henry-nowaks-murderer?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8719,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 9.17311229207553,
+    "cost": 0.056415,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine, Iowa. ([muscatineiowa.gov](https://muscatineiowa.gov/m/NewsFlash/Home/Detail/5129?arc=6358&utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 13014,
+     "output": 100,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 7.974117625039071,
+    "cost": 0.07807,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "World No. **114**. ([wtatennis.com](https://www.wtatennis.com/news/4513920/roland-garros-2026-final-preview-mirra-andreeva-maja-chwalinska-everything-to-know?utm_source=openai))",
+    "searches": 1,
+    "usage": {
+     "input": 8767,
+     "output": 78,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 5.167697499971837,
+    "cost": 0.056175,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "tavily": [
+   {
+    "answer": "Jannik Sinner won the 2026 Wimbledon men's singles title, defeating Alexander Zverev 6\u20137(7), 7\u20136(2), 6\u20133, 6\u20134 for his second Wimbledon crown.",
+    "searches": 1,
+    "usage": {
+     "input": 925,
+     "output": 154,
+     "cache_read": 0,
+     "cache_write": 4406
+    },
+    "secs": 6.569103374844417,
+    "cost": 0.0440125,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev.",
+    "searches": 1,
+    "usage": {
+     "input": 936,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 4264
+    },
+    "secs": 5.419853874947876,
+    "cost": 0.041655,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "correct"
+   },
+   {
+    "answer": "Linda Noskov\u00e1, defeating fellow Czech Karol\u00edna Muchov\u00e1 6\u20132, 5\u20137, 6\u20133.",
+    "searches": 2,
+    "usage": {
+     "input": 925,
+     "output": 200,
+     "cache_read": 4332,
+     "cache_write": 7222
+    },
+    "secs": 12.251916958019137,
+    "cost": 0.07292850000000001,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Karol\u00edna Muchov\u00e1.",
+    "searches": 1,
+    "usage": {
+     "input": 929,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 3373
+    },
+    "secs": 6.552525291917846,
+    "cost": 0.036076250000000004,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev won the 2026 French Open men's singles title, defeating Flavio Cobolli in the final 6\u20131, 4\u20136, 6\u20134, 6\u20137(5), 6\u20131. It was his first Grand Slam title.",
+    "searches": 1,
+    "usage": {
+     "input": 921,
+     "output": 155,
+     "cache_read": 0,
+     "cache_write": 3392
+    },
+    "secs": 5.098977625137195,
+    "cost": 0.037680000000000005,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "Flavio Cobolli.",
+    "searches": 1,
+    "usage": {
+     "input": 933,
+     "output": 91,
+     "cache_read": 0,
+     "cache_write": 3417
+    },
+    "secs": 12.301627875072882,
+    "cost": 0.03629625,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "Mirra Andreeva, who defeated Maja Chwali\u0144ska 6\u20133, 6\u20133 in the final.",
+    "searches": 1,
+    "usage": {
+     "input": 922,
+     "output": 115,
+     "cache_read": 0,
+     "cache_write": 3832
+    },
+    "secs": 10.321473750052974,
+    "cost": 0.039435,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "correct"
+   },
+   {
+    "answer": "The New York Knicks won the 2026 NBA Finals, defeating the San Antonio Spurs in five games. Jalen Brunson was named Finals MVP.",
+    "searches": 1,
+    "usage": {
+     "input": 920,
+     "output": 131,
+     "cache_read": 0,
+     "cache_write": 4294
+    },
+    "secs": 5.239886000053957,
+    "cost": 0.0427125,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "correct"
+   },
+   {
+    "answer": "Jalen Brunson of the New York Knicks.",
+    "searches": 1,
+    "usage": {
+     "input": 924,
+     "output": 95,
+     "cache_read": 0,
+     "cache_write": 4321
+    },
+    "secs": 7.025267249904573,
+    "cost": 0.04200125,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "correct"
+   },
+   {
+    "answer": "45 points.",
+    "searches": 1,
+    "usage": {
+     "input": 936,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 2537
+    },
+    "secs": 6.875524708069861,
+    "cost": 0.03086125,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "correct"
+   },
+   {
+    "answer": "Mexico beat Ecuador 2-0 in the Round of 32 on July 1.\n\n**Ecuador** (2\u20130)",
+    "searches": 4,
+    "usage": {
+     "input": 942,
+     "output": 504,
+     "cache_read": 24183,
+     "cache_write": 14364
+    },
+    "secs": 23.968951707938686,
+    "cost": 0.1511765,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China.",
+    "searches": 1,
+    "usage": {
+     "input": 933,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 2547
+    },
+    "secs": 5.749295791145414,
+    "cost": 0.03078375,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "Long March 10B",
+    "searches": 3,
+    "usage": {
+     "input": 942,
+     "output": 307,
+     "cache_read": 3736,
+     "cache_write": 7305
+    },
+    "secs": 16.49354854109697,
+    "cost": 0.08390924999999999,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano (Italy/ESA).",
+    "searches": 1,
+    "usage": {
+     "input": 936,
+     "output": 103,
+     "cache_read": 0,
+     "cache_write": 3516
+    },
+    "secs": 7.18274175003171,
+    "cost": 0.03723,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy Bresnik.",
+    "searches": 1,
+    "usage": {
+     "input": 927,
+     "output": 90,
+     "cache_read": 0,
+     "cache_write": 3396
+    },
+    "secs": 7.413775082910433,
+    "cost": 0.03611,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida.",
+    "searches": 1,
+    "usage": {
+     "input": 931,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 4372
+    },
+    "secs": 9.93490658304654,
+    "cost": 0.04218,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine.",
+    "searches": 1,
+    "usage": {
+     "input": 930,
+     "output": 90,
+     "cache_read": 0,
+     "cache_write": 3606
+    },
+    "secs": 4.947239791043103,
+    "cost": 0.0374375,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Malaysia.",
+    "searches": 2,
+    "usage": {
+     "input": 931,
+     "output": 213,
+     "cache_read": 3664,
+     "cache_write": 6416
+    },
+    "secs": 23.06716070813127,
+    "cost": 0.067912,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso.",
+    "searches": 1,
+    "usage": {
+     "input": 938,
+     "output": 95,
+     "cache_read": 0,
+     "cache_write": 3610
+    },
+    "secs": 5.527389457914978,
+    "cost": 0.0376275,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "45",
+    "searches": 1,
+    "usage": {
+     "input": 933,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 2807
+    },
+    "secs": 6.156750540947542,
+    "cost": 0.03240875,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "January 2028.",
+    "searches": 1,
+    "usage": {
+     "input": 946,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 2451
+    },
+    "secs": 6.271742666140199,
+    "cost": 0.03037375,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "correct"
+   },
+   {
+    "answer": "PriceRunner (owned by Klarna).",
+    "searches": 1,
+    "usage": {
+     "input": 938,
+     "output": 106,
+     "cache_read": 0,
+     "cache_write": 3860
+    },
+    "secs": 6.2430954170413315,
+    "cost": 0.039465,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Indonesian rupiah hit a record low of **18,028 per US dollar** on June 4, 2026, breaching the 18,000 threshold for the first time.",
+    "searches": 1,
+    "usage": {
+     "input": 932,
+     "output": 139,
+     "cache_read": 0,
+     "cache_write": 3339
+    },
+    "secs": 7.651018125005066,
+    "cost": 0.03700375,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "correct"
+   },
+   {
+    "answer": "$43 million.",
+    "searches": 1,
+    "usage": {
+     "input": 932,
+     "output": 90,
+     "cache_read": 0,
+     "cache_write": 3913
+    },
+    "secs": 6.356705666985363,
+    "cost": 0.03936625,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Singh Digwa, 23, was sentenced to life imprisonment (minimum 21 years) on 1 June 2026 for the murder of Henry Nowak.",
+    "searches": 1,
+    "usage": {
+     "input": 942,
+     "output": 149,
+     "cache_read": 0,
+     "cache_write": 3518
+    },
+    "secs": 7.383938249899074,
+    "cost": 0.0384225,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine, Iowa.",
+    "searches": 1,
+    "usage": {
+     "input": 929,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 3418
+    },
+    "secs": 9.574024916160852,
+    "cost": 0.0363575,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "World No. 114.",
+    "searches": 1,
+    "usage": {
+     "input": 949,
+     "output": 103,
+     "cache_read": 0,
+     "cache_write": 3514
+    },
+    "secs": 6.612233167048544,
+    "cost": 0.037282499999999996,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "exa": [
+   {
+    "answer": "Jannik Sinner, defeating Alexander Zverev 6\u20137(7), 7\u20136(2), 6\u20133, 6\u20134 for his second consecutive Wimbledon title.",
+    "searches": 1,
+    "usage": {
+     "input": 925,
+     "output": 140,
+     "cache_read": 0,
+     "cache_write": 4433
+    },
+    "secs": 7.4645404170732945,
+    "cost": 0.04283125,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev.",
+    "searches": 1,
+    "usage": {
+     "input": 936,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 4358
+    },
+    "secs": 6.520510584115982,
+    "cost": 0.0412425,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "correct"
+   },
+   {
+    "answer": "Linda Noskova.",
+    "searches": 1,
+    "usage": {
+     "input": 924,
+     "output": 89,
+     "cache_read": 0,
+     "cache_write": 4014
+    },
+    "secs": 5.811746290884912,
+    "cost": 0.0389325,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Karol\u00edna Muchov\u00e1.",
+    "searches": 1,
+    "usage": {
+     "input": 929,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 4029
+    },
+    "secs": 6.286608958849683,
+    "cost": 0.03917625,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev, defeating Flavio Cobolli 6\u20131, 4\u20136, 6\u20134, 6\u20137(5), 6\u20131 for his first Grand Slam title.",
+    "searches": 1,
+    "usage": {
+     "input": 921,
+     "output": 137,
+     "cache_read": 0,
+     "cache_write": 3994
+    },
+    "secs": 6.111311125103384,
+    "cost": 0.0399925,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "Flavio Cobolli, 6\u20131, 4\u20136, 6\u20134, 6\u20137(5), 6\u20131.",
+    "searches": 1,
+    "usage": {
+     "input": 933,
+     "output": 116,
+     "cache_read": 0,
+     "cache_write": 4138
+    },
+    "secs": 6.281103709014133,
+    "cost": 0.0404275,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "Mirra Andreeva won the 2026 French Open women's singles title, defeating qualifier Maja Chwalinska 6-3, 6-2 in the final.",
+    "searches": 1,
+    "usage": {
+     "input": 922,
+     "output": 132,
+     "cache_read": 0,
+     "cache_write": 4235
+    },
+    "secs": 4.9502918750513345,
+    "cost": 0.04137875,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "correct"
+   },
+   {
+    "answer": "The New York Knicks won the 2026 NBA Finals, defeating the San Antonio Spurs 4\u20131 for their first championship since 1973. Jalen Brunson was named Finals MVP.",
+    "searches": 1,
+    "usage": {
+     "input": 920,
+     "output": 142,
+     "cache_read": 0,
+     "cache_write": 4368
+    },
+    "secs": 6.509317083051428,
+    "cost": 0.04245,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "correct"
+   },
+   {
+    "answer": "Jalen Brunson of the New York Knicks.",
+    "searches": 1,
+    "usage": {
+     "input": 924,
+     "output": 95,
+     "cache_read": 0,
+     "cache_write": 4430
+    },
+    "secs": 5.431608499959111,
+    "cost": 0.0416825,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "correct"
+   },
+   {
+    "answer": "45 points.",
+    "searches": 1,
+    "usage": {
+     "input": 936,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 4771
+    },
+    "secs": 4.949143958976492,
+    "cost": 0.04382375,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ecuador (2\u20130).",
+    "searches": 1,
+    "usage": {
+     "input": 939,
+     "output": 99,
+     "cache_read": 0,
+     "cache_write": 4361
+    },
+    "secs": 5.591301874956116,
+    "cost": 0.04142625,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China.",
+    "searches": 1,
+    "usage": {
+     "input": 933,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 3907
+    },
+    "secs": 5.162067624973133,
+    "cost": 0.03828375,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "Long March 10B.",
+    "searches": 1,
+    "usage": {
+     "input": 941,
+     "output": 102,
+     "cache_read": 0,
+     "cache_write": 4314
+    },
+    "secs": 6.2619671248830855,
+    "cost": 0.0412175,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano (Italy).",
+    "searches": 1,
+    "usage": {
+     "input": 936,
+     "output": 99,
+     "cache_read": 0,
+     "cache_write": 4098
+    },
+    "secs": 5.041329042054713,
+    "cost": 0.0397675,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy \"Komrade\" Bresnik.",
+    "searches": 1,
+    "usage": {
+     "input": 927,
+     "output": 96,
+     "cache_read": 0,
+     "cache_write": 4124
+    },
+    "secs": 10.609166708076373,
+    "cost": 0.03981,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida.",
+    "searches": 1,
+    "usage": {
+     "input": 931,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 4554
+    },
+    "secs": 4.911866290960461,
+    "cost": 0.0423175,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine",
+    "searches": 1,
+    "usage": {
+     "input": 930,
+     "output": 89,
+     "cache_read": 0,
+     "cache_write": 4274
+    },
+    "secs": 5.730285334168002,
+    "cost": 0.0405875,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Malaysia.",
+    "searches": 2,
+    "usage": {
+     "input": 931,
+     "output": 202,
+     "cache_read": 3692,
+     "cache_write": 6803
+    },
+    "secs": 9.7083365409635,
+    "cost": 0.06806975,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso",
+    "searches": 1,
+    "usage": {
+     "input": 938,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 4338
+    },
+    "secs": 5.605482582934201,
+    "cost": 0.0411525,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "Age **45** (lowered from 50) for average-risk individuals \u2014 and to 40 for those at increased risk.",
+    "searches": 1,
+    "usage": {
+     "input": 933,
+     "output": 122,
+     "cache_read": 0,
+     "cache_write": 3933
+    },
+    "secs": 5.251531666843221,
+    "cost": 0.03929625,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "January 2028.",
+    "searches": 1,
+    "usage": {
+     "input": 946,
+     "output": 93,
+     "cache_read": 0,
+     "cache_write": 3680
+    },
+    "secs": 4.8548157080076635,
+    "cost": 0.037055,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "correct"
+   },
+   {
+    "answer": "PriceRunner (owned by Klarna).",
+    "searches": 1,
+    "usage": {
+     "input": 938,
+     "output": 106,
+     "cache_read": 0,
+     "cache_write": 3920
+    },
+    "secs": 6.141442624852061,
+    "cost": 0.03884,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "18,028 rupiah per US dollar (breaching the 18,000 threshold for the first time) on June 4, 2026.",
+    "searches": 1,
+    "usage": {
+     "input": 932,
+     "output": 126,
+     "cache_read": 0,
+     "cache_write": 4215
+    },
+    "secs": 5.3831377499736845,
+    "cost": 0.041153749999999996,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "correct"
+   },
+   {
+    "answer": "$43 million.",
+    "searches": 1,
+    "usage": {
+     "input": 932,
+     "output": 90,
+     "cache_read": 0,
+     "cache_write": 4170
+    },
+    "secs": 4.931089249905199,
+    "cost": 0.0399725,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Digwa, 23, was sentenced to life imprisonment (minimum 21 years) in June 2026 for the murder of Southampton student Henry Nowak.",
+    "searches": 1,
+    "usage": {
+     "input": 942,
+     "output": 149,
+     "cache_read": 0,
+     "cache_write": 3922
+    },
+    "secs": 5.403648667037487,
+    "cost": 0.0399475,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine.",
+    "searches": 1,
+    "usage": {
+     "input": 929,
+     "output": 89,
+     "cache_read": 0,
+     "cache_write": 3938
+    },
+    "secs": 4.979261999949813,
+    "cost": 0.038482499999999996,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "World No. 114.",
+    "searches": 1,
+    "usage": {
+     "input": 949,
+     "output": 104,
+     "cache_read": 0,
+     "cache_write": 4125
+    },
+    "secs": 5.668590334011242,
+    "cost": 0.04012625,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "broke": [
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-001",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-002",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-003",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-004",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-005",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-006",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-007",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-008",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-009",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-010",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-011",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-012",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-013",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-014",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-015",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-016",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-017",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-018",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-019",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-020",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-021",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-022",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-023",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-024",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-025",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-026",
+    "grade": "error"
+   },
+   {
+    "answer": "",
+    "searches": 0,
+    "usage": {},
+    "secs": 0.0,
+    "cost": 0.0,
+    "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+    "id": "fresh-027",
+    "grade": "error"
+   }
+  ]
+ },
+ "stripped_arms": {
+  "sonar": "Removed from the public copy: Perplexity Sonar is a direct answer API, not a search tool inside your own agent loop, so it is not part of the comparison webfetch makes. Regenerate this arm yourself with: python evals/run_e2e_eval.py --arms sonar (needs PERPLEXITY_API_KEY)."
+ }
+}

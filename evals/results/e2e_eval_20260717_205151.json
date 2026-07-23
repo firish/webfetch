@@ -1,0 +1,368 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 27,
+    "arms": [
+      "broke"
+    ],
+    "dataset": "evals/datasets/fresh_queries_2026_07.jsonl",
+    "engine_fees": {
+      "ours-multi": 0.012,
+      "ours-ddg": 0.0
+    }
+  },
+  "summaries": [
+    {
+      "arm": "broke",
+      "n": 27,
+      "correct": 13,
+      "accuracy": 0.481,
+      "errors": 14,
+      "total_cost": 0.0,
+      "cost_per_q": 0.0,
+      "tok_in_per_q": 2604,
+      "tok_out_per_q": 163,
+      "searches_per_q": 2.15,
+      "median_secs": 261.5
+    }
+  ],
+  "records": {
+    "broke": [
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "fresh-001",
+        "grade": "error"
+      },
+      {
+        "answer": "Alexander\u202fZverev.",
+        "searches": 2,
+        "usage": {
+          "input": 1591,
+          "output": 165,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 5301.521391000133,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-002",
+        "grade": "correct"
+      },
+      {
+        "answer": "Linda\u202fNoskov\u00e1.",
+        "searches": 2,
+        "usage": {
+          "input": 1538,
+          "output": 138,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 5414.065950458171,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-003",
+        "grade": "correct"
+      },
+      {
+        "answer": "Karol\u00edna Muchov\u00e1.",
+        "searches": 1,
+        "usage": {
+          "input": 981,
+          "output": 77,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 1954.372637958033,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-004",
+        "grade": "correct"
+      },
+      {
+        "answer": "Alexander\u202fZverev.",
+        "searches": 1,
+        "usage": {
+          "input": 1131,
+          "output": 120,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 1145.3648911248893,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-005",
+        "grade": "correct"
+      },
+      {
+        "answer": "Flavio\u202fCobolli.",
+        "searches": 2,
+        "usage": {
+          "input": 2122,
+          "output": 163,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 177.89018229185604,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-006",
+        "grade": "correct"
+      },
+      {
+        "answer": "Mirra\u202fAndreeva won the women's singles title at the 2026 French Open.",
+        "searches": 1,
+        "usage": {
+          "input": 918,
+          "output": 90,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 140.8407598331105,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-007",
+        "grade": "correct"
+      },
+      {
+        "answer": "The New\u202fYork\u202fKnicks won the 2026 NBA Finals.",
+        "searches": 3,
+        "usage": {
+          "input": 3772,
+          "output": 185,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 261.53516916697845,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-008",
+        "grade": "correct"
+      },
+      {
+        "answer": "Jalen\u202fBrunson.",
+        "searches": 2,
+        "usage": {
+          "input": 1903,
+          "output": 153,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 179.73449504189193,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-009",
+        "grade": "correct"
+      },
+      {
+        "answer": "45 points.",
+        "searches": 1,
+        "usage": {
+          "input": 1191,
+          "output": 91,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 64.51216404186562,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-010",
+        "grade": "correct"
+      },
+      {
+        "answer": "Ecuador.",
+        "searches": 4,
+        "usage": {
+          "input": 6238,
+          "output": 340,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 349.6876223341096,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-011",
+        "grade": "correct"
+      },
+      {
+        "answer": "China.",
+        "searches": 4,
+        "usage": {
+          "input": 7547,
+          "output": 282,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 352.16586779104546,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-012",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ReadTimeout: HTTPSConnectionPool(host='api.groq.com', port=443): Read timed out. (read timeout=120)",
+        "id": "fresh-013",
+        "grade": "error"
+      },
+      {
+        "answer": "Luca\u202fParmitano.",
+        "searches": 2,
+        "usage": {
+          "input": 1990,
+          "output": 147,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 66.85962949995883,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-014",
+        "grade": "correct"
+      },
+      {
+        "answer": "Randy\u202fBresnik.",
+        "searches": 3,
+        "usage": {
+          "input": 2934,
+          "output": 171,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 166.38703649980016,
+        "cost": 0.0,
+        "error": null,
+        "id": "fresh-015",
+        "grade": "correct"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-016",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-017",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-018",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-019",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-020",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-021",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-022",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-023",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-024",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-025",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-026",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "ConnectionError: HTTPSConnectionPool(host='api.groq.com', port=443): Max retries exceeded with url: /openai/v1/chat/completions (Caused by NameResolutionError(\"HTTPSConnection(host='api.groq.com', port=443): Failed to resolve 'api.groq.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+        "id": "fresh-027",
+        "grade": "error"
+      }
+    ]
+  }
+}

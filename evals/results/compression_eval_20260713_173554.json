@@ -1,0 +1,180 @@
+{
+  "n": 50,
+  "baseline": {
+    "tokens_mean": 665.1,
+    "tokens_median": 663.5,
+    "recall_hits": 29
+  },
+  "configs": [
+    {
+      "scorer": "biencoder",
+      "policy": "ratio",
+      "param": 0.3,
+      "tokens_mean": 367.3,
+      "tokens_median": 371.0,
+      "recall_hits": 25
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "ratio",
+      "param": 0.4,
+      "tokens_mean": 394.2,
+      "tokens_median": 400.5,
+      "recall_hits": 25
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "ratio",
+      "param": 0.5,
+      "tokens_mean": 427.2,
+      "tokens_median": 429.0,
+      "recall_hits": 26
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "ratio",
+      "param": 0.6,
+      "tokens_mean": 460.5,
+      "tokens_median": 461.0,
+      "recall_hits": 28
+    },
+    {
+      "scorer": "lexical",
+      "policy": "ratio",
+      "param": 0.3,
+      "tokens_mean": 376.9,
+      "tokens_median": 382.0,
+      "recall_hits": 26
+    },
+    {
+      "scorer": "lexical",
+      "policy": "ratio",
+      "param": 0.4,
+      "tokens_mean": 404.4,
+      "tokens_median": 403.0,
+      "recall_hits": 26
+    },
+    {
+      "scorer": "lexical",
+      "policy": "ratio",
+      "param": 0.5,
+      "tokens_mean": 430.6,
+      "tokens_median": 435.5,
+      "recall_hits": 27
+    },
+    {
+      "scorer": "lexical",
+      "policy": "ratio",
+      "param": 0.6,
+      "tokens_mean": 461.9,
+      "tokens_median": 467.0,
+      "recall_hits": 27
+    },
+    {
+      "scorer": "lead",
+      "policy": "ratio",
+      "param": 0.3,
+      "tokens_mean": 358.6,
+      "tokens_median": 355.0,
+      "recall_hits": 19
+    },
+    {
+      "scorer": "lead",
+      "policy": "ratio",
+      "param": 0.4,
+      "tokens_mean": 387.6,
+      "tokens_median": 378.5,
+      "recall_hits": 24
+    },
+    {
+      "scorer": "lead",
+      "policy": "ratio",
+      "param": 0.5,
+      "tokens_mean": 415.4,
+      "tokens_median": 408.0,
+      "recall_hits": 25
+    },
+    {
+      "scorer": "lead",
+      "policy": "ratio",
+      "param": 0.6,
+      "tokens_mean": 449.6,
+      "tokens_median": 446.0,
+      "recall_hits": 24
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "topk",
+      "param": 1,
+      "tokens_mean": 338.6,
+      "tokens_median": 335.5,
+      "recall_hits": 24
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "topk",
+      "param": 2,
+      "tokens_mean": 440.2,
+      "tokens_median": 437.0,
+      "recall_hits": 28
+    },
+    {
+      "scorer": "lexical",
+      "policy": "topk",
+      "param": 1,
+      "tokens_mean": 356.0,
+      "tokens_median": 354.5,
+      "recall_hits": 26
+    },
+    {
+      "scorer": "lexical",
+      "policy": "topk",
+      "param": 2,
+      "tokens_mean": 464.5,
+      "tokens_median": 472.0,
+      "recall_hits": 27
+    },
+    {
+      "scorer": "lead",
+      "policy": "topk",
+      "param": 1,
+      "tokens_mean": 306.1,
+      "tokens_median": 289.5,
+      "recall_hits": 14
+    },
+    {
+      "scorer": "lead",
+      "policy": "topk",
+      "param": 2,
+      "tokens_mean": 397.2,
+      "tokens_median": 373.5,
+      "recall_hits": 23
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "threshold",
+      "param": 0.3,
+      "tokens_mean": 515.7,
+      "tokens_median": 537.0,
+      "recall_hits": 27
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "threshold",
+      "param": 0.4,
+      "tokens_mean": 462.7,
+      "tokens_median": 467.0,
+      "recall_hits": 27
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "threshold",
+      "param": 0.5,
+      "tokens_mean": 410.3,
+      "tokens_median": 429.5,
+      "recall_hits": 26
+    }
+  ],
+  "ablations": [],
+  "winner": null
+}

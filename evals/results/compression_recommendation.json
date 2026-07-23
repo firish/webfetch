@@ -1,0 +1,21 @@
+{
+  "scorer": "crossencoder",
+  "policy": "ratio",
+  "param": 0.5,
+  "anaphora_guard": true,
+  "table_guard": true,
+  "dedup": true,
+  "merge_sources": true,
+  "header_style": "domain",
+  "measured": {
+    "tokens_mean": 331.6,
+    "tokens_median": 341.5,
+    "recall_hits": 29
+  },
+  "baseline_plain": {
+    "tokens_mean": 665.1,
+    "tokens_median": 663.5,
+    "recall_hits": 29
+  },
+  "n": 50
+}

@@ -13,9 +13,12 @@ __pycache__/
 
 # Dev readme files
 learning.md
-# Eval harness: raw downloads and run outputs
+# Eval harness: raw downloads stay local; result JSONs are committed as the
+# public evidence behind README claims. Logs are console noise, and private/
+# holds unstripped originals (see evals/results/README.md).
 evals/datasets/raw/
-evals/results/
+evals/results/*.log
+evals/results/private/
 
 # Build artifacts
 dist/

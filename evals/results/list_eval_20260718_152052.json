@@ -1,0 +1,30 @@
+{
+  "n": 12,
+  "variants": {
+    "prod": {
+      "item_recall": 0.719,
+      "perfect_lists": 7,
+      "tokens_mean": 354
+    },
+    "nocompress-top5": {
+      "item_recall": 0.765,
+      "perfect_lists": 8,
+      "tokens_mean": 572
+    },
+    "compress-top10": {
+      "item_recall": 0.728,
+      "perfect_lists": 7,
+      "tokens_mean": 630
+    },
+    "nocompress-top10": {
+      "item_recall": 0.773,
+      "perfect_lists": 8,
+      "tokens_mean": 1070
+    },
+    "nocompress-top12-16k": {
+      "item_recall": 0.793,
+      "perfect_lists": 8,
+      "tokens_mean": 1264
+    }
+  }
+}

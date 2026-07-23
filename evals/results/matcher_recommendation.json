@@ -1,0 +1,57 @@
+{
+  "mode": "bi+ce",
+  "threshold": 0.6,
+  "ce_model": "cross-encoder/nli-deberta-v3-base",
+  "ce_threshold": 0.97,
+  "precision": 0.96,
+  "recall": 0.3380281690140845,
+  "met_bar": true,
+  "min_precision": 0.95,
+  "primary_bar": 0.98,
+  "bi_model": "all-MiniLM-L6-v2",
+  "n_pairs": 285,
+  "per_source": {
+    "cross-form": {
+      "n": 38,
+      "pos": 24,
+      "pos_hit": 6,
+      "neg": 14,
+      "neg_fp": 0
+    },
+    "factoid-negative": {
+      "n": 15,
+      "pos": 0,
+      "pos_hit": 0,
+      "neg": 15,
+      "neg_fp": 0
+    },
+    "handwritten": {
+      "n": 17,
+      "pos": 3,
+      "pos_hit": 2,
+      "neg": 14,
+      "neg_fp": 0
+    },
+    "qqp": {
+      "n": 100,
+      "pos": 100,
+      "pos_hit": 29,
+      "neg": 0,
+      "neg_fp": 0
+    },
+    "qqp-hard-negative": {
+      "n": 100,
+      "pos": 0,
+      "pos_hit": 0,
+      "neg": 100,
+      "neg_fp": 2
+    },
+    "simpleqa-paraphrase": {
+      "n": 15,
+      "pos": 15,
+      "pos_hit": 11,
+      "neg": 0,
+      "neg_fp": 0
+    }
+  }
+}

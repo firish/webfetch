@@ -1,0 +1,2115 @@
+{
+ "config": {
+  "model": "claude-opus-4-7",
+  "n": 27,
+  "arms": [
+   "ours-multi",
+   "ours-ddg",
+   "hosted",
+   "tavily",
+   "exa"
+  ],
+  "dataset": "evals/datasets/fresh_queries_2026_07.jsonl",
+  "engine_fees": {
+   "ours-multi": 0.012,
+   "ours-ddg": 0.0
+  }
+ },
+ "summaries": [
+  {
+   "arm": "ours-multi",
+   "n": 27,
+   "correct": 19,
+   "accuracy": 0.704,
+   "errors": 0,
+   "total_cost": 0.738,
+   "cost_per_q": 0.0273,
+   "searches_per_q": 0.81,
+   "median_secs": 61.6
+  },
+  {
+   "arm": "ours-ddg",
+   "n": 27,
+   "correct": 15,
+   "accuracy": 0.556,
+   "errors": 0,
+   "total_cost": 0.489,
+   "cost_per_q": 0.0181,
+   "searches_per_q": 0.89,
+   "median_secs": 58.0
+  },
+  {
+   "arm": "hosted",
+   "n": 27,
+   "correct": 22,
+   "accuracy": 0.815,
+   "errors": 0,
+   "total_cost": 2.584,
+   "cost_per_q": 0.0957,
+   "searches_per_q": 1.15,
+   "median_secs": 10.7
+  },
+  {
+   "arm": "tavily",
+   "n": 27,
+   "correct": 20,
+   "accuracy": 0.741,
+   "errors": 0,
+   "total_cost": 0.801,
+   "cost_per_q": 0.0297,
+   "searches_per_q": 0.74,
+   "median_secs": 5.6
+  },
+  {
+   "arm": "exa",
+   "n": 27,
+   "correct": 20,
+   "accuracy": 0.741,
+   "errors": 0,
+   "total_cost": 0.863,
+   "cost_per_q": 0.032,
+   "searches_per_q": 0.78,
+   "median_secs": 5.8
+  }
+ ],
+ "records": {
+  "ours-multi": [
+   {
+    "answer": "Wimbledon 2026 hasn't taken place yet \u2014 it's typically held in late June to early July. I can't tell you a winner for an event that hasn't happened.",
+    "searches": 0,
+    "usage": {
+     "input": 1168,
+     "output": 56,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.329911750042811,
+    "cost": 0.00724,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 Wimbledon Championships haven't taken place yet \u2014 Wimbledon 2026 is scheduled for later in 2026. I can't tell you a result that hasn't happened.\n\nFor reference, Jannik Sinner won the 2025 Wimbledon men's singles final, defeating Carlos Alcaraz.",
+    "searches": 0,
+    "usage": {
+     "input": 1179,
+     "output": 110,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 3.7084100828506052,
+    "cost": 0.008645,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 Wimbledon Championships have not yet taken place. Wimbledon is typically held in late June to early July each year, so the 2026 tournament would occur in the summer of 2026.\n\nThe most recent Wimbledon women's singles champion (as of 2025) would be the latest known winner. Would you like me to look that up instead?",
+    "searches": 0,
+    "usage": {
+     "input": 1167,
+     "output": 111,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 3.150860375026241,
+    "cost": 0.00861,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "Wimbledon 2026 has not taken place yet (Wimbledon is held in late June/early July each year), so there is no runner-up to report.",
+    "searches": 0,
+    "usage": {
+     "input": 1172,
+     "output": 50,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.27628295798786,
+    "cost": 0.00711,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 French Open has not happened yet \u2014 it's scheduled for late May to early June 2026. No winner exists at this time.",
+    "searches": 0,
+    "usage": {
+     "input": 1164,
+     "output": 44,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.1947342918720096,
+    "cost": 0.00692,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 French Open has not taken place yet, so this match hasn't happened. The French Open is typically held in late May through early June each year.",
+    "searches": 0,
+    "usage": {
+     "input": 1176,
+     "output": 47,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.142477791989222,
+    "cost": 0.007055,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 French Open hasn't happened yet \u2014 it's scheduled for late May to early June 2026. I can't tell you a winner that doesn't exist yet.",
+    "searches": 0,
+    "usage": {
+     "input": 1165,
+     "output": 56,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.946712875040248,
+    "cost": 0.007225,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not yet occurred. The 2025-26 NBA season is currently in progress, with the Finals scheduled for June 2026.",
+    "searches": 0,
+    "usage": {
+     "input": 1163,
+     "output": 56,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.8221294169779867,
+    "cost": 0.007215,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not occurred yet \u2014 the NBA season runs through June, so the 2026 Finals would take place in June 2026. I can't provide an MVP for a series that hasn't been played.",
+    "searches": 0,
+    "usage": {
+     "input": 1167,
+     "output": 71,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.4082037918269634,
+    "cost": 0.00761,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not occurred yet, so I can't look that up.",
+    "searches": 0,
+    "usage": {
+     "input": 1179,
+     "output": 31,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.3473477500956506,
+    "cost": 0.00667,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "Ecuador",
+    "searches": 1,
+    "usage": {
+     "input": 3169,
+     "output": 152,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 61.61420987499878,
+    "cost": 0.031645,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China",
+    "searches": 1,
+    "usage": {
+     "input": 3154,
+     "output": 86,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 67.50166070903651,
+    "cost": 0.02992,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "Long March 10B",
+    "searches": 1,
+    "usage": {
+     "input": 3113,
+     "output": 127,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 126.17300149984658,
+    "cost": 0.03074,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano (Italy).",
+    "searches": 1,
+    "usage": {
+     "input": 3116,
+     "output": 125,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 120.36295274994336,
+    "cost": 0.030705,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy Bresnik.",
+    "searches": 2,
+    "usage": {
+     "input": 3073,
+     "output": 256,
+     "cache_read": 0,
+     "cache_write": 2732
+    },
+    "secs": 371.3100269169081,
+    "cost": 0.06284000000000001,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida.",
+    "searches": 1,
+    "usage": {
+     "input": 3209,
+     "output": 115,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 82.2895866248291,
+    "cost": 0.03092,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine.",
+    "searches": 1,
+    "usage": {
+     "input": 2970,
+     "output": 139,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 165.42278916714713,
+    "cost": 0.030325,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Malaysia",
+    "searches": 2,
+    "usage": {
+     "input": 2975,
+     "output": 174,
+     "cache_read": 0,
+     "cache_write": 2485
+    },
+    "secs": 440.41710662515834,
+    "cost": 0.05875625,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso",
+    "searches": 1,
+    "usage": {
+     "input": 3113,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 290.84457262489013,
+    "cost": 0.029915,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "45",
+    "searches": 1,
+    "usage": {
+     "input": 2973,
+     "output": 98,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 255.48970508296043,
+    "cost": 0.029315,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Eurogamer post from July 9, 2026 says \"last week,\" and the petition says July 1, 2026. The announcement was made on a Wednesday, which would be July 1, 2026.\n\n**July 2026**",
+    "searches": 3,
+    "usage": {
+     "input": 2984,
+     "output": 353,
+     "cache_read": 2484,
+     "cache_write": 3198
+    },
+    "secs": 249.590589083964,
+    "cost": 0.0809745,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "PriceRunner (a Klarna subsidiary).",
+    "searches": 1,
+    "usage": {
+     "input": 3152,
+     "output": 118,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 169.7302527918946,
+    "cost": 0.03071,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Indonesian rupiah breached **18,000 per US dollar** on June 4, 2026 (trading around 18,015\u201318,045), and later hit an intraday low of **18,209 per USD on June 9, 2026** \u2014 its weakest level ever.",
+    "searches": 1,
+    "usage": {
+     "input": 3092,
+     "output": 216,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 78.70459766709246,
+    "cost": 0.03286,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "correct"
+   },
+   {
+    "answer": "$43 million.",
+    "searches": 1,
+    "usage": {
+     "input": 3155,
+     "output": 144,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 64.36247549997643,
+    "cost": 0.031375,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Singh Digwa.",
+    "searches": 1,
+    "usage": {
+     "input": 3055,
+     "output": 103,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 39.80500279110856,
+    "cost": 0.02985,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine, Iowa.",
+    "searches": 1,
+    "usage": {
+     "input": 3109,
+     "output": 115,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 37.45536487502977,
+    "cost": 0.03042,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "She was ranked **World No. 114**.",
+    "searches": 2,
+    "usage": {
+     "input": 3217,
+     "output": 217,
+     "cache_read": 0,
+     "cache_write": 2752
+    },
+    "secs": 61.59305820800364,
+    "cost": 0.06271,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "ours-ddg": [
+   {
+    "answer": "Wimbledon 2026 hasn't taken place yet \u2014 it's scheduled for late June/early July 2026, so there is no winner yet.",
+    "searches": 0,
+    "usage": {
+     "input": 1168,
+     "output": 49,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.319919125176966,
+    "cost": 0.007065,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 Wimbledon tournament has not yet taken place \u2014 Wimbledon 2026 is scheduled for later in 2026. I can't tell you a result for a match that hasn't happened.",
+    "searches": 0,
+    "usage": {
+     "input": 1179,
+     "output": 67,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.451731582870707,
+    "cost": 0.00757,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 Wimbledon Championships have not yet been played (they are scheduled for summer 2026). No 2026 champion exists yet. The most recent champion is from Wimbledon 2025 \u2014 Iga \u015awi\u0105tek, who defeated Amanda Anisimova in the final.\n\n(Note: One search result claiming Linda Noskov\u00e1 won in 2026 appears to be fabricated/AI-generated content, not a legitimate result.)",
+    "searches": 1,
+    "usage": {
+     "input": 2889,
+     "output": 289,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 27.859508874826133,
+    "cost": 0.02167,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Wimbledon 2026 has not taken place yet (Wimbledon is held in late June/early July each year), so there is no runner-up to report.",
+    "searches": 0,
+    "usage": {
+     "input": 1172,
+     "output": 50,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.31878179195337,
+    "cost": 0.00711,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "The 2026 French Open hasn't happened yet \u2014 it's scheduled for late May to early June 2026. I can't tell you a winner that doesn't exist yet.\n\nThe most recent French Open champion is Carlos Alcaraz, who won the 2025 men's singles title.",
+    "searches": 0,
+    "usage": {
+     "input": 1164,
+     "output": 91,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 3.1813580829184502,
+    "cost": 0.008095,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 French Open has not taken place yet, so this match hasn't happened.",
+    "searches": 0,
+    "usage": {
+     "input": 1176,
+     "output": 30,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.7618267498910427,
+    "cost": 0.00663,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "The 2026 French Open hasn't taken place yet \u2014 it's scheduled for late May to early June 2026.",
+    "searches": 0,
+    "usage": {
+     "input": 1165,
+     "output": 38,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.5514233747962862,
+    "cost": 0.006775,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not happened yet. The 2025-26 NBA season is still in progress, with the Finals typically taking place in June 2026.",
+    "searches": 0,
+    "usage": {
+     "input": 1163,
+     "output": 55,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.920687000034377,
+    "cost": 0.00719,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not yet occurred. The NBA Finals typically take place in June, and the 2025-26 NBA season is still in progress (or hasn't concluded yet). No MVP has been named.",
+    "searches": 0,
+    "usage": {
+     "input": 1167,
+     "output": 74,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.381915583042428,
+    "cost": 0.007685,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not happened yet \u2014 they're scheduled for June 2026. I can't provide stats for a game that hasn't occurred.",
+    "searches": 0,
+    "usage": {
+     "input": 1179,
+     "output": 53,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.358811791986227,
+    "cost": 0.00722,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 FIFA World Cup hasn't happened yet \u2014 it's scheduled for June-July 2026. I can't answer about a match that hasn't occurred. Would you like me to look up Mexico's scheduled group or venue information for the 2026 World Cup instead?",
+    "searches": 0,
+    "usage": {
+     "input": 1182,
+     "output": 92,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.944713167147711,
+    "cost": 0.00821,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "China",
+    "searches": 1,
+    "usage": {
+     "input": 3072,
+     "output": 87,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 57.985725375125185,
+    "cost": 0.017535,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "Long March 10B (CZ-10B)",
+    "searches": 2,
+    "usage": {
+     "input": 2934,
+     "output": 255,
+     "cache_read": 0,
+     "cache_write": 2486
+    },
+    "secs": 115.42959037492983,
+    "cost": 0.0365825,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano",
+    "searches": 1,
+    "usage": {
+     "input": 3133,
+     "output": 112,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 63.304251957917586,
+    "cost": 0.018465,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy Bresnik.",
+    "searches": 2,
+    "usage": {
+     "input": 2921,
+     "output": 234,
+     "cache_read": 0,
+     "cache_write": 2526
+    },
+    "secs": 106.76521012489684,
+    "cost": 0.0362425,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida.",
+    "searches": 1,
+    "usage": {
+     "input": 2997,
+     "output": 87,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 49.908178167184815,
+    "cost": 0.01716,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine",
+    "searches": 1,
+    "usage": {
+     "input": 3105,
+     "output": 138,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 46.903260708088055,
+    "cost": 0.018975,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Malaysia",
+    "searches": 3,
+    "usage": {
+     "input": 2860,
+     "output": 287,
+     "cache_read": 2271,
+     "cache_write": 3002
+    },
+    "secs": 712.0239801660646,
+    "cost": 0.041373,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso",
+    "searches": 1,
+    "usage": {
+     "input": 3077,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 156.28440712508745,
+    "cost": 0.017735,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "45",
+    "searches": 1,
+    "usage": {
+     "input": 3035,
+     "output": 87,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 271.48620374989696,
+    "cost": 0.01735,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "July 2026.",
+    "searches": 3,
+    "usage": {
+     "input": 2957,
+     "output": 296,
+     "cache_read": 2434,
+     "cache_write": 3148
+    },
+    "secs": 723.2910661669448,
+    "cost": 0.043077,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "PriceRunner",
+    "searches": 1,
+    "usage": {
+     "input": 3087,
+     "output": 106,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 387.9317456660792,
+    "cost": 0.018085,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "17,324 rupiah per US dollar.",
+    "searches": 1,
+    "usage": {
+     "input": 3005,
+     "output": 148,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 282.5698763341643,
+    "cost": 0.018725,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "$43 million.",
+    "searches": 1,
+    "usage": {
+     "input": 3195,
+     "output": 149,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 171.82224458293058,
+    "cost": 0.0197,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Digwa was sentenced to life imprisonment (minimum 21 years) for the murder of Henry Nowak.",
+    "searches": 1,
+    "usage": {
+     "input": 3015,
+     "output": 133,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 163.8614328338299,
+    "cost": 0.0184,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine.",
+    "searches": 2,
+    "usage": {
+     "input": 3036,
+     "output": 189,
+     "cache_read": 0,
+     "cache_write": 2531
+    },
+    "secs": 315.64394395891577,
+    "cost": 0.03572375,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "**World No. 114**",
+    "searches": 1,
+    "usage": {
+     "input": 3103,
+     "output": 124,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 168.103791374946,
+    "cost": 0.018615,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "hosted": [
+   {
+    "answer": "Wimbledon 2026 hasn't happened yet \u2014 the tournament is typically held in late June through early July. I can't provide a result for an event that hasn't taken place.",
+    "searches": 0,
+    "usage": {
+     "input": 6337,
+     "output": 57,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.4804387090262026,
+    "cost": 0.03311,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 Wimbledon tournament hasn't happened yet \u2014 it would take place in the summer of 2026. I can't provide results for an event that hasn't occurred.",
+    "searches": 0,
+    "usage": {
+     "input": 6348,
+     "output": 58,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 4.70717691606842,
+    "cost": 0.03319,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "I'll search for this information. Linda Noskov\u00e1 defeated Karol\u00edna Muchov\u00e1 in the final, 6\u20132, 5\u20137, 6\u20133  to win the 2026 Wimbledon women's singles title.",
+    "searches": 1,
+    "usage": {
+     "input": 13980,
+     "output": 276,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 12.052517917007208,
+    "cost": 0.08679999999999999,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Wimbledon 2026 hasn't happened yet \u2014 it's a future event, so there's no runner-up to report.",
+    "searches": 0,
+    "usage": {
+     "input": 6341,
+     "output": 40,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.424687416991219,
+    "cost": 0.032705,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev  won the 2026 French Open men's singles title, defeating Flavio Cobolli in the final for his first major.",
+    "searches": 1,
+    "usage": {
+     "input": 13793,
+     "output": 243,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.330639875028282,
+    "cost": 0.08503999999999999,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 French Open hasn't happened yet \u2014 it's a future event scheduled for May/June 2026, so there's no result to report.",
+    "searches": 0,
+    "usage": {
+     "input": 6345,
+     "output": 46,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.447264416143298,
+    "cost": 0.032875,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "Mirra Andreeva  won the women's singles at the 2026 French Open, defeating Maja Chwali\u0144ska in the final.",
+    "searches": 2,
+    "usage": {
+     "input": 21284,
+     "output": 449,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 15.809930042130873,
+    "cost": 0.137645,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "correct"
+   },
+   {
+    "answer": "The New York Knicks  won the 2026 NBA Finals, defeating the Spurs 4-1.",
+    "searches": 1,
+    "usage": {
+     "input": 13850,
+     "output": 241,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.383806583005935,
+    "cost": 0.08527499999999999,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "correct"
+   },
+   {
+    "answer": "I don't have information about the 2026 NBA Finals. Let me search for it. Jalen Brunson  \u2014 unanimously named MVP of the 2026 NBA Finals after leading the Knicks past the Spurs in 5 games.",
+    "searches": 1,
+    "usage": {
+     "input": 13667,
+     "output": 274,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.05607374990359,
+    "cost": 0.085185,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not yet occurred, so I can't look up that information.",
+    "searches": 0,
+    "usage": {
+     "input": 6348,
+     "output": 32,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.800951334182173,
+    "cost": 0.03254,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "I need to clarify - the 2026 FIFA World Cup hasn't happened yet. Let me search for information about this. Ecuador  (Mexico won 2-0).",
+    "searches": 3,
+    "usage": {
+     "input": 32673,
+     "output": 626,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 24.6420216250699,
+    "cost": 0.209015,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China",
+    "searches": 1,
+    "usage": {
+     "input": 13979,
+     "output": 204,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 8.604455708991736,
+    "cost": 0.084995,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "I'll search for information about this Chinese rocket recovery event. Long March 10B",
+    "searches": 1,
+    "usage": {
+     "input": 14074,
+     "output": 231,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 9.530177915934473,
+    "cost": 0.086145,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "I'll search for this information. Italian ESA astronaut Luca Parmitano .",
+    "searches": 1,
+    "usage": {
+     "input": 13950,
+     "output": 232,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 9.64854691689834,
+    "cost": 0.08555,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy Bresnik  is the commander of the Artemis III crew.",
+    "searches": 1,
+    "usage": {
+     "input": 13824,
+     "output": 219,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 11.769399625016376,
+    "cost": 0.08459499999999999,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "I'll search for information about this. Florida",
+    "searches": 1,
+    "usage": {
+     "input": 13991,
+     "output": 215,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 9.999769540969282,
+    "cost": 0.08532999999999999,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine",
+    "searches": 1,
+    "usage": {
+     "input": 13833,
+     "output": 207,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.489946041954681,
+    "cost": 0.08434,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "The UK's ban was announced 15 June 2026 (not \"came into force on 1 June 2026\"). Let me search specifically for June 1, 2026. Australia's ban was 10 December 2025. Let me search more specifically. Not NZ. Let me search for the specific date more broadly. Malaysia",
+    "searches": 4,
+    "usage": {
+     "input": 40029,
+     "output": 832,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 34.30571583285928,
+    "cost": 0.260945,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso",
+    "searches": 2,
+    "usage": {
+     "input": 28002,
+     "output": 477,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 20.25128270802088,
+    "cost": 0.17193499999999998,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "45  (lowered from 50).",
+    "searches": 1,
+    "usage": {
+     "input": 13915,
+     "output": 213,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 12.997885582968593,
+    "cost": 0.08489999999999999,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "July 2026",
+    "searches": 1,
+    "usage": {
+     "input": 13732,
+     "output": 204,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 9.793545707827434,
+    "cost": 0.08376,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "I'll search for this information. PriceRunner",
+    "searches": 1,
+    "usage": {
+     "input": 13924,
+     "output": 221,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 9.703125708037987,
+    "cost": 0.085145,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "I'll search for this information. The rupiah fell by as much as 8% in the first six months of 2026 and by early June had sunk to a record low of 18,190 against the dollar.",
+    "searches": 1,
+    "usage": {
+     "input": 13914,
+     "output": 260,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 14.839334999909624,
+    "cost": 0.08607,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "I'll search for information about the live-action Moana remake's opening weekend. The live-action Moana remake grossed approximately $43 million in its US opening weekend  in July 2026.",
+    "searches": 1,
+    "usage": {
+     "input": 13808,
+     "output": 247,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 9.42538999998942,
+    "cost": 0.085215,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Digwa",
+    "searches": 2,
+    "usage": {
+     "input": 21331,
+     "output": 378,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 18.529133499832824,
+    "cost": 0.136105,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine .",
+    "searches": 2,
+    "usage": {
+     "input": 21987,
+     "output": 384,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 22.845585000002757,
+    "cost": 0.139535,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "I need to verify this claim about Maja Chwalinska and the 2026 French Open. World No. 114",
+    "searches": 1,
+    "usage": {
+     "input": 13964,
+     "output": 242,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 10.67691241693683,
+    "cost": 0.08587,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "tavily": [
+   {
+    "answer": "Wimbledon 2026 has not yet taken place. The tournament is typically held in late June and early July. The most recent Wimbledon men's singles champion (as of 2025) was Jannik Sinner, who defeated Carlos Alcaraz in the 2025 final.",
+    "searches": 0,
+    "usage": {
+     "input": 873,
+     "output": 92,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.8533659169916064,
+    "cost": 0.006665,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 Wimbledon Championships have not taken place yet, so this match hasn't happened. Wimbledon 2026 is scheduled for later in the year (typically late June to mid-July).",
+    "searches": 0,
+    "usage": {
+     "input": 884,
+     "output": 67,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.6848730000201613,
+    "cost": 0.006095,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "correct"
+   },
+   {
+    "answer": "Linda Noskov\u00e1 \u2014 she defeated Karol\u00edna Muchov\u00e1 6\u20132, 5\u20137, 6\u20133 in the final for her first Grand Slam title.",
+    "searches": 1,
+    "usage": {
+     "input": 873,
+     "output": 130,
+     "cache_read": 0,
+     "cache_write": 3558
+    },
+    "secs": 6.490423084003851,
+    "cost": 0.0378525,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Wimbledon 2026 has not taken place yet (Wimbledon is held in late June/early July each year), so there is no runner-up to report.",
+    "searches": 0,
+    "usage": {
+     "input": 877,
+     "output": 50,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.001278582960367,
+    "cost": 0.005635,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "Alexander Zverev, defeating Flavio Cobolli in the final 6\u20131, 4\u20136, 6\u20134, 6\u20137(5), 6\u20131. It was his first Grand Slam title.",
+    "searches": 1,
+    "usage": {
+     "input": 870,
+     "output": 193,
+     "cache_read": 0,
+     "cache_write": 3481
+    },
+    "secs": 6.205929000163451,
+    "cost": 0.03893125,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 French Open has not taken place yet, so I cannot provide information about its final. The French Open is typically held in late May and early June each year.",
+    "searches": 0,
+    "usage": {
+     "input": 881,
+     "output": 49,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.2947223749943078,
+    "cost": 0.00563,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 French Open has not taken place yet. The French Open (Roland Garros) is typically held in late May through early June each year, so the 2026 edition would occur around that time in 2026.\n\nWould you like me to look up the most recent French Open winner instead?",
+    "searches": 0,
+    "usage": {
+     "input": 870,
+     "output": 85,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 3.0738029170315713,
+    "cost": 0.006475,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not happened yet. The NBA Finals typically take place in June, and my information doesn't include results from that future event. Would you like me to search for the latest news on the current NBA season or playoffs?",
+    "searches": 0,
+    "usage": {
+     "input": 868,
+     "output": 75,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.848013165872544,
+    "cost": 0.006215,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not yet occurred (they would take place in June 2026). I can't provide an MVP for an event that hasn't happened yet.",
+    "searches": 0,
+    "usage": {
+     "input": 872,
+     "output": 55,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.1242013750597835,
+    "cost": 0.005735,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not occurred yet, so I can't look up that information.",
+    "searches": 0,
+    "usage": {
+     "input": 884,
+     "output": 32,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.9809667500667274,
+    "cost": 0.00522,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 FIFA World Cup hasn't happened yet \u2014 it's scheduled for June-July 2026. I can't answer about a match that hasn't occurred. Would you like me to look up the tournament schedule or Mexico's group/fixtures instead?",
+    "searches": 0,
+    "usage": {
+     "input": 887,
+     "output": 87,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 3.617222916102037,
+    "cost": 0.00661,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "China.",
+    "searches": 1,
+    "usage": {
+     "input": 882,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 2981
+    },
+    "secs": 5.735818957909942,
+    "cost": 0.03324125,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "Long March 10B.",
+    "searches": 1,
+    "usage": {
+     "input": 890,
+     "output": 121,
+     "cache_read": 0,
+     "cache_write": 3578
+    },
+    "secs": 8.151567708002403,
+    "cost": 0.037837499999999996,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano.",
+    "searches": 1,
+    "usage": {
+     "input": 885,
+     "output": 121,
+     "cache_read": 0,
+     "cache_write": 3964
+    },
+    "secs": 6.294729667017236,
+    "cost": 0.040225,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy Bresnik.",
+    "searches": 1,
+    "usage": {
+     "input": 876,
+     "output": 121,
+     "cache_read": 0,
+     "cache_write": 3365
+    },
+    "secs": 5.177376165986061,
+    "cost": 0.03643625,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida.",
+    "searches": 1,
+    "usage": {
+     "input": 880,
+     "output": 109,
+     "cache_read": 0,
+     "cache_write": 3518
+    },
+    "secs": 8.174526459071785,
+    "cost": 0.0371125,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine.",
+    "searches": 1,
+    "usage": {
+     "input": 879,
+     "output": 91,
+     "cache_read": 0,
+     "cache_write": 2810
+    },
+    "secs": 6.989034500205889,
+    "cost": 0.0322325,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Malaysia.",
+    "searches": 2,
+    "usage": {
+     "input": 880,
+     "output": 212,
+     "cache_read": 3730,
+     "cache_write": 6827
+    },
+    "secs": 10.037713957950473,
+    "cost": 0.07023375,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso",
+    "searches": 1,
+    "usage": {
+     "input": 887,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 3668
+    },
+    "secs": 5.592918749898672,
+    "cost": 0.03771,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "45 (lowered from 50).",
+    "searches": 1,
+    "usage": {
+     "input": 882,
+     "output": 106,
+     "cache_read": 0,
+     "cache_write": 3685
+    },
+    "secs": 7.820280084153637,
+    "cost": 0.03809125,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "February 2019 (for the PlayStation Vita).",
+    "searches": 1,
+    "usage": {
+     "input": 878,
+     "output": 99,
+     "cache_read": 0,
+     "cache_write": 3780
+    },
+    "secs": 5.116496874950826,
+    "cost": 0.038489999999999996,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "PriceRunner (owned by Klarna).",
+    "searches": 1,
+    "usage": {
+     "input": 887,
+     "output": 124,
+     "cache_read": 0,
+     "cache_write": 4665
+    },
+    "secs": 5.981638374971226,
+    "cost": 0.04469125,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "18,028 rupiah per US dollar (breaching the 18,000 threshold on June 4, 2026).",
+    "searches": 1,
+    "usage": {
+     "input": 881,
+     "output": 141,
+     "cache_read": 0,
+     "cache_write": 3454
+    },
+    "secs": 5.472350874915719,
+    "cost": 0.037517499999999995,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "correct"
+   },
+   {
+    "answer": "$43 million.",
+    "searches": 1,
+    "usage": {
+     "input": 881,
+     "output": 144,
+     "cache_read": 0,
+     "cache_write": 3913
+    },
+    "secs": 5.205821208888665,
+    "cost": 0.04046125,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Digwa",
+    "searches": 2,
+    "usage": {
+     "input": 892,
+     "output": 186,
+     "cache_read": 3718,
+     "cache_write": 6326
+    },
+    "secs": 11.75946950004436,
+    "cost": 0.0665065,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine.",
+    "searches": 1,
+    "usage": {
+     "input": 878,
+     "output": 122,
+     "cache_read": 0,
+     "cache_write": 3874
+    },
+    "secs": 6.200025083031505,
+    "cost": 0.0396525,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "World No. 114",
+    "searches": 1,
+    "usage": {
+     "input": 898,
+     "output": 122,
+     "cache_read": 0,
+     "cache_write": 3866
+    },
+    "secs": 5.836997416801751,
+    "cost": 0.0397025,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ],
+  "exa": [
+   {
+    "answer": "Wimbledon 2026 has not yet taken place \u2014 it's scheduled for late June/early July 2026. No winner exists yet.",
+    "searches": 0,
+    "usage": {
+     "input": 873,
+     "output": 46,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.4919618340209126,
+    "cost": 0.005515,
+    "error": null,
+    "id": "fresh-001",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 Wimbledon Championships have not taken place yet, so I cannot tell you who won that final. The most recent Wimbledon men's singles final was in 2025.",
+    "searches": 0,
+    "usage": {
+     "input": 884,
+     "output": 60,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.3745492501184344,
+    "cost": 0.00592,
+    "error": null,
+    "id": "fresh-002",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "Linda Noskov\u00e1 won the 2026 Wimbledon women's singles title, defeating fellow Czech Karol\u00edna Muchov\u00e1 6-2, 5-7, 6-3.",
+    "searches": 1,
+    "usage": {
+     "input": 873,
+     "output": 139,
+     "cache_read": 0,
+     "cache_write": 3992
+    },
+    "secs": 9.38878620811738,
+    "cost": 0.03979,
+    "error": null,
+    "id": "fresh-003",
+    "grade": "correct"
+   },
+   {
+    "answer": "Wimbledon 2026 has not yet taken place (Wimbledon is held in late June/early July each year), so there is no runner-up yet.",
+    "searches": 0,
+    "usage": {
+     "input": 877,
+     "output": 50,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.9544275000225753,
+    "cost": 0.005635,
+    "error": null,
+    "id": "fresh-004",
+    "grade": "correct"
+   },
+   {
+    "answer": "Alexander Zverev won the 2026 French Open men's singles title, defeating Flavio Cobolli 6\u20131, 4\u20136, 6\u20134, 6\u20137(5), 6\u20131 for his first Grand Slam.",
+    "searches": 1,
+    "usage": {
+     "input": 870,
+     "output": 196,
+     "cache_read": 0,
+     "cache_write": 3988
+    },
+    "secs": 7.275353709002957,
+    "cost": 0.041174999999999996,
+    "error": null,
+    "id": "fresh-005",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 French Open has not taken place yet. It's typically held in late May through early June 2026, so the results don't exist at this time.",
+    "searches": 0,
+    "usage": {
+     "input": 881,
+     "output": 46,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.372185332933441,
+    "cost": 0.005555,
+    "error": null,
+    "id": "fresh-006",
+    "grade": "correct"
+   },
+   {
+    "answer": "The 2026 French Open hasn't happened yet \u2014 it's scheduled for late May to early June 2026. I can't tell you the winner of an event that hasn't occurred.",
+    "searches": 0,
+    "usage": {
+     "input": 870,
+     "output": 58,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.345047709066421,
+    "cost": 0.0058,
+    "error": null,
+    "id": "fresh-007",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not yet occurred. The NBA's 2025-26 season is currently underway, with the Finals typically taking place in June. I'd need to search for the most current information, but the 2026 Finals results don't exist yet.",
+    "searches": 0,
+    "usage": {
+     "input": 868,
+     "output": 83,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.906808041036129,
+    "cost": 0.006415,
+    "error": null,
+    "id": "fresh-008",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not yet taken place. The NBA Finals are typically held in June, so the 2026 Finals MVP won't be determined until June 2026.",
+    "searches": 0,
+    "usage": {
+     "input": 872,
+     "output": 60,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.2369018332101405,
+    "cost": 0.00586,
+    "error": null,
+    "id": "fresh-009",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "The 2026 NBA Finals have not occurred yet, so there is no data available for that game.",
+    "searches": 0,
+    "usage": {
+     "input": 884,
+     "output": 33,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.0665440829470754,
+    "cost": 0.005245,
+    "error": null,
+    "id": "fresh-010",
+    "grade": "not_attempted"
+   },
+   {
+    "answer": "Ecuador (2-0).",
+    "searches": 1,
+    "usage": {
+     "input": 888,
+     "output": 149,
+     "cache_read": 0,
+     "cache_write": 4359
+    },
+    "secs": 10.664197457954288,
+    "cost": 0.04240875,
+    "error": null,
+    "id": "fresh-011",
+    "grade": "correct"
+   },
+   {
+    "answer": "China",
+    "searches": 1,
+    "usage": {
+     "input": 882,
+     "output": 87,
+     "cache_read": 0,
+     "cache_write": 3769
+    },
+    "secs": 6.38764000008814,
+    "cost": 0.03714125,
+    "error": null,
+    "id": "fresh-012",
+    "grade": "correct"
+   },
+   {
+    "answer": "Long March 10B.",
+    "searches": 1,
+    "usage": {
+     "input": 890,
+     "output": 116,
+     "cache_read": 0,
+     "cache_write": 4204
+    },
+    "secs": 6.3758491249755025,
+    "cost": 0.040625,
+    "error": null,
+    "id": "fresh-013",
+    "grade": "correct"
+   },
+   {
+    "answer": "Luca Parmitano",
+    "searches": 1,
+    "usage": {
+     "input": 885,
+     "output": 128,
+     "cache_read": 0,
+     "cache_write": 4079
+    },
+    "secs": 7.006901083048433,
+    "cost": 0.04011875,
+    "error": null,
+    "id": "fresh-014",
+    "grade": "correct"
+   },
+   {
+    "answer": "Randy \"Komrade\" Bresnik.",
+    "searches": 1,
+    "usage": {
+     "input": 876,
+     "output": 132,
+     "cache_read": 0,
+     "cache_write": 4122
+    },
+    "secs": 5.733954666182399,
+    "cost": 0.0404425,
+    "error": null,
+    "id": "fresh-015",
+    "grade": "correct"
+   },
+   {
+    "answer": "Florida",
+    "searches": 1,
+    "usage": {
+     "input": 880,
+     "output": 102,
+     "cache_read": 0,
+     "cache_write": 4564
+    },
+    "secs": 5.221529374830425,
+    "cost": 0.042475,
+    "error": null,
+    "id": "fresh-016",
+    "grade": "correct"
+   },
+   {
+    "answer": "Ukraine.",
+    "searches": 1,
+    "usage": {
+     "input": 879,
+     "output": 111,
+     "cache_read": 0,
+     "cache_write": 4207
+    },
+    "secs": 8.79288929188624,
+    "cost": 0.04046375,
+    "error": null,
+    "id": "fresh-017",
+    "grade": "correct"
+   },
+   {
+    "answer": "Malaysia",
+    "searches": 3,
+    "usage": {
+     "input": 881,
+     "output": 335,
+     "cache_read": 10090,
+     "cache_write": 9404
+    },
+    "secs": 14.462588125141338,
+    "cost": 0.0976,
+    "error": null,
+    "id": "fresh-018",
+    "grade": "correct"
+   },
+   {
+    "answer": "Burkina Faso",
+    "searches": 1,
+    "usage": {
+     "input": 887,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 4288
+    },
+    "secs": 6.7647824578452855,
+    "cost": 0.040584999999999996,
+    "error": null,
+    "id": "fresh-019",
+    "grade": "correct"
+   },
+   {
+    "answer": "Age 45 (from 50) for average-risk individuals; 40 for those at increased risk.",
+    "searches": 1,
+    "usage": {
+     "input": 882,
+     "output": 146,
+     "cache_read": 0,
+     "cache_write": 3870
+    },
+    "secs": 6.26567537500523,
+    "cost": 0.0392475,
+    "error": null,
+    "id": "fresh-020",
+    "grade": "correct"
+   },
+   {
+    "answer": "July 2026.",
+    "searches": 1,
+    "usage": {
+     "input": 878,
+     "output": 87,
+     "cache_read": 0,
+     "cache_write": 3548
+    },
+    "secs": 5.478483584010974,
+    "cost": 0.03574,
+    "error": null,
+    "id": "fresh-021",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "PriceRunner (owned by Klarna).",
+    "searches": 1,
+    "usage": {
+     "input": 887,
+     "output": 116,
+     "cache_read": 0,
+     "cache_write": 3954
+    },
+    "secs": 4.805218334076926,
+    "cost": 0.0390475,
+    "error": null,
+    "id": "fresh-022",
+    "grade": "correct"
+   },
+   {
+    "answer": "18,028 rupiah per US dollar (on June 4, 2026), breaching the 18,000 threshold for the first time.",
+    "searches": 1,
+    "usage": {
+     "input": 881,
+     "output": 146,
+     "cache_read": 0,
+     "cache_write": 4149
+    },
+    "secs": 6.034011000068858,
+    "cost": 0.04098625,
+    "error": null,
+    "id": "fresh-023",
+    "grade": "correct"
+   },
+   {
+    "answer": "$43 million.",
+    "searches": 1,
+    "usage": {
+     "input": 881,
+     "output": 129,
+     "cache_read": 0,
+     "cache_write": 4184
+    },
+    "secs": 6.089280999964103,
+    "cost": 0.04078,
+    "error": null,
+    "id": "fresh-024",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vickrum Singh Digwa.",
+    "searches": 1,
+    "usage": {
+     "input": 891,
+     "output": 103,
+     "cache_read": 0,
+     "cache_write": 3893
+    },
+    "secs": 5.8017443341668695,
+    "cost": 0.03836125,
+    "error": null,
+    "id": "fresh-025",
+    "grade": "correct"
+   },
+   {
+    "answer": "Muscatine.",
+    "searches": 1,
+    "usage": {
+     "input": 878,
+     "output": 115,
+     "cache_read": 0,
+     "cache_write": 3933
+    },
+    "secs": 6.739720083074644,
+    "cost": 0.03884625,
+    "error": null,
+    "id": "fresh-026",
+    "grade": "correct"
+   },
+   {
+    "answer": "World No. 114.",
+    "searches": 1,
+    "usage": {
+     "input": 898,
+     "output": 115,
+     "cache_read": 0,
+     "cache_write": 4282
+    },
+    "secs": 5.709146042121574,
+    "cost": 0.0411275,
+    "error": null,
+    "id": "fresh-027",
+    "grade": "correct"
+   }
+  ]
+ },
+ "stripped_arms": {
+  "sonar": "Removed from the public copy: Perplexity Sonar is a direct answer API, not a search tool inside your own agent loop, so it is not part of the comparison webfetch makes. Regenerate this arm yourself with: python evals/run_e2e_eval.py --arms sonar (needs PERPLEXITY_API_KEY)."
+ }
+}

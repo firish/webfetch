@@ -1,0 +1,783 @@
+{
+ "config": {
+  "model": "claude-opus-4-7",
+  "n": 50,
+  "arms": [
+   "exa"
+  ],
+  "engine_fees": {
+   "ours-multi": 0.012,
+   "ours-ddg": 0.0
+  }
+ },
+ "summaries": [
+  {
+   "arm": "exa",
+   "n": 50,
+   "correct": 46,
+   "accuracy": 0.92,
+   "errors": 3,
+   "total_cost": 2.685,
+   "cost_per_q": 0.0537,
+   "searches_per_q": 1.06,
+   "median_secs": 5.5
+  }
+ ],
+ "records": {
+  "exa": [
+   {
+    "answer": "The Black Widow Pulsar (PSR B1957+20) is located in the constellation **Sagitta**.",
+    "searches": 0,
+    "usage": {
+     "input": 881,
+     "output": 40,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.612453875131905,
+    "cost": 0.005405,
+    "error": null,
+    "id": "simpleqa-4207",
+    "grade": "correct"
+   },
+   {
+    "answer": "July",
+    "searches": 1,
+    "usage": {
+     "input": 893,
+     "output": 97,
+     "cache_read": 0,
+     "cache_write": 4362
+    },
+    "secs": 5.4122667498886585,
+    "cost": 0.0411525,
+    "error": null,
+    "id": "simpleqa-1591",
+    "grade": "correct"
+   },
+   {
+    "answer": "405 \u00d7 480 cm.",
+    "searches": 1,
+    "usage": {
+     "input": 889,
+     "output": 102,
+     "cache_read": 0,
+     "cache_write": 4399
+    },
+    "secs": 5.239168624859303,
+    "cost": 0.04148875,
+    "error": null,
+    "id": "simpleqa-0882",
+    "grade": "correct"
+   },
+   {
+    "answer": "Dipali Nag (Dipali Talukdar Nag).",
+    "searches": 2,
+    "usage": {
+     "input": 894,
+     "output": 203,
+     "cache_read": 4326,
+     "cache_write": 7905
+    },
+    "secs": 9.401905917096883,
+    "cost": 0.07511425000000001,
+    "error": null,
+    "id": "simpleqa-2055",
+    "grade": "correct"
+   },
+   {
+    "answer": "7,306 sq km (7,305.99 sq km) \u2014 7.76% of Bihar's geographical area.",
+    "searches": 1,
+    "usage": {
+     "input": 887,
+     "output": 127,
+     "cache_read": 0,
+     "cache_write": 4509
+    },
+    "secs": 8.719330874970183,
+    "cost": 0.042791249999999996,
+    "error": null,
+    "id": "simpleqa-2972",
+    "grade": "correct"
+   },
+   {
+    "answer": "1985 and 1987.",
+    "searches": 1,
+    "usage": {
+     "input": 881,
+     "output": 95,
+     "cache_read": 0,
+     "cache_write": 4308
+    },
+    "secs": 7.272312749875709,
+    "cost": 0.040705,
+    "error": null,
+    "id": "simpleqa-0275",
+    "grade": "correct"
+   },
+   {
+    "answer": "October 23, 2020.",
+    "searches": 1,
+    "usage": {
+     "input": 897,
+     "output": 99,
+     "cache_read": 0,
+     "cache_write": 4238
+    },
+    "secs": 7.685087000019848,
+    "cost": 0.0404475,
+    "error": null,
+    "id": "simpleqa-3633",
+    "grade": "correct"
+   },
+   {
+    "answer": "Javier Olgu\u00edn (Latin American Spanish) / Daniel Casanova (Castilian Spanish).",
+    "searches": 1,
+    "usage": {
+     "input": 882,
+     "output": 129,
+     "cache_read": 0,
+     "cache_write": 5119
+    },
+    "secs": 5.559117457829416,
+    "cost": 0.04662875,
+    "error": null,
+    "id": "simpleqa-0225",
+    "grade": "correct"
+   },
+   {
+    "answer": "1972",
+    "searches": 0,
+    "usage": {
+     "input": 877,
+     "output": 7,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.21483058296144,
+    "cost": 0.00456,
+    "error": null,
+    "id": "simpleqa-2505",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Dragonborn DLC takes place on the island of Solstheim, off the **north** coast of Morrowind.",
+    "searches": 0,
+    "usage": {
+     "input": 878,
+     "output": 41,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.7773738750256598,
+    "cost": 0.005415,
+    "error": null,
+    "id": "simpleqa-0415",
+    "grade": "correct"
+   },
+   {
+    "answer": "March 2011",
+    "searches": 1,
+    "usage": {
+     "input": 960,
+     "output": 101,
+     "cache_read": 0,
+     "cache_write": 4383
+    },
+    "secs": 7.342056374996901,
+    "cost": 0.04171875,
+    "error": null,
+    "id": "simpleqa-0348",
+    "grade": "correct"
+   },
+   {
+    "answer": "Seoul, Republic of Korea.",
+    "searches": 1,
+    "usage": {
+     "input": 878,
+     "output": 98,
+     "cache_read": 0,
+     "cache_write": 4342
+    },
+    "secs": 6.105663874885067,
+    "cost": 0.0409775,
+    "error": null,
+    "id": "simpleqa-2009",
+    "grade": "correct"
+   },
+   {
+    "answer": "370",
+    "searches": 1,
+    "usage": {
+     "input": 891,
+     "output": 97,
+     "cache_read": 0,
+     "cache_write": 4186
+    },
+    "secs": 6.283507958985865,
+    "cost": 0.0400425,
+    "error": null,
+    "id": "simpleqa-0180",
+    "grade": "correct"
+   },
+   {
+    "answer": "",
+    "searches": 6,
+    "usage": {
+     "input": 876,
+     "output": 528,
+     "cache_read": 38750,
+     "cache_write": 18329
+    },
+    "secs": 23.437656667083502,
+    "cost": 0.19351125,
+    "error": "max turns exceeded",
+    "id": "simpleqa-2355",
+    "grade": "error"
+   },
+   {
+    "answer": "1863.",
+    "searches": 1,
+    "usage": {
+     "input": 880,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 4216
+    },
+    "secs": 4.608322582906112,
+    "cost": 0.03995,
+    "error": null,
+    "id": "simpleqa-0719",
+    "grade": "correct"
+   },
+   {
+    "answer": "Pedro Mart\u00ednez started Game 5 of the 2004 ALCS for the Red Sox.",
+    "searches": 1,
+    "usage": {
+     "input": 878,
+     "output": 121,
+     "cache_read": 0,
+     "cache_write": 5269
+    },
+    "secs": 5.4625912921037525,
+    "cost": 0.04734625,
+    "error": null,
+    "id": "simpleqa-0721",
+    "grade": "correct"
+   },
+   {
+    "answer": "May 2020.",
+    "searches": 1,
+    "usage": {
+     "input": 874,
+     "output": 86,
+     "cache_read": 0,
+     "cache_write": 5175
+    },
+    "secs": 7.360697041964158,
+    "cost": 0.04586375,
+    "error": null,
+    "id": "simpleqa-3604",
+    "grade": "correct"
+   },
+   {
+    "answer": "\"Half-Pint\"",
+    "searches": 1,
+    "usage": {
+     "input": 876,
+     "output": 91,
+     "cache_read": 0,
+     "cache_write": 4660
+    },
+    "secs": 4.456530041992664,
+    "cost": 0.04278,
+    "error": null,
+    "id": "simpleqa-1506",
+    "grade": "correct"
+   },
+   {
+    "answer": "",
+    "searches": 7,
+    "usage": {
+     "input": 946,
+     "output": 731,
+     "cache_read": 38874,
+     "cache_write": 19292
+    },
+    "secs": 29.65862916596234,
+    "cost": 0.212017,
+    "error": "max turns exceeded",
+    "id": "simpleqa-2878",
+    "grade": "error"
+   },
+   {
+    "answer": "Desktop 1.4.4 (Labor of Love).",
+    "searches": 2,
+    "usage": {
+     "input": 890,
+     "output": 201,
+     "cache_read": 4220,
+     "cache_write": 7355
+    },
+    "secs": 12.995042167138308,
+    "cost": 0.07155375,
+    "error": null,
+    "id": "simpleqa-3744",
+    "grade": "correct"
+   },
+   {
+    "answer": "Tei-ichi Ito",
+    "searches": 1,
+    "usage": {
+     "input": 877,
+     "output": 90,
+     "cache_read": 0,
+     "cache_write": 3921
+    },
+    "secs": 5.506519083166495,
+    "cost": 0.03814125,
+    "error": null,
+    "id": "simpleqa-2287",
+    "grade": "correct"
+   },
+   {
+    "answer": "Hassan Nasrallah.",
+    "searches": 1,
+    "usage": {
+     "input": 880,
+     "output": 99,
+     "cache_read": 0,
+     "cache_write": 4249
+    },
+    "secs": 5.675055665895343,
+    "cost": 0.04043125,
+    "error": null,
+    "id": "simpleqa-0737",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Museum of Manufactures.",
+    "searches": 0,
+    "usage": {
+     "input": 879,
+     "output": 15,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.259531582938507,
+    "cost": 0.00477,
+    "error": null,
+    "id": "simpleqa-2286",
+    "grade": "correct"
+   },
+   {
+    "answer": "The bees (the hives at Buckingham Palace and Clarence House).",
+    "searches": 1,
+    "usage": {
+     "input": 916,
+     "output": 111,
+     "cache_read": 0,
+     "cache_write": 3875
+    },
+    "secs": 6.067774374969304,
+    "cost": 0.03857375,
+    "error": null,
+    "id": "simpleqa-2840",
+    "grade": "correct"
+   },
+   {
+    "answer": "Heidelberg (Heidelberg Observatory).",
+    "searches": 1,
+    "usage": {
+     "input": 878,
+     "output": 102,
+     "cache_read": 0,
+     "cache_write": 4764
+    },
+    "secs": 6.425771916052327,
+    "cost": 0.043715,
+    "error": null,
+    "id": "simpleqa-1046",
+    "grade": "correct"
+   },
+   {
+    "answer": "Liverpool",
+    "searches": 1,
+    "usage": {
+     "input": 878,
+     "output": 89,
+     "cache_read": 0,
+     "cache_write": 5273
+    },
+    "secs": 4.821709708077833,
+    "cost": 0.04657125,
+    "error": null,
+    "id": "simpleqa-3672",
+    "grade": "correct"
+   },
+   {
+    "answer": "The **A major bebop scale** (also called the \"major bebop scale\") adds a chromatic passing tone between the 5th and 6th degrees of the major scale \u2014 specifically a \u266f5 (or \u266d6).\n\n**Notes:** A \u2013 B \u2013 C\u266f \u2013 D \u2013 E \u2013 F (\u266e) \u2013 F\u266f \u2013 G\u266f \u2013 A",
+    "searches": 0,
+    "usage": {
+     "input": 870,
+     "output": 108,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 2.9486192499753088,
+    "cost": 0.00705,
+    "error": null,
+    "id": "simpleqa-2619",
+    "grade": "correct"
+   },
+   {
+    "answer": "The twins on \"The Cosby Show\" were **Nelson and Winnie Tibideaux**, the children of Sondra and Elvin. They were named after Nelson Mandela and Winnie Mandela.",
+    "searches": 0,
+    "usage": {
+     "input": 870,
+     "output": 71,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 3.0373375001363456,
+    "cost": 0.006125,
+    "error": null,
+    "id": "simpleqa-2377",
+    "grade": "correct"
+   },
+   {
+    "answer": "20 April 1931.",
+    "searches": 1,
+    "usage": {
+     "input": 881,
+     "output": 104,
+     "cache_read": 0,
+     "cache_write": 4317
+    },
+    "secs": 7.863084875047207,
+    "cost": 0.04098625,
+    "error": null,
+    "id": "simpleqa-3806",
+    "grade": "correct"
+   },
+   {
+    "answer": "1,500 souls.",
+    "searches": 1,
+    "usage": {
+     "input": 891,
+     "output": 94,
+     "cache_read": 0,
+     "cache_write": 4447
+    },
+    "secs": 4.050010666018352,
+    "cost": 0.04159875,
+    "error": null,
+    "id": "simpleqa-1466",
+    "grade": "correct"
+   },
+   {
+    "answer": "The Gamma Parallel Database System.",
+    "searches": 1,
+    "usage": {
+     "input": 876,
+     "output": 92,
+     "cache_read": 0,
+     "cache_write": 3951
+    },
+    "secs": 4.937344874953851,
+    "cost": 0.03837375,
+    "error": null,
+    "id": "simpleqa-0745",
+    "grade": "correct"
+   },
+   {
+    "answer": "1962 to 1965.",
+    "searches": 1,
+    "usage": {
+     "input": 910,
+     "output": 115,
+     "cache_read": 0,
+     "cache_write": 4615
+    },
+    "secs": 5.462022915948182,
+    "cost": 0.04326875,
+    "error": null,
+    "id": "simpleqa-0226",
+    "grade": "correct"
+   },
+   {
+    "answer": "2010",
+    "searches": 1,
+    "usage": {
+     "input": 886,
+     "output": 90,
+     "cache_read": 0,
+     "cache_write": 4302
+    },
+    "secs": 4.863637707894668,
+    "cost": 0.0405675,
+    "error": null,
+    "id": "simpleqa-2072",
+    "grade": "correct"
+   },
+   {
+    "answer": "Australia (specifically Perth).",
+    "searches": 3,
+    "usage": {
+     "input": 891,
+     "output": 364,
+     "cache_read": 10894,
+     "cache_write": 10130
+    },
+    "secs": 15.110798208974302,
+    "cost": 0.1033145,
+    "error": null,
+    "id": "simpleqa-1968",
+    "grade": "correct"
+   },
+   {
+    "answer": "1880 (founded March 29, 1880).",
+    "searches": 1,
+    "usage": {
+     "input": 880,
+     "output": 99,
+     "cache_read": 0,
+     "cache_write": 4569
+    },
+    "secs": 5.766405208967626,
+    "cost": 0.04243125,
+    "error": null,
+    "id": "simpleqa-2221",
+    "grade": "correct"
+   },
+   {
+    "answer": "",
+    "searches": 7,
+    "usage": {
+     "input": 900,
+     "output": 666,
+     "cache_read": 43046,
+     "cache_write": 21584
+    },
+    "secs": 23.056639958173037,
+    "cost": 0.22657300000000002,
+    "error": "max turns exceeded",
+    "id": "simpleqa-2746",
+    "grade": "error"
+   },
+   {
+    "answer": "\"Doki Doki Morning\" by Babymetal.",
+    "searches": 5,
+    "usage": {
+     "input": 907,
+     "output": 644,
+     "cache_read": 38318,
+     "cache_write": 18474
+    },
+    "secs": 24.89109066617675,
+    "cost": 0.1902565,
+    "error": null,
+    "id": "simpleqa-3021",
+    "grade": "correct"
+   },
+   {
+    "answer": "Sarina Roma",
+    "searches": 2,
+    "usage": {
+     "input": 876,
+     "output": 179,
+     "cache_read": 4465,
+     "cache_write": 8155
+    },
+    "secs": 9.68432320910506,
+    "cost": 0.07605625,
+    "error": null,
+    "id": "simpleqa-0982",
+    "grade": "correct"
+   },
+   {
+    "answer": "Two sons: Charles Pablo and Arthur William Frederick.",
+    "searches": 1,
+    "usage": {
+     "input": 869,
+     "output": 105,
+     "cache_read": 0,
+     "cache_write": 3916
+    },
+    "secs": 4.986137417145073,
+    "cost": 0.038445,
+    "error": null,
+    "id": "simpleqa-3027",
+    "grade": "correct"
+   },
+   {
+    "answer": "Lance Armor",
+    "searches": 1,
+    "usage": {
+     "input": 905,
+     "output": 100,
+     "cache_read": 0,
+     "cache_write": 5157
+    },
+    "secs": 5.01618962502107,
+    "cost": 0.04625625,
+    "error": null,
+    "id": "simpleqa-3751",
+    "grade": "correct"
+   },
+   {
+    "answer": "John McCarthy (Stanford University).",
+    "searches": 1,
+    "usage": {
+     "input": 886,
+     "output": 107,
+     "cache_read": 0,
+     "cache_write": 4103
+    },
+    "secs": 4.477718875044957,
+    "cost": 0.03974875,
+    "error": null,
+    "id": "simpleqa-2616",
+    "grade": "correct"
+   },
+   {
+    "answer": "Rajindar Singh Dhatt, a 101-year-old Sikh World War II veteran.",
+    "searches": 1,
+    "usage": {
+     "input": 891,
+     "output": 125,
+     "cache_read": 0,
+     "cache_write": 4084
+    },
+    "secs": 9.157126415986568,
+    "cost": 0.040105,
+    "error": null,
+    "id": "simpleqa-1593",
+    "grade": "correct"
+   },
+   {
+    "answer": "1958",
+    "searches": 1,
+    "usage": {
+     "input": 896,
+     "output": 95,
+     "cache_read": 0,
+     "cache_write": 4574
+    },
+    "secs": 4.8450324581936,
+    "cost": 0.0424425,
+    "error": null,
+    "id": "simpleqa-1839",
+    "grade": "correct"
+   },
+   {
+    "answer": "Samit Dasgupta (Harvard University).",
+    "searches": 1,
+    "usage": {
+     "input": 908,
+     "output": 105,
+     "cache_read": 0,
+     "cache_write": 4163
+    },
+    "secs": 4.739862791029736,
+    "cost": 0.04018375,
+    "error": null,
+    "id": "simpleqa-0400",
+    "grade": "correct"
+   },
+   {
+    "answer": "1844.",
+    "searches": 1,
+    "usage": {
+     "input": 880,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 4524
+    },
+    "secs": 5.919430417008698,
+    "cost": 0.041875,
+    "error": null,
+    "id": "simpleqa-3562",
+    "grade": "correct"
+   },
+   {
+    "answer": "Leeds United.",
+    "searches": 1,
+    "usage": {
+     "input": 880,
+     "output": 88,
+     "cache_read": 0,
+     "cache_write": 5302
+    },
+    "secs": 7.5999235000927,
+    "cost": 0.0467375,
+    "error": null,
+    "id": "simpleqa-0068",
+    "grade": "correct"
+   },
+   {
+    "answer": "Teatro L\u00edrico Fluminense (Rio de Janeiro).",
+    "searches": 3,
+    "usage": {
+     "input": 892,
+     "output": 301,
+     "cache_read": 11445,
+     "cache_write": 10775
+    },
+    "secs": 14.504437540890649,
+    "cost": 0.10605125,
+    "error": null,
+    "id": "simpleqa-2180",
+    "grade": "correct"
+   },
+   {
+    "answer": "Santa Monica, California.",
+    "searches": 0,
+    "usage": {
+     "input": 870,
+     "output": 13,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.8139026670251042,
+    "cost": 0.004675,
+    "error": null,
+    "id": "simpleqa-0588",
+    "grade": "correct"
+   },
+   {
+    "answer": "Vastu Shastra (or Vastu Shastra / Vaastu Shastra).",
+    "searches": 0,
+    "usage": {
+     "input": 873,
+     "output": 33,
+     "cache_read": 0,
+     "cache_write": 0
+    },
+    "secs": 1.931124250171706,
+    "cost": 0.00519,
+    "error": null,
+    "id": "simpleqa-1825",
+    "grade": "incorrect"
+   },
+   {
+    "answer": "Shinnosuke Tachibana (\u7acb\u82b1 \u614e\u4e4b\u4ecb).",
+    "searches": 1,
+    "usage": {
+     "input": 890,
+     "output": 113,
+     "cache_read": 0,
+     "cache_write": 4874
+    },
+    "secs": 5.215913166990504,
+    "cost": 0.0447375,
+    "error": null,
+    "id": "simpleqa-1437",
+    "grade": "correct"
+   }
+  ]
+ },
+ "stripped_arms": {
+  "sonar": "Removed from the public copy: Perplexity Sonar is a direct answer API, not a search tool inside your own agent loop, so it is not part of the comparison webfetch makes. Regenerate this arm yourself with: python evals/run_e2e_eval.py --arms sonar (needs PERPLEXITY_API_KEY)."
+ }
+}

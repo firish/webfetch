@@ -1,0 +1,171 @@
+{
+  "config": {
+    "dataset": "/Users/rishisg2/Desktop/Rishi/coding/prototypes/websearch/evals/datasets/live_queries.jsonl",
+    "limit": 3,
+    "sleep_secs": 2.0,
+    "budget_chars": 8000,
+    "cache_db": "/var/folders/s0/ssj4lp0x1b523jm2d538cvwh0000gn/T/webfetch_eval_83atur_b/cache.db",
+    "matcher": {
+      "mode": "bi+ce",
+      "threshold": 0.6,
+      "ce_model": "cross-encoder/quora-distilroberta-base",
+      "ce_threshold": 0.98,
+      "precision": 0.9508196721311475,
+      "recall": 0.5631067961165048,
+      "min_precision": 0.95,
+      "primary_bar": 0.98,
+      "bi_model": "all-MiniLM-L6-v2",
+      "n_pairs": 217
+    }
+  },
+  "records": [
+    {
+      "id": "simpleqa-4207",
+      "query": "The Black Widow Pulsar (PSR B1957+20) is located within which constellation?",
+      "kind": "base",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 1,
+      "elapsed_secs": 13.866,
+      "est_tokens": 662,
+      "from_cache": false,
+      "error": null
+    },
+    {
+      "id": "simpleqa-4207",
+      "query": "The Black Widow Pulsar (PSR B1957+20) is located within which constellation?",
+      "kind": "exact_replay",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 0,
+      "elapsed_secs": 0.001,
+      "est_tokens": 662,
+      "from_cache": true,
+      "error": null
+    },
+    {
+      "id": "simpleqa-1591",
+      "query": "In which month of 1996 did Puntsagiin Jasrai's tenure as Prime Minister of Mongolia end?",
+      "kind": "base",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 1,
+      "elapsed_secs": 34.598,
+      "est_tokens": 637,
+      "from_cache": false,
+      "error": null
+    },
+    {
+      "id": "simpleqa-1591",
+      "query": "In which month of 1996 did Puntsagiin Jasrai's tenure as Prime Minister of Mongolia end?",
+      "kind": "exact_replay",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 0,
+      "elapsed_secs": 0.0,
+      "est_tokens": 637,
+      "from_cache": true,
+      "error": null
+    },
+    {
+      "id": "simpleqa-0882",
+      "query": "What are the dimensions in centimeters of the painting \"Holy Mount Athos\" from The Slav Epic?",
+      "kind": "base",
+      "recall_hit": false,
+      "n_chunks": 5,
+      "n_failed_urls": 0,
+      "elapsed_secs": 4.4,
+      "est_tokens": 765,
+      "from_cache": false,
+      "error": null
+    },
+    {
+      "id": "simpleqa-0882",
+      "query": "What are the dimensions in centimeters of the painting \"Holy Mount Athos\" from The Slav Epic?",
+      "kind": "exact_replay",
+      "recall_hit": false,
+      "n_chunks": 5,
+      "n_failed_urls": 0,
+      "elapsed_secs": 0.0,
+      "est_tokens": 765,
+      "from_cache": true,
+      "error": null
+    },
+    {
+      "id": "simpleqa-1591-p1",
+      "query": "When in 1996 did Puntsagiin Jasrai stop being Mongolia's Prime Minister?",
+      "kind": "paraphrase",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 1,
+      "elapsed_secs": 3.067,
+      "est_tokens": 637,
+      "from_cache": false,
+      "error": null
+    },
+    {
+      "id": "simpleqa-4207-p1",
+      "query": "Which constellation contains the Black Widow Pulsar PSR B1957+20?",
+      "kind": "paraphrase",
+      "recall_hit": true,
+      "n_chunks": 5,
+      "n_failed_urls": 1,
+      "elapsed_secs": 3.969,
+      "est_tokens": 653,
+      "from_cache": false,
+      "error": null
+    }
+  ],
+  "aggregate": {
+    "n_base": 3,
+    "n_errors": 0,
+    "recall_hits": 2,
+    "recall_rate": 0.667,
+    "latency_secs": {
+      "mean": 17.62,
+      "median": 13.87,
+      "p95": 34.6
+    },
+    "tokens": {
+      "mean": 688.0,
+      "median": 662.0,
+      "p95": 765.0
+    },
+    "failed_urls_mean": 0.67,
+    "exact_replay_hit_rate": 1.0,
+    "exact_replay_max_secs": 0.001,
+    "paraphrase_exact_cache_hits": 0,
+    "n_paraphrases": 2
+  },
+  "semantic_opportunity": {
+    "matcher": {
+      "mode": "bi+ce",
+      "threshold": 0.6,
+      "ce_model": "cross-encoder/quora-distilroberta-base",
+      "ce_threshold": 0.98,
+      "precision": 0.9508196721311475,
+      "recall": 0.5631067961165048,
+      "min_precision": 0.95,
+      "primary_bar": 0.98,
+      "bi_model": "all-MiniLM-L6-v2",
+      "n_pairs": 217
+    },
+    "n_paraphrases": 2,
+    "opportunity_hits": 1,
+    "opportunity_rate": 0.5,
+    "per_paraphrase": [
+      {
+        "id": "simpleqa-1591-p1",
+        "own_cosine": 0.949,
+        "hit": true
+      },
+      {
+        "id": "simpleqa-4207-p1",
+        "own_cosine": 0.949,
+        "hit": false
+      }
+    ],
+    "wrong_target_matches": [],
+    "base_false_matches": []
+  }
+}

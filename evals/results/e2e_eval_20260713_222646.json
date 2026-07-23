@@ -1,0 +1,95 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 2,
+    "arms": [
+      "ours-gpt",
+      "openai-hosted"
+    ],
+    "dataset": "/Users/rishisg2/Desktop/Rishi/coding/prototypes/websearch/evals/datasets/live_queries.jsonl",
+    "engine_fees": {
+      "ours-multi": 0.012,
+      "ours-ddg": 0.0
+    }
+  },
+  "summaries": [
+    {
+      "arm": "ours-gpt",
+      "n": 2,
+      "correct": 0,
+      "accuracy": 0.0,
+      "errors": 2,
+      "total_cost": 0.0,
+      "cost_per_q": 0.0,
+      "searches_per_q": null,
+      "median_secs": null
+    },
+    {
+      "arm": "openai-hosted",
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1.0,
+      "errors": 0,
+      "total_cost": 0.09,
+      "cost_per_q": 0.0452,
+      "searches_per_q": 1,
+      "median_secs": 4.4
+    }
+  ],
+  "records": {
+    "ours-gpt": [
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.openai.com/v1/chat/completions",
+        "id": "simpleqa-4207",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.openai.com/v1/chat/completions",
+        "id": "simpleqa-1591",
+        "grade": "error"
+      }
+    ],
+    "openai-hosted": [
+      {
+        "answer": "Sagitta (the Arrow). ([chandra.si.edu](https://chandra.si.edu/photo/2003/b1957/?utm_source=openai))",
+        "searches": 1,
+        "usage": {
+          "input": 8679,
+          "output": 59,
+          "cache_read": 4530,
+          "cache_write": 0
+        },
+        "secs": 4.510961208026856,
+        "cost": 0.03478,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "July. ([en.wikipedia.org](https://en.wikipedia.org/wiki/Puntsagiin_Jasrai?utm_source=openai))",
+        "searches": 1,
+        "usage": {
+          "input": 8742,
+          "output": 67,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 4.208674875088036,
+        "cost": 0.05572,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      }
+    ]
+  }
+}

@@ -1,0 +1,615 @@
+{
+  "n": 50,
+  "prod_format": "merged+domain",
+  "baseline": {
+    "plain": {
+      "tokens_mean": 665.1,
+      "tokens_median": 663.5,
+      "recall_hits": 29
+    },
+    "merged": {
+      "tokens_mean": 621.2,
+      "tokens_median": 627.5,
+      "recall_hits": 29
+    },
+    "merged+domain": {
+      "tokens_mean": 569.7,
+      "tokens_median": 573.0,
+      "recall_hits": 29
+    }
+  },
+  "configs": [
+    {
+      "scorer": "biencoder",
+      "policy": "ratio",
+      "param": 0.3,
+      "plain": {
+        "tokens_mean": 367.3,
+        "tokens_median": 371.0,
+        "recall_hits": 25
+      },
+      "merged": {
+        "tokens_mean": 327.2,
+        "tokens_median": 321.0,
+        "recall_hits": 25
+      },
+      "merged+domain": {
+        "tokens_mean": 276.8,
+        "tokens_median": 274.0,
+        "recall_hits": 25
+      }
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "ratio",
+      "param": 0.4,
+      "plain": {
+        "tokens_mean": 394.2,
+        "tokens_median": 400.5,
+        "recall_hits": 25
+      },
+      "merged": {
+        "tokens_mean": 352.3,
+        "tokens_median": 352.0,
+        "recall_hits": 25
+      },
+      "merged+domain": {
+        "tokens_mean": 301.9,
+        "tokens_median": 305.0,
+        "recall_hits": 25
+      }
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "ratio",
+      "param": 0.5,
+      "plain": {
+        "tokens_mean": 427.2,
+        "tokens_median": 429.0,
+        "recall_hits": 26
+      },
+      "merged": {
+        "tokens_mean": 384.8,
+        "tokens_median": 386.5,
+        "recall_hits": 26
+      },
+      "merged+domain": {
+        "tokens_mean": 333.9,
+        "tokens_median": 340.0,
+        "recall_hits": 26
+      }
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "ratio",
+      "param": 0.6,
+      "plain": {
+        "tokens_mean": 460.5,
+        "tokens_median": 461.0,
+        "recall_hits": 28
+      },
+      "merged": {
+        "tokens_mean": 417.2,
+        "tokens_median": 419.0,
+        "recall_hits": 28
+      },
+      "merged+domain": {
+        "tokens_mean": 366.4,
+        "tokens_median": 378.0,
+        "recall_hits": 28
+      }
+    },
+    {
+      "scorer": "crossencoder",
+      "policy": "ratio",
+      "param": 0.3,
+      "plain": {
+        "tokens_mean": 371.5,
+        "tokens_median": 378.5,
+        "recall_hits": 27
+      },
+      "merged": {
+        "tokens_mean": 332.3,
+        "tokens_median": 347.5,
+        "recall_hits": 27
+      },
+      "merged+domain": {
+        "tokens_mean": 281.7,
+        "tokens_median": 284.0,
+        "recall_hits": 27
+      }
+    },
+    {
+      "scorer": "crossencoder",
+      "policy": "ratio",
+      "param": 0.4,
+      "plain": {
+        "tokens_mean": 394.8,
+        "tokens_median": 396.0,
+        "recall_hits": 27
+      },
+      "merged": {
+        "tokens_mean": 353.8,
+        "tokens_median": 362.5,
+        "recall_hits": 27
+      },
+      "merged+domain": {
+        "tokens_mean": 303.3,
+        "tokens_median": 311.5,
+        "recall_hits": 27
+      }
+    },
+    {
+      "scorer": "crossencoder",
+      "policy": "ratio",
+      "param": 0.5,
+      "plain": {
+        "tokens_mean": 424.8,
+        "tokens_median": 424.0,
+        "recall_hits": 29
+      },
+      "merged": {
+        "tokens_mean": 382.5,
+        "tokens_median": 390.0,
+        "recall_hits": 29
+      },
+      "merged+domain": {
+        "tokens_mean": 331.6,
+        "tokens_median": 341.5,
+        "recall_hits": 29
+      }
+    },
+    {
+      "scorer": "crossencoder",
+      "policy": "ratio",
+      "param": 0.6,
+      "plain": {
+        "tokens_mean": 458.5,
+        "tokens_median": 461.0,
+        "recall_hits": 28
+      },
+      "merged": {
+        "tokens_mean": 415.3,
+        "tokens_median": 423.5,
+        "recall_hits": 28
+      },
+      "merged+domain": {
+        "tokens_mean": 364.5,
+        "tokens_median": 374.0,
+        "recall_hits": 28
+      }
+    },
+    {
+      "scorer": "lexical",
+      "policy": "ratio",
+      "param": 0.3,
+      "plain": {
+        "tokens_mean": 376.9,
+        "tokens_median": 382.0,
+        "recall_hits": 26
+      },
+      "merged": {
+        "tokens_mean": 337.4,
+        "tokens_median": 354.5,
+        "recall_hits": 26
+      },
+      "merged+domain": {
+        "tokens_mean": 286.8,
+        "tokens_median": 288.5,
+        "recall_hits": 26
+      }
+    },
+    {
+      "scorer": "lexical",
+      "policy": "ratio",
+      "param": 0.4,
+      "plain": {
+        "tokens_mean": 404.4,
+        "tokens_median": 403.0,
+        "recall_hits": 26
+      },
+      "merged": {
+        "tokens_mean": 361.7,
+        "tokens_median": 378.0,
+        "recall_hits": 26
+      },
+      "merged+domain": {
+        "tokens_mean": 311,
+        "tokens_median": 316.5,
+        "recall_hits": 26
+      }
+    },
+    {
+      "scorer": "lexical",
+      "policy": "ratio",
+      "param": 0.5,
+      "plain": {
+        "tokens_mean": 430.6,
+        "tokens_median": 435.5,
+        "recall_hits": 27
+      },
+      "merged": {
+        "tokens_mean": 388.5,
+        "tokens_median": 399.0,
+        "recall_hits": 27
+      },
+      "merged+domain": {
+        "tokens_mean": 337.6,
+        "tokens_median": 345.0,
+        "recall_hits": 27
+      }
+    },
+    {
+      "scorer": "lexical",
+      "policy": "ratio",
+      "param": 0.6,
+      "plain": {
+        "tokens_mean": 461.9,
+        "tokens_median": 467.0,
+        "recall_hits": 27
+      },
+      "merged": {
+        "tokens_mean": 418.8,
+        "tokens_median": 428.0,
+        "recall_hits": 27
+      },
+      "merged+domain": {
+        "tokens_mean": 367.9,
+        "tokens_median": 380.5,
+        "recall_hits": 27
+      }
+    },
+    {
+      "scorer": "lead",
+      "policy": "ratio",
+      "param": 0.3,
+      "plain": {
+        "tokens_mean": 358.6,
+        "tokens_median": 355.0,
+        "recall_hits": 19
+      },
+      "merged": {
+        "tokens_mean": 315.2,
+        "tokens_median": 311.0,
+        "recall_hits": 19
+      },
+      "merged+domain": {
+        "tokens_mean": 263.8,
+        "tokens_median": 263.0,
+        "recall_hits": 19
+      }
+    },
+    {
+      "scorer": "lead",
+      "policy": "ratio",
+      "param": 0.4,
+      "plain": {
+        "tokens_mean": 387.6,
+        "tokens_median": 378.5,
+        "recall_hits": 24
+      },
+      "merged": {
+        "tokens_mean": 344.2,
+        "tokens_median": 340.5,
+        "recall_hits": 24
+      },
+      "merged+domain": {
+        "tokens_mean": 293.2,
+        "tokens_median": 286.0,
+        "recall_hits": 24
+      }
+    },
+    {
+      "scorer": "lead",
+      "policy": "ratio",
+      "param": 0.5,
+      "plain": {
+        "tokens_mean": 415.4,
+        "tokens_median": 408.0,
+        "recall_hits": 25
+      },
+      "merged": {
+        "tokens_mean": 371.4,
+        "tokens_median": 370.5,
+        "recall_hits": 25
+      },
+      "merged+domain": {
+        "tokens_mean": 320.5,
+        "tokens_median": 318.5,
+        "recall_hits": 25
+      }
+    },
+    {
+      "scorer": "lead",
+      "policy": "ratio",
+      "param": 0.6,
+      "plain": {
+        "tokens_mean": 449.6,
+        "tokens_median": 446.0,
+        "recall_hits": 24
+      },
+      "merged": {
+        "tokens_mean": 405.6,
+        "tokens_median": 410.0,
+        "recall_hits": 24
+      },
+      "merged+domain": {
+        "tokens_mean": 354.8,
+        "tokens_median": 355.5,
+        "recall_hits": 24
+      }
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "topk",
+      "param": 1,
+      "plain": {
+        "tokens_mean": 338.6,
+        "tokens_median": 335.5,
+        "recall_hits": 24
+      },
+      "merged": {
+        "tokens_mean": 300,
+        "tokens_median": 283.0,
+        "recall_hits": 24
+      },
+      "merged+domain": {
+        "tokens_mean": 249.7,
+        "tokens_median": 237.5,
+        "recall_hits": 24
+      }
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "topk",
+      "param": 2,
+      "plain": {
+        "tokens_mean": 440.2,
+        "tokens_median": 437.0,
+        "recall_hits": 28
+      },
+      "merged": {
+        "tokens_mean": 398.4,
+        "tokens_median": 397.5,
+        "recall_hits": 28
+      },
+      "merged+domain": {
+        "tokens_mean": 347.6,
+        "tokens_median": 344.0,
+        "recall_hits": 28
+      }
+    },
+    {
+      "scorer": "crossencoder",
+      "policy": "topk",
+      "param": 1,
+      "plain": {
+        "tokens_mean": 349.0,
+        "tokens_median": 348.0,
+        "recall_hits": 27
+      },
+      "merged": {
+        "tokens_mean": 311.9,
+        "tokens_median": 304.0,
+        "recall_hits": 27
+      },
+      "merged+domain": {
+        "tokens_mean": 261.4,
+        "tokens_median": 256.0,
+        "recall_hits": 27
+      }
+    },
+    {
+      "scorer": "crossencoder",
+      "policy": "topk",
+      "param": 2,
+      "plain": {
+        "tokens_mean": 446.2,
+        "tokens_median": 442.0,
+        "recall_hits": 28
+      },
+      "merged": {
+        "tokens_mean": 405.1,
+        "tokens_median": 400.5,
+        "recall_hits": 28
+      },
+      "merged+domain": {
+        "tokens_mean": 354.4,
+        "tokens_median": 343.0,
+        "recall_hits": 28
+      }
+    },
+    {
+      "scorer": "lexical",
+      "policy": "topk",
+      "param": 1,
+      "plain": {
+        "tokens_mean": 356.0,
+        "tokens_median": 354.5,
+        "recall_hits": 26
+      },
+      "merged": {
+        "tokens_mean": 318.0,
+        "tokens_median": 333.5,
+        "recall_hits": 26
+      },
+      "merged+domain": {
+        "tokens_mean": 267.5,
+        "tokens_median": 277.0,
+        "recall_hits": 26
+      }
+    },
+    {
+      "scorer": "lexical",
+      "policy": "topk",
+      "param": 2,
+      "plain": {
+        "tokens_mean": 464.5,
+        "tokens_median": 472.0,
+        "recall_hits": 27
+      },
+      "merged": {
+        "tokens_mean": 421.9,
+        "tokens_median": 432.5,
+        "recall_hits": 27
+      },
+      "merged+domain": {
+        "tokens_mean": 371.3,
+        "tokens_median": 383.0,
+        "recall_hits": 27
+      }
+    },
+    {
+      "scorer": "lead",
+      "policy": "topk",
+      "param": 1,
+      "plain": {
+        "tokens_mean": 306.1,
+        "tokens_median": 289.5,
+        "recall_hits": 14
+      },
+      "merged": {
+        "tokens_mean": 262.2,
+        "tokens_median": 259.0,
+        "recall_hits": 14
+      },
+      "merged+domain": {
+        "tokens_mean": 211.4,
+        "tokens_median": 195.5,
+        "recall_hits": 14
+      }
+    },
+    {
+      "scorer": "lead",
+      "policy": "topk",
+      "param": 2,
+      "plain": {
+        "tokens_mean": 397.2,
+        "tokens_median": 373.5,
+        "recall_hits": 23
+      },
+      "merged": {
+        "tokens_mean": 353.3,
+        "tokens_median": 338.5,
+        "recall_hits": 23
+      },
+      "merged+domain": {
+        "tokens_mean": 301.9,
+        "tokens_median": 289.5,
+        "recall_hits": 23
+      }
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "threshold",
+      "param": 0.3,
+      "plain": {
+        "tokens_mean": 515.7,
+        "tokens_median": 537.0,
+        "recall_hits": 27
+      },
+      "merged": {
+        "tokens_mean": 475.2,
+        "tokens_median": 488.5,
+        "recall_hits": 27
+      },
+      "merged+domain": {
+        "tokens_mean": 424.5,
+        "tokens_median": 437.5,
+        "recall_hits": 27
+      }
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "threshold",
+      "param": 0.4,
+      "plain": {
+        "tokens_mean": 462.7,
+        "tokens_median": 467.0,
+        "recall_hits": 27
+      },
+      "merged": {
+        "tokens_mean": 422.2,
+        "tokens_median": 433.5,
+        "recall_hits": 27
+      },
+      "merged+domain": {
+        "tokens_mean": 371.7,
+        "tokens_median": 377.0,
+        "recall_hits": 27
+      }
+    },
+    {
+      "scorer": "biencoder",
+      "policy": "threshold",
+      "param": 0.5,
+      "plain": {
+        "tokens_mean": 410.3,
+        "tokens_median": 429.5,
+        "recall_hits": 26
+      },
+      "merged": {
+        "tokens_mean": 372.1,
+        "tokens_median": 387.5,
+        "recall_hits": 26
+      },
+      "merged+domain": {
+        "tokens_mean": 321.6,
+        "tokens_median": 329.5,
+        "recall_hits": 26
+      }
+    }
+  ],
+  "ablations": [
+    {
+      "name": "all guards on",
+      "tokens_mean": 331.6,
+      "tokens_median": 341.5,
+      "recall_hits": 29
+    },
+    {
+      "name": "anaphora off",
+      "tokens_mean": 317.3,
+      "tokens_median": 320.0,
+      "recall_hits": 29
+    },
+    {
+      "name": "table-skip off",
+      "tokens_mean": 323.3,
+      "tokens_median": 327.5,
+      "recall_hits": 28
+    },
+    {
+      "name": "dedup off",
+      "tokens_mean": 344.3,
+      "tokens_median": 345.5,
+      "recall_hits": 29
+    },
+    {
+      "name": "all guards off",
+      "tokens_mean": 318.7,
+      "tokens_median": 312.0,
+      "recall_hits": 28
+    }
+  ],
+  "winner": {
+    "scorer": "crossencoder",
+    "policy": "ratio",
+    "param": 0.5,
+    "plain": {
+      "tokens_mean": 424.8,
+      "tokens_median": 424.0,
+      "recall_hits": 29
+    },
+    "merged": {
+      "tokens_mean": 382.5,
+      "tokens_median": 390.0,
+      "recall_hits": 29
+    },
+    "merged+domain": {
+      "tokens_mean": 331.6,
+      "tokens_median": 341.5,
+      "recall_hits": 29
+    }
+  }
+}

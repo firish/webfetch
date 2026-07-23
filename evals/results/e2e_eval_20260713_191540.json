@@ -1,0 +1,104 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 2,
+    "arms": [
+      "tavily",
+      "ours-ddg"
+    ],
+    "engine_fees": {
+      "ours-multi": 0.012,
+      "ours-ddg": 0.0
+    }
+  },
+  "summaries": [
+    {
+      "arm": "tavily",
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1.0,
+      "errors": 0,
+      "total_cost": 0.079,
+      "cost_per_q": 0.0393,
+      "searches_per_q": 1,
+      "median_secs": 7.2
+    },
+    {
+      "arm": "ours-ddg",
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1.0,
+      "errors": 0,
+      "total_cost": 0.028,
+      "cost_per_q": 0.0141,
+      "searches_per_q": 0.5,
+      "median_secs": 17.4
+    }
+  ],
+  "records": {
+    "tavily": [
+      {
+        "answer": "Sagitta.",
+        "searches": 1,
+        "usage": {
+          "input": 882,
+          "output": 94,
+          "cache_read": 0,
+          "cache_write": 3390
+        },
+        "secs": 7.297489250078797,
+        "cost": 0.0359475,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "July",
+        "searches": 1,
+        "usage": {
+          "input": 893,
+          "output": 98,
+          "cache_read": 0,
+          "cache_write": 4437
+        },
+        "secs": 7.095627333037555,
+        "cost": 0.042646250000000004,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      }
+    ],
+    "ours-ddg": [
+      {
+        "answer": "The Black Widow Pulsar (PSR B1957+20) is located in the constellation **Sagitta**.",
+        "searches": 0,
+        "usage": {
+          "input": 1176,
+          "output": 40,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 2.022055707871914,
+        "cost": 0.00688,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "July",
+        "searches": 1,
+        "usage": {
+          "input": 1188,
+          "output": 97,
+          "cache_read": 0,
+          "cache_write": 2074
+        },
+        "secs": 32.77279912494123,
+        "cost": 0.0213275,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      }
+    ]
+  }
+}

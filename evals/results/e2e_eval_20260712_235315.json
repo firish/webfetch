@@ -1,0 +1,126 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 3
+  },
+  "summaries": [
+    {
+      "arm": "ours",
+      "n": 3,
+      "correct": 3,
+      "accuracy": 1.0,
+      "errors": 0,
+      "total_cost": 0.055,
+      "cost_per_q": 0.0182,
+      "searches_per_q": 0.67,
+      "median_secs": 38.4
+    },
+    {
+      "arm": "hosted",
+      "n": 3,
+      "correct": 3,
+      "accuracy": 1.0,
+      "errors": 0,
+      "total_cost": 0.253,
+      "cost_per_q": 0.0844,
+      "searches_per_q": 1,
+      "median_secs": 10.0
+    }
+  ],
+  "records": {
+    "ours": [
+      {
+        "answer": "The Black Widow Pulsar (PSR B1957+20) is located in the constellation **Sagitta**.",
+        "searches": 0,
+        "usage": {
+          "input": 1176,
+          "output": 40,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 2.818547750124708,
+        "cost": 0.00688,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "July",
+        "searches": 1,
+        "usage": {
+          "input": 1188,
+          "output": 98,
+          "cache_read": 0,
+          "cache_write": 2290
+        },
+        "secs": 40.93895350000821,
+        "cost": 0.0227025,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      },
+      {
+        "answer": "405 \u00d7 480 cm",
+        "searches": 1,
+        "usage": {
+          "input": 1184,
+          "output": 101,
+          "cache_read": 0,
+          "cache_write": 2664
+        },
+        "secs": 38.37416508398019,
+        "cost": 0.025095,
+        "error": null,
+        "id": "simpleqa-0882",
+        "grade": "correct"
+      }
+    ],
+    "hosted": [
+      {
+        "answer": "Sagitta",
+        "searches": 1,
+        "usage": {
+          "input": 13722,
+          "output": 195,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 9.387301708105952,
+        "cost": 0.08348499999999999,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "July  (19 July 1996).",
+        "searches": 1,
+        "usage": {
+          "input": 13722,
+          "output": 220,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 11.374870792031288,
+        "cost": 0.08410999999999999,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      },
+      {
+        "answer": "405 x 480 cm",
+        "searches": 1,
+        "usage": {
+          "input": 14007,
+          "output": 219,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 9.997115709120408,
+        "cost": 0.08550999999999999,
+        "error": null,
+        "id": "simpleqa-0882",
+        "grade": "correct"
+      }
+    ]
+  }
+}

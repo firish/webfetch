@@ -1,0 +1,73 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 3,
+    "arms": [
+      "broke"
+    ],
+    "dataset": "/Users/rishisg2/Desktop/Rishi/coding/prototypes/websearch/evals/datasets/live_queries.jsonl",
+    "engine_fees": {
+      "ours-multi": 0.012,
+      "ours-ddg": 0.0
+    }
+  },
+  "summaries": [
+    {
+      "arm": "broke",
+      "n": 3,
+      "correct": 1,
+      "accuracy": 0.333,
+      "errors": 2,
+      "total_cost": 0.0,
+      "cost_per_q": 0.0,
+      "tok_in_per_q": 2319,
+      "tok_out_per_q": 142,
+      "searches_per_q": 2,
+      "median_secs": 77.1
+    }
+  ],
+  "records": {
+    "broke": [
+      {
+        "answer": "",
+        "searches": 6,
+        "usage": {
+          "input": 9573,
+          "output": 296,
+          "cache_read": 768,
+          "cache_write": 0
+        },
+        "secs": 169.83279291703366,
+        "cost": 0.0,
+        "error": "max turns exceeded",
+        "id": "simpleqa-4207",
+        "grade": "error"
+      },
+      {
+        "answer": "",
+        "searches": 0,
+        "usage": {},
+        "secs": 0.0,
+        "cost": 0.0,
+        "error": "HTTPError: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+        "id": "simpleqa-1591",
+        "grade": "error"
+      },
+      {
+        "answer": "405\u202fcm\u202f\u00d7\u202f480\u202fcm.",
+        "searches": 2,
+        "usage": {
+          "input": 2319,
+          "output": 142,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 77.11860908311792,
+        "cost": 0.0,
+        "error": null,
+        "id": "simpleqa-0882",
+        "grade": "correct"
+      }
+    ]
+  }
+}

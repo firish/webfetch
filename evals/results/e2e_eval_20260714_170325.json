@@ -1,0 +1,63 @@
+{
+  "config": {
+    "model": "claude-opus-4-7",
+    "n": 2,
+    "arms": [
+      "ours-haiku"
+    ],
+    "dataset": "/Users/rishisg2/Desktop/Rishi/coding/prototypes/websearch/evals/datasets/live_queries.jsonl",
+    "engine_fees": {
+      "ours-multi": 0.012,
+      "ours-ddg": 0.0
+    }
+  },
+  "summaries": [
+    {
+      "arm": "ours-haiku",
+      "n": 2,
+      "correct": 2,
+      "accuracy": 1.0,
+      "errors": 0,
+      "total_cost": 0.03,
+      "cost_per_q": 0.015,
+      "tok_in_per_q": 2444,
+      "tok_out_per_q": 120,
+      "searches_per_q": 1,
+      "median_secs": 36.5
+    }
+  ],
+  "records": {
+    "ours-haiku": [
+      {
+        "answer": "The Black Widow Pulsar (PSR B1957+20) is located in the constellation **Sagitta**.",
+        "searches": 1,
+        "usage": {
+          "input": 2395,
+          "output": 116,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 39.75660587497987,
+        "cost": 0.014975,
+        "error": null,
+        "id": "simpleqa-4207",
+        "grade": "correct"
+      },
+      {
+        "answer": "Puntsagiin Jasrai's tenure as Prime Minister of Mongolia ended in **July 1996** (specifically on July 19, 1996).",
+        "searches": 1,
+        "usage": {
+          "input": 2493,
+          "output": 125,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "secs": 33.20470166602172,
+        "cost": 0.015118,
+        "error": null,
+        "id": "simpleqa-1591",
+        "grade": "correct"
+      }
+    ]
+  }
+}
